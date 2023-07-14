@@ -1,0 +1,80 @@
+import { useNavigate } from "react-router-dom";
+
+export const SolicitudEstudiantePage = () => {
+  const navigate = useNavigate();
+
+  const SolicitudCarmbioCarrera = () => {
+    navigate("../SolicitudPage", {
+      state: { tipoSolicitud: "Cambio de Carrera" },
+    });
+  };
+
+  const SolicitudCancelacionExcepcional = () => {
+    navigate("../SolicitudPage", {
+      state: { tipoSolicitud: "Cancelación Excepcional" },
+    });
+  };
+
+  const SolicitudCambioCentro = () => {
+    navigate("../SolicitudPage", {
+      state: { tipoSolicitud: "Cambio de Centro" },
+    });
+  };
+
+  const SolicitudPagoReposicion = () => {
+    navigate("../SolicitudPage", {
+      state: { tipoSolicitud: "Pago Reposición" },
+    });
+  };
+  // const VerSolicitudes = () => {};
+
+  return (
+    <>
+      <div className="">
+        <div className="container d-flex justify-content-center align-items-center">
+          <div className="row ">
+            <div className="d-flex justify-content-center align-items-center">
+              <h3>Solicitudes </h3>
+              <br />
+              <br />
+              <br />
+            </div>
+
+            <div className="col my-3">
+              <button
+                className="btn btn-primary btn-w"
+                onClick={SolicitudCarmbioCarrera}
+              >
+                Solicitar Cambio de carrera
+              </button>
+            </div>
+            <div className="col my-3">
+              <button
+                className="btn btn-primary btn-w"
+                onClick={SolicitudCancelacionExcepcional}
+              >
+                Solicitar cancelación excepcional
+              </button>
+            </div>
+            <div className="col my-3">
+              <button
+                className="btn btn-primary btn-w"
+                onClick={SolicitudCambioCentro}
+              >
+                Solicitar cambio de centro
+              </button>
+            </div>
+            <div className="col my-3">
+              <button
+                className="btn btn-primary btn-w"
+                onClick={SolicitudPagoReposicion}
+              >
+                Solicitar pago de reposición
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

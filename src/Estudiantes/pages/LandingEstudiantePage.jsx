@@ -6,6 +6,9 @@ export const LandingEstudiantePage = () => {
   const onNavPerfilEstudiante = () => {
     navigate("../PerfilEstudiante");
   };
+  const onNavSolicitudEstudiante = () => {
+    navigate("../SolicitudEstudiante");
+  };
 
   return (
     <>
@@ -18,6 +21,10 @@ export const LandingEstudiantePage = () => {
         <br />
         <button className="btn btn-primary" onClick={onNavPerfilEstudiante}>
           Perfil
+        </button>
+        <br />
+        <button className="btn btn-primary" onClick={onNavSolicitudEstudiante}>
+          Solicitudes
         </button>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">
