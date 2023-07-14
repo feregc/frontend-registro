@@ -1,0 +1,23 @@
+.card1{
+    /* width: 100%;
+    height: 100%; */
+    background-color: transparent;
+}
+
+.img-size{
+    width: 18rem;
+    height: 18rem;
+}
+.img-size2{
+    width: 16rem;
+    height: 16rem;
+}
+
+.card3{
+  width: 100%;
+  height: 10rem;
+  background-color: #fff;
+  border-color: #006494 !important;
+  border-width: .100rem !important;
+  padding: 1rem;
+}

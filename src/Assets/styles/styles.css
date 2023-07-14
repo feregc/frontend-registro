@@ -1,0 +1,17 @@
+body {
+  --color-primary: #006494;
+  --color-background: #E8F1F2;
+  --color-opposite: #13293D;
+  font-family: "Comfortaa", cursive;
+  background-color: #E8F1F2;
+}
+
+.bg-primary{
+  background-color: transparent !important;
+}
+
+h1,h2,h3,h4{
+  color: #006494;
+}
+
+
