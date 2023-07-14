@@ -8,6 +8,7 @@ import { DetalleClase } from '../components/DetalleDeClase'
 import { PerfilDocente } from '../components/PerfilDocente'
 import {EditarPerfil} from '../components/EditarPerfil'
 import { CrearSeccionesPage } from '../pages/CrearSeccionesPage'
+import { SolicitudListaCoord } from "../pages/SolicitudListaCoord";
 
 
 export const DocenteRoutes = () => {
@@ -22,6 +23,7 @@ export const DocenteRoutes = () => {
         <Route path='/perfil' element={<PerfilDocente />} />
         <Route path='/editar-perfil' element={<EditarPerfil />} />
         <Route path='/crearSeccion' element={<CrearSeccionesPage />} />
+        <Route path='/listaSolicitud' element={<SolicitudListaCoord/>}/>
 
       </Routes>
     </>
