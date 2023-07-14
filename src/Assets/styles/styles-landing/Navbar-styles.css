@@ -1,0 +1,25 @@
+.navbar{
+  padding: 1rem !important;
+  height: 5.627rem;
+}
+
+.logo-unah{
+  width: 6.592rem;
+  height: 4.375rem;
+}
+
+.btn-primary{
+  background-color: #006494 !important;
+  border-color: #006494 !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover{
+  background-color: #fff !important;
+  border-color: #006494 !important;
+  color: #006494 !important;
+}
+
+.bg-dark{
+  background-color: #006494 !important;
+}

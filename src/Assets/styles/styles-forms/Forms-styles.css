@@ -1,0 +1,44 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type = text]{
+  border: 1px solid #ced4da;
+}
+
+.btn-success {
+  background-color: #006494 !important;
+  border-color: #006494 !important;
+  color: #fff !important;
+}
+
+.btn-success:hover {
+  background-color: #fff !important;
+  border-color: #006494 !important;
+  color: #006494 !important;
+}
+
+.btn-default {
+  background-color: #fff !important;
+  border-color: #006494 !important;
+  color: #006494 !important;
+}
+
+.btn-default:hover {
+  background-color: #006494 !important;
+  border-color: #006494 !important;
+  color: #fff !important;
+}
+
+p {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+}
+

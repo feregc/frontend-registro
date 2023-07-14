@@ -1,0 +1,12 @@
+.carga{
+  display: flex;
+	flex-direction: column !important;
+	flex-wrap: nowrap !important;
+	justify-content: center !important;
+	align-items: center !important;
+	align-content: center !important;
+  align-self: center !important;
+}
+p{
+  font-size: 1rem !important;
+}
