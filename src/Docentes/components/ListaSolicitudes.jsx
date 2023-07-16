@@ -23,12 +23,27 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
     }
   }, [numEmpleado]);
 
-  const aceptarSolicitud = (solicitudId) => {
-    console.log(`Solicitud ${solicitudId} aceptada`);
-  };
+  const updateSolicitud = (id, estado) => {
+    const url = `http://localhost:8081/ActualizarEstado/${id}`;
 
-  const rechazarSolicitud = (solicitudId) => {
-    console.log(`Solicitud ${solicitudId} rechazada`);
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ estado: estado }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Estado de solicitud actualizado exitosamente");
+        } else {
+          console.error("Error al actualizar el estado de la solicitud");
+        }
+      })
+      .catch((error) => {
+        console.error("Error en la solicitud:", error);
+      });
+    window.location.reload();
   };
 
   return (
@@ -55,12 +70,26 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
                     <td scope="row">{solicitud.estado}</td>
                     <td scope="row">{solicitud.justificacion}</td>
                     <td scope="row">
-                      <button className="btn btn-success" onClick={() => aceptarSolicitud(solicitud.id)}>
-                        Aceptar
-                      </button>
-                      <button className="btn btn-success" onClick={() => rechazarSolicitud(solicitud.id)}>
-                        Rechazar
-                      </button>
+                      <div className="p-3">
+                        <button
+                          className="btn btn-success"
+                          id="Aprobada"
+                          onClick={() =>
+                            updateSolicitud(solicitud.id, "Aprobada")
+                          }
+                        >
+                          Aceptar
+                        </button>
+                        <button
+                          className="btn btn-success"
+                          id="Rechazada"
+                          onClick={() =>
+                            updateSolicitud(solicitud.id, "Rechazada")
+                          }
+                        >
+                          Rechazar
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
