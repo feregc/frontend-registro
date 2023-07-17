@@ -3,7 +3,7 @@ import "../../Assets/styles/styles-admin/Admin-asignar-rol.css";
 
 export const RolDocente = () => {
   const [centroSeleccionado, setCentroSeleccionado] = useState(0);
-  const [opcionDeCarrera, setOpcionDeCarrera] = useState(null);
+  const [opcionDeCarrera, setOpcionDeCarrera] = useState("");
   const [mostrarListaDeCarreras, setMostrarListaDeCarreras] = useState(false);
 
   const handleCentro = (event) => {
@@ -67,23 +67,16 @@ export const RolDocente = () => {
 
             <div className="d-flex justify-content-center ">
               <div className=" w-75">
-                <ListaDocentes
-                  carrera={opcionDeCarrera}
-                  centro={centroSeleccionado}
-                />
+                {opcionDeCarrera && (
+                  <ListaDocentes
+                    carrera={opcionDeCarrera}
+                    centro={centroSeleccionado}
+                  />
+                )}
               </div>
             </div>
           </div>
         )}
-
-        {/* <div className="d-flex justify-content-center ">
-          <div className=" w-75">
-            <ListaDocentes
-              carrera={opcionDeCarrera}
-              centro={centroSeleccionado}
-            />
-          </div>
-        </div> */}
       </div>
     </>
   );
@@ -143,6 +136,7 @@ const ListaDeCarreras = ({ centro, opcion }) => {
           className="form-control2 w-75"
           onChange={handleCarrera}
         >
+          <option value="">Seleccione una carrera</option>
           {carreras.map((carrera, index) => (
             <option key={index} value={carrera.nombre}>
               {carrera.nombre}
@@ -160,64 +154,74 @@ const ListaDocentes = ({ carrera, centro }) => {
   const [mostrarAdvertencia, setMostrarAdvertencia] = useState(false);
   const [realizarActualizacion, setRealizarActualizacion] = useState(true);
 
-  const handleRol = async (event, numEmpleado) => {
-    const { value } = event.target;
-    setRolSeleccionado((prevRoles) => ({
-      ...prevRoles,
-      [numEmpleado]: value,
-    }));
-    if (realizarActualizacion == true) {
-      try {
-        const response = await fetch(
-          `http://localhost:8081/docentes/${value}/${numEmpleado}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              num_empleado: numEmpleado,
-              cargo: value,
-            }),
-          }
-        );
-        if (response.ok) {
-        } else {
-          console.log("Error al actualizar");
-        }
-      } catch (error) {
-        console.log("Error:", error);
-      }
+  const fetchDocente = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/docente/${carrera}/${centro}`
+      );
+      const jsonData = await response.json();
+      setDocentes(jsonData);
+    } catch (error) {
+      console.log("Error:", error);
     }
   };
 
   useEffect(() => {
-    const fetchDocente = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:8081/docente/${carrera}/${centro}`
-        );
-        const jsonData = await response.json();
-        setDocentes(jsonData);
-      } catch (error) {
-        console.log("Error:", error);
-      }
-    };
     fetchDocente();
+    setRolSeleccionado({});
   }, [carrera]);
-  const handleAceptar = () => {
-    setMostrarAdvertencia(false);
+
+  const actualizarRol = async (cargo, numEmpleado) => {
+    try {
+      if (cargo === "Jefe de departamento") {
+        const existeJefeDepartamento = docentes.some(
+          (docente) =>
+            docente.cargo === "Jefe de departamento" &&
+            docente.num_empleado !== numEmpleado
+        );
+
+        if (existeJefeDepartamento) {
+          setMostrarAdvertencia(true);
+          return;
+        } else {
+          setMostrarAdvertencia(false);
+        }
+      }
+
+      const response = await fetch(
+        `http://localhost:8081/docentes/${cargo}/${numEmpleado}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            num_empleado: numEmpleado,
+            cargo,
+          }),
+        }
+      );
+      if (response.ok) {
+        // Actualización exitosa
+        fetchDocente(); // Actualizar la lista de docentes
+      } else {
+        console.log("Error al actualizar");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
 
   useEffect(() => {
-    const cantidadJefesDepartamento = Object.values(rolSeleccionado).filter(
-      (rol) => rol === "Jefe de departamento"
+    const cantidadJefesDepartamento = docentes.filter(
+      (docente) => docente.cargo === "Jefe de departamento"
     ).length;
-    setMostrarAdvertencia(cantidadJefesDepartamento > 1);
-    setRealizarActualizacion(cantidadJefesDepartamento <= 1);
-  }, [rolSeleccionado]);
+    setRealizarActualizacion(cantidadJefesDepartamento === 0);
+  }, [docentes]);
 
-  // console.log(realizarActualizacion)
+  const handleAceptar = () => {
+    setMostrarAdvertencia(false);
+  };
 
   return (
     <div className="d-flex flex-column justify-content-center">
@@ -240,7 +244,7 @@ const ListaDocentes = ({ carrera, centro }) => {
             <br />
           </>
         )}
-        {!mostrarAdvertencia && (
+        {carrera && !mostrarAdvertencia && (
           <table className="table table-striped table-hover">
             <thead>
               <tr>
@@ -268,7 +272,12 @@ const ListaDocentes = ({ carrera, centro }) => {
                           className="form-control2"
                           value={rolSeleccionado[dato.num_empleado]}
                           onChange={(event) =>
-                            handleRol(event, dato.num_empleado)
+                            actualizarRol(event.target.value, dato.num_empleado)
+                          }
+                          disabled={
+                            dato.cargo === "Jefe de departamento" &&
+                            rolSeleccionado[dato.num_empleado] ===
+                              "Jefe de departamento"
                           }
                         >
                           <option value={dato.cargo}>{dato.cargo}</option>

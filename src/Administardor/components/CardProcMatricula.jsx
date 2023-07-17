@@ -1,8 +1,6 @@
 import React from "react";
-
 export const CardProcMatricula = ({ onBorrar, procesos }) => {
   const { anio, periodo, fechainicioI, fechainicioIIIII } = procesos;
-
   const handleBorrar = () => {
     onBorrar(procesos.id);
   };
@@ -10,7 +8,7 @@ export const CardProcMatricula = ({ onBorrar, procesos }) => {
   const aa = new Date(a);
   const aaa = aa.getUTCFullYear();
   const fechaInicio = new Date(fechainicioI).toISOString().split("T")[0];
-  const fechaFin = new Date(fechainicioI).toISOString().split("T")[0];
+  const fechaFin = new Date(fechainicioIIIII).toISOString().split("T")[0];
   return (
     <>
       <div className="container">

@@ -1,16 +1,19 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { fetchClase, fetchAlumnos } from "../Helpers/api";
+import { Link } from "react-router-dom";
+import * as XLSX from "xlsx";
 
 export const DetalleClase = () => {
   const { id } = useParams();
   const [alumno, setAlumno] = useState([]);
-  // const [nota, setNota] = useEffect(false);
+  const [clases, setClases] = useState([]);
+  const [Clase, setClase] = useState(null);
 
   //Lista de alumnos
   const [valorInput, setValorInput] = useState(0);
   const [editar, setEditar] = useState(false);
   const [numCuenta, setNumCuenta] = useState(null);
+  const num_empleado = localStorage.getItem("id");
 
   useEffect(() => {
     const fetchclase = async () => {
@@ -25,63 +28,46 @@ export const DetalleClase = () => {
     fetchclase();
   }, []);
 
-  {
-    /*Para los datos de los detalles de la clase utilizar la misma peticion desde el helpers
-    Hacer petición para saber si esta activo el registro de notas
-    Hacer petición que captura las notas ingresadas en caso de que este activo el registro y usar el enter para enviar los datos a la bd
-   */
-  }
+  const exportarAExcel = () => {
+    const rows = alumno.map((alumno) => ({
+      nombre: alumno.primer_nombre,
+      apellido: alumno.primer_apellido,
+      cuenta: alumno.num_cuenta,
+      //Agrega correo
+    }));
 
-  const handleEditar = (num_cuenta) => {
-    setNumCuenta(num_cuenta);
-    setEditar(true);
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Alumnos");
+    XLSX.utils.sheet_add_aoa(worksheet, [
+      ["Nombre", "Apellido", "Numero de cuenta"], //Agrega correo
+    ]);
+    XLSX.writeFile(workbook, `Lista_de_Estudiantes.xlsx`, {
+      compression: true,
+    });
   };
-  const handleGuardar = async () => {
-    setEditar(false);
-    // Almacenar datos de la nota
-    try {
-      const response = await fetch(
-        `http://localhost:8081/notaEstudiante/nota/${numCuenta}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ nota: valorInput }),
-        }
-      );
-      if (response.ok) {
-        console.log("Nota guardada exitosamente");
-      } else {
-        throw new Error("Error al guardar la nota");
+  // Obtener datos de la clase, enviando el id del docente
+  useEffect(() => {
+    const obtenerDatos = async () => {
+      try {
+        const url = `http://localhost:8081/clasesdocentes/${num_empleado}`;
+        const result = await fetch(url);
+        const data = await result.json();
+        setClases(data);
+      } catch (error) {
+        console.log("Error:", error);
       }
-      const resp = await fetch(`http://localhost:8081/clasealumno/${id}`);
-      const jsonData = await resp.json();
-      setAlumno(jsonData);
-    } catch (error) {
-      console.error("Error al realizar la petición:", error);
-    }
-  };
-  // Obtener datos de la clase, enviando el codigo de la clase
-  // useEffect(() => {
-  //   const obtenerDatos = async () => {
-  //     const data = await fetchClase();
-  //     setClase(data)
-  //     const alumnos = await fetchAlumnos();
-  //     setAlumno(alumnos)
-  //   };s
-  //   obtenerDatos();
-  // }, [valorInput]);
+    };
+    obtenerDatos();
+  }, []);
 
   // Validar entrada de notas
-  const numeroDeEntrada = (event) => {
-    const input = event.target.value;
-    if (input == "") {
-      console.log("El input no deve estar vacio");
-    } else {
-      setValorInput(input);
+  useEffect(() => {
+    if (clases.length > 0) {
+      const buscar = clases.find((clase) => clase.id_clase === parseInt(id));
+      setClase(buscar || null);
     }
-  };
+  }, [clases, id]);
 
   return (
     <>
@@ -89,16 +75,38 @@ export const DetalleClase = () => {
         <div className="col">
           <div className="row">
             <div className="d-flex justify-content-center my-3">
-            <h3>Lista de Estudiantes Matriculados</h3>
+              <div>
+                {Clase && (
+                  <>
+                  <br />
+                    <h4>Clase: {Clase.nombre_clase}</h4>
+                    <p>Seccion: {Clase.id_seccion}</p>
+                  </>
+                )}
+              </div>
             </div>
           </div>
           <div className="row">
+            <div className="col-6 my-3 d-flex justify-content-center">
+              <button
+                className="btn btn-w2 btn-success m-1"
+                onClick={exportarAExcel}
+              >
+                Descargar lista de estudiantes
+              </button>
+            </div>
+            <div className="col-6 my-3 d-flex justify-content-center">
+              <Link to={`../subir-notas/${id}`}>
+                <button className="btn btn-w2 btn-success m-1">Ingreso de Notas</button>
+              </Link>
+            </div>
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
                   <th scope="col">Nombre</th>
                   <th scope="col">Apellido</th>
-                  <th scope="col">Nota</th>
+                  <th scope="col">Número de Cuenta</th>
+                  <th scope="col">Correo Institucional</th>
                 </tr>
               </thead>
               <tbody>
@@ -106,46 +114,10 @@ export const DetalleClase = () => {
                   alumno.length > 0 &&
                   alumno.map((dato, index) => (
                     <tr key={index}>
-                      <th scope="row">{dato.primer_nombre}</th>
-                      <th scope="row">{dato.primer_apellido}</th>
-                      {/* Lista de estudiantes que pertenecen a la clase */}
-                      <th scope="row">
-                        {" "}
-                        {editar && dato.num_cuenta === numCuenta ? (
-                          <>
-                            <div className="container">
-                              <div className="row">
-                                <div className="col-8">
-                                  <input
-                                    className="form-control"
-                                    type="text"
-                                    onChange={numeroDeEntrada}
-                                  />
-                                </div>
-                                <div className="col-4">
-                                  <button
-                                    className="btn btn-success"
-                                    onClick={handleGuardar}
-                                  >
-                                    Guardar
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          <>
-                            <p>{dato.nota}</p>
-                            <button
-                              className="btn btn-success"
-                              disabled={false}
-                              onClick={() => handleEditar(dato.num_cuenta)}
-                            >
-                              Editar
-                            </button>
-                          </>
-                        )}
-                      </th>
+                      <th scope="row">{dato.primer_nombre} {" "} {dato.segundo_nombre}</th>
+                      <th scope="row">{dato.primer_apellido} {" "} {dato.segundo_apellido}</th>
+                      <th scope="row">{dato.num_cuenta}</th>
+                      <th scope="row">{dato.correo_institucional}</th>
                     </tr>
                   ))}
               </tbody>

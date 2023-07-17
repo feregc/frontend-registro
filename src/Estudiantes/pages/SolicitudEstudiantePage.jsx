@@ -30,48 +30,46 @@ export const SolicitudEstudiantePage = () => {
 
   return (
     <>
-      <div className="">
-        <div className="container d-flex justify-content-center align-items-center">
-          <div className="row ">
-            <div className="d-flex justify-content-center align-items-center">
-              <h3>Solicitudes </h3>
-              <br />
-              <br />
-              <br />
-            </div>
+      <br />
+      <br />
+      <div className="container d-flex justify-content-center align-items-center">
+        <div className="row ">
+          <div className="d-flex justify-content-center align-items-center">
+            <h3>Solicitudes </h3>
+          </div>
+            <br />
 
-            <div className="col my-3">
-              <button
-                className="btn btn-primary btn-w"
-                onClick={SolicitudCarmbioCarrera}
-              >
-                Solicitar Cambio de carrera
-              </button>
-            </div>
-            <div className="col my-3">
+          <div className="col my-4">
+            <button
+              className="btn btn-primary btn-w"
+              onClick={SolicitudCarmbioCarrera}
+            >
+              Solicitar Cambio de carrera
+            </button>
+          </div>
+          {/* <div className="col my-3">
               <button
                 className="btn btn-primary btn-w"
                 onClick={SolicitudCancelacionExcepcional}
               >
                 Solicitar cancelación excepcional
               </button>
-            </div>
-            <div className="col my-3">
-              <button
-                className="btn btn-primary btn-w"
-                onClick={SolicitudCambioCentro}
-              >
-                Solicitar cambio de centro
-              </button>
-            </div>
-            <div className="col my-3">
-              <button
-                className="btn btn-primary btn-w"
-                onClick={SolicitudPagoReposicion}
-              >
-                Solicitar pago de reposición
-              </button>
-            </div>
+            </div> */}
+          <div className="col my-4">
+            <button
+              className="btn btn-primary btn-w"
+              onClick={SolicitudCambioCentro}
+            >
+              Solicitar cambio de centro
+            </button>
+          </div>
+          <div className="col my-4">
+            <button
+              className="btn btn-primary btn-w"
+              onClick={SolicitudPagoReposicion}
+            >
+              Solicitar pago de reposición
+            </button>
           </div>
         </div>
       </div>
