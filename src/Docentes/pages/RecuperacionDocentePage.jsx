@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import { DocenteCard } from "../components/DocenteCard";
 import "../../Assets/styles/styles-docentes/Docente-lista.css";
-
 export const RecuperacionDocentePage = () => {
   const [email, setEmail] = useState("");
   const [docenteLogeado, setDocenteLogeado] = useState({});
@@ -16,7 +15,6 @@ export const RecuperacionDocentePage = () => {
       fetch(`http://localhost:8081/docente/${id}`)
         .then((response) => response.json())
         .then((data) => {
-          //console.log(data[0]);
           setDocenteLogeado(data[0]);
         })
         .catch((error) => {
@@ -42,7 +40,7 @@ export const RecuperacionDocentePage = () => {
 
   return (
     <>
-    <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="mt-6 d-flex flex-column align-items-center bg-primary">
           <h3 className="mt-6">Docentes disponibles</h3>
         </div>

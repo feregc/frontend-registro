@@ -24,6 +24,7 @@ export const LandingAdministradorPage = () => {
     <>
       <div className="d-flex flex-column align-items-center justify-content-center">
         <br />
+        <br />
         <h2>Bienvenido Administrador</h2>
         <br />
         <div className="btn-group d-flex align-items-center justify-content-center">

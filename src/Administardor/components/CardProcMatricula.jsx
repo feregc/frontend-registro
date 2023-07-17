@@ -1,6 +1,6 @@
+import React from "react";
 export const CardProcMatricula = ({ onBorrar, procesos }) => {
   const { anio, periodo, fechainicioI, fechainicioIIIII } = procesos;
-
   const handleBorrar = () => {
     onBorrar(procesos.id);
   };

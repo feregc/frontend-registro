@@ -44,7 +44,6 @@ export const FormProcesoMatricula = ({ onCrear }) => {
     indiceIIIII: restriccion5,
     fechainicioIIIII: fechaInicio5,
   };
-
   const handleYearChange = (year) => {
     const currentYear = new Date().getFullYear();
     const selectedYear = year.getFullYear();
@@ -57,15 +56,12 @@ export const FormProcesoMatricula = ({ onCrear }) => {
   const handlePeriodoChange = (e) => {
     setSelectedPeriodo(e.target.value);
   };
-
   const handleHoraInicioChange = (horaInicio) => {
     setSelectedHoraInicio(horaInicio);
   };
-
   const handleHoraFinChange = (horaFin) => {
     setSelectedHoraFin(horaFin);
   };
-
   const handleRestriccion1Change = (e) => {
     setRestriccion1(e.target.value);
   };
@@ -174,6 +170,9 @@ export const FormProcesoMatricula = ({ onCrear }) => {
       setErrors(err)
     }
 
+
+  };
+
   return (
     <>
       {/* <div className="container">
@@ -183,6 +182,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
         <div className="container">
           <div className="row my-2">
             <div className="col">
+              <br />
               <br />
               <h3 className="my-2">Formulario para proceso de Matricula</h3>
             </div>
@@ -202,12 +202,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleYearChange}
                   locale="es"
                 />
-              </div>
-              {errors.anio && (
-                <div className="alert alert-danger p-1" role="alert">
+                {errors.anio && (
+                <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                   {errors.anio}
                 </div>
               )}
+              </div>
+              
             </div>
             {/* fila2 */}
             <div className="row my-2">
@@ -227,7 +228,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   <option value="III-PAC">III-PAC</option>
                 </select>
                 {errors.periodo && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.periodo}
                   </div>
                 )}
@@ -250,12 +251,12 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleHoraInicioChange}
                   locale="es"
                 />
-              </div>
-              {errors.horainicio && (
-                  <div className="alert alert-danger p-1" role="alert">
+                {errors.horainicio && (
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.horainicio}
                   </div>
                 )}
+              </div>
             </div>
             {/* fila3 */}
             <div className="row my-2">
@@ -275,11 +276,12 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.horafin && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.horafin}
                   </div>
                 )}
               </div>
+
             </div>
             {/* fila3 */}
             <div className="row">
@@ -301,7 +303,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleRestriccion1Change}
                 />
                 {errors.indiceI && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.indiceI}
                   </div>
                 )}
@@ -324,7 +326,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioI && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.fechainicioI}
                   </div>
                 )}
@@ -342,12 +344,12 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   className="f-w form-control"
                   type="number"
                   id="restricion2"
-                  placeholder="Ingrese el indice de la restricción 1"
+                  placeholder="Ingrese el indice de la restricción 2"
                   value={restriccion2}
                   onChange={handleRestriccion2Change}
                 />
                 {errors.indiceII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.indiceII}
                   </div>
                 )}
@@ -370,7 +372,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.fechainicioII}
                   </div>
                 )}
@@ -393,7 +395,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleRestriccion3Change}
                 />
                 {errors.indiceIII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.indiceIII}
                   </div>
                 )}
@@ -413,9 +415,10 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   scrollableYearDropdown
                   selected={fechaInicio3}
                   onChange={handleFechaInicio3Change}
+                  locale="es"
                 />
                 {errors.fechainicioIII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.fechainicioIII}
                   </div>
                 )}
@@ -433,12 +436,12 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   className="f-w form-control"
                   type="number"
                   id="restricion4"
-                  placeholder="Ingrese el indice de la restricción 1"
+                  placeholder="Ingrese el indice de la restricción 4"
                   value={restriccion4}
                   onChange={handleRestriccion4Change}
                 />
                 {errors.indiceIIII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.indiceIIII}
                   </div>
                 )}
@@ -461,7 +464,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioIIII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.fechainicioIIII}
                   </div>
                 )}
@@ -479,12 +482,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   className="f-w form-control"
                   type="number"
                   id="restricion4"
-                  placeholder="Ingrese el indice de la restricción 1"
+                  placeholder="Ingrese el indice de la restricción 5"
                   value={restriccion5}
                   onChange={handleRestriccion5Change}
+
                 />
                 {errors.indiceIIIII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.indiceIIIII}
                   </div>
                 )}
@@ -507,13 +511,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioIIIII && (
-                  <div className="alert alert-danger p-1" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
                     {errors.fechainicioIIIII}
                   </div>
                 )}
               </div>
             </div>
-            <div className="row my-2">
+            <div className="row d-flex justify-content-center my-2">
               <div className="col">
                 <button className="btn btn-w btn-success form-control" type="submit">
                   Crear
@@ -525,5 +529,4 @@ export const FormProcesoMatricula = ({ onCrear }) => {
       </form>
     </>
   );
-}
 };

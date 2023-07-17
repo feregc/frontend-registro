@@ -54,7 +54,7 @@ export const DetalleClase = () => {
         const result = await fetch(url);
         const data = await result.json();
         setClases(data);
-      } catch {
+      } catch (error) {
         console.log("Error:", error);
       }
     };
@@ -78,6 +78,7 @@ export const DetalleClase = () => {
               <div>
                 {Clase && (
                   <>
+                  <br />
                     <h4>Clase: {Clase.nombre_clase}</h4>
                     <p>Seccion: {Clase.id_seccion}</p>
                   </>
@@ -86,20 +87,26 @@ export const DetalleClase = () => {
             </div>
           </div>
           <div className="row">
-            <button className="btn btn-success m-1" onClick={exportarAExcel}>
-              Descargar lista de estudiantes
-            </button>
-
-            <Link to={`../subir-notas/${id}`}>
-              <button className="btn btn-success m-1">Notas</button>
-            </Link>
+            <div className="col-6 my-3 d-flex justify-content-center">
+              <button
+                className="btn btn-w2 btn-success m-1"
+                onClick={exportarAExcel}
+              >
+                Descargar lista de estudiantes
+              </button>
+            </div>
+            <div className="col-6 my-3 d-flex justify-content-center">
+              <Link to={`../subir-notas/${id}`}>
+                <button className="btn btn-w2 btn-success m-1">Ingreso de Notas</button>
+              </Link>
+            </div>
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
                   <th scope="col">Nombre</th>
                   <th scope="col">Apellido</th>
-                  <th scope="col">Cuenta</th>
-                  <th scope="col">Correo</th>
+                  <th scope="col">Número de Cuenta</th>
+                  <th scope="col">Correo Institucional</th>
                 </tr>
               </thead>
               <tbody>
@@ -107,8 +114,8 @@ export const DetalleClase = () => {
                   alumno.length > 0 &&
                   alumno.map((dato, index) => (
                     <tr key={index}>
-                      <th scope="row">{dato.primer_nombre}</th>
-                      <th scope="row">{dato.primer_apellido}</th>
+                      <th scope="row">{dato.primer_nombre} {" "} {dato.segundo_nombre}</th>
+                      <th scope="row">{dato.primer_apellido} {" "} {dato.segundo_apellido}</th>
                       <th scope="row">{dato.num_cuenta}</th>
                       <th scope="row">{dato.correo_institucional}</th>
                     </tr>
