@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FormProcesoMatricula } from "../components/FormProcesoMatricula";
 import { CardProcMatricula } from "../components/CardProcMatricula";
 
@@ -51,7 +51,7 @@ export const ProcesoMatriclaPage = () => {
           </div>
           <div className="col-4">
           <br /><h3>Matrículas Anteriores</h3>
-            {data.map((dat) => (
+          {data.slice(-5).reverse().map((dat) => (
               <CardProcMatricula
                 key={dat.id}
                 procesos={dat}

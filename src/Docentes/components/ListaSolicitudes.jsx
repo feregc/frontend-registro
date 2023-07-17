@@ -48,47 +48,56 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
 
   return (
     <>
+    <br /><br />
       <div className="container">
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-center my-3">
-              <h3>Solicitudes del coordinador</h3>
+              <h3>Historial de Solicitudes</h3>
             </div>
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
                   <th scope="col">Tipo de solicitud</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Jutificacion</th>
+                  <th scope="col">Jutificación</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {solicitudes.map((solicitud) => (
                   <tr key={solicitud.id}>
-                    <td scope="row">{solicitud.tipo_solicitud}</td>
-                    <td scope="row">{solicitud.estado}</td>
-                    <td scope="row">{solicitud.justificacion}</td>
-                    <td scope="row">
-                      <div className="p-3">
-                        <button
-                          className="btn btn-success"
-                          id="Aprobada"
-                          onClick={() =>
-                            updateSolicitud(solicitud.id, "Aprobada")
-                          }
-                        >
-                          Aceptar
-                        </button>
-                        <button
-                          className="btn btn-success"
-                          id="Rechazada"
-                          onClick={() =>
-                            updateSolicitud(solicitud.id, "Rechazada")
-                          }
-                        >
-                          Rechazar
-                        </button>
+                    <td className="p-4" scope="row">
+                      {solicitud.tipo_solicitud}
+                    </td>
+                    <td className="p-4" scope="row">
+                      {solicitud.estado}
+                    </td>
+                    <td className="p-4" scope="row">
+                      {solicitud.justificacion}
+                    </td>
+                    <td className="p-4" scope="row">
+                      <div className="py-3">
+                        <div className="d-flex ">
+                          <button
+                            className="btn btn-success mx-3"
+                            id="Aprobada"
+                            onClick={() =>
+                              updateSolicitud(solicitud.id, "Aprobada")
+                            }
+                          >
+                            Aceptar
+                          </button>
+                          <button
+                            className="btn btn-success mx-3"
+                            id="Rechazada"
+                            onClick={() =>
+                              updateSolicitud(solicitud.id, "Rechazada")
+                            }
+                          >
+                            Rechazar
+                          </button>
+                        </div>
                       </div>
                     </td>
                   </tr>

@@ -1,8 +1,13 @@
 import { useState } from "react";
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { format } from "date-fns";
+import { format, differenceInSeconds } from "date-fns";
 import "../../Assets/styles/styles-admin/Admin-aux.css";
+import es from 'date-fns/locale/es'
+import { validacionProce } from "../helpers/validacionProce";
+import { useNavigate } from "react-router-dom";
+
+registerLocale('es', es)
 
 export const FormProcesoMatricula = ({ onCrear }) => {
   const [selectedYear, setSelectedYear] = useState(null);
@@ -19,9 +24,34 @@ export const FormProcesoMatricula = ({ onCrear }) => {
   const [fechaInicio4, setFechaInicio4] = useState(null);
   const [restriccion5, setRestriccion5] = useState("");
   const [fechaInicio5, setFechaInicio5] = useState(null);
+  const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
+
+  const formState = {
+    anio: selectedYear,
+    periodo: selectedPeriodo,
+    horainicio: selectedHoraInicio,
+    horafin: selectedHoraFin,
+    indiceI: restriccion1,
+    fechainicioI: fechaInicio1,
+    indiceII: restriccion2,
+    fechainicioII: fechaInicio2,
+    indiceIII: restriccion3,
+    fechainicioIII: fechaInicio3,
+    indiceIIII: restriccion4,
+    fechainicioIIII: fechaInicio4,
+    indiceIIIII: restriccion5,
+    fechainicioIIIII: fechaInicio5,
+  };
 
   const handleYearChange = (year) => {
-    setSelectedYear(year);
+    const currentYear = new Date().getFullYear();
+    const selectedYear = year.getFullYear();
+
+    if (selectedYear >= currentYear) {
+      setSelectedYear(year);
+    }
   };
 
   const handlePeriodoChange = (e) => {
@@ -41,7 +71,10 @@ export const FormProcesoMatricula = ({ onCrear }) => {
   };
 
   const handleFechaInicio1Change = (date) => {
-    setFechaInicio1(date);
+    const currentDate = new Date();
+    if (date >= currentDate) {
+      setFechaInicio1(date);
+    }
   };
 
   const handleRestriccion2Change = (e) => {
@@ -49,7 +82,9 @@ export const FormProcesoMatricula = ({ onCrear }) => {
   };
 
   const handleFechaInicio2Change = (date) => {
-    setFechaInicio2(date);
+    if (date > fechaInicio1) {
+      setFechaInicio2(date);
+    }
   };
 
   const handleRestriccion3Change = (e) => {
@@ -57,7 +92,9 @@ export const FormProcesoMatricula = ({ onCrear }) => {
   };
 
   const handleFechaInicio3Change = (date) => {
-    setFechaInicio3(date);
+    if (date > fechaInicio2) {
+      setFechaInicio3(date);
+    }
   };
 
   const handleRestriccion4Change = (e) => {
@@ -65,7 +102,9 @@ export const FormProcesoMatricula = ({ onCrear }) => {
   };
 
   const handleFechaInicio4Change = (date) => {
-    setFechaInicio4(date);
+    if (date > fechaInicio3) {
+      setFechaInicio4(date);
+    }
   };
 
   const handleRestriccion5Change = (e) => {
@@ -73,59 +112,67 @@ export const FormProcesoMatricula = ({ onCrear }) => {
   };
 
   const handleFechaInicio5Change = (date) => {
-    setFechaInicio5(date);
+    if (date > fechaInicio4) {
+      setFechaInicio5(date);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = {
-      anio: selectedYear.toISOString().slice(0, 19).replace("T", " "),
-      periodo: selectedPeriodo,
-      horainicio: selectedHoraInicio
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "),
-      horafin: selectedHoraFin.toISOString().slice(0, 19).replace("T", " "),
-      indiceI: parseInt(restriccion1),
-      fechainicioI: fechaInicio1.toISOString().slice(0, 19).replace("T", " "),
-      indiceII: parseInt(restriccion2),
-      fechainicioII: fechaInicio2.toISOString().slice(0, 19).replace("T", " "),
-      indiceIII: parseInt(restriccion3),
-      fechainicioIII: fechaInicio3.toISOString().slice(0, 19).replace("T", " "),
-      indiceIIII: parseInt(restriccion4),
-      fechainicioIIII: fechaInicio4
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "),
-      indiceIIIII: parseInt(restriccion5),
-      fechainicioIIIII: fechaInicio5
-        .toISOString()
-        .slice(0, 19)
-        .replace("T", " "),
-    };
-
-    console.log(formData);
-
-    // Realizar la solicitud HTTP para enviar los datos al endpoint
-    fetch("http://localhost:8081/insertarproceso", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        console.log("Creado con exito");
-        console.log(response);
-        onCrear("Creado con exito");
+    const err = validacionProce(formState);
+    console.log(err);
+    if (err === null) {
+      setErrors({});
+      const formData = {
+        anio: selectedYear.toISOString().slice(0, 19).replace("T", " "),
+        periodo: selectedPeriodo,
+        horainicio: selectedHoraInicio
+          .toISOString()
+          .slice(0, 19)
+          .replace("T", " "),
+        horafin: selectedHoraFin.toISOString().slice(0, 19).replace("T", " "),
+        indiceI: parseInt(restriccion1),
+        fechainicioI: fechaInicio1.toISOString().slice(0, 19).replace("T", " "),
+        indiceII: parseInt(restriccion2),
+        fechainicioII: fechaInicio2.toISOString().slice(0, 19).replace("T", " "),
+        indiceIII: parseInt(restriccion3),
+        fechainicioIII: fechaInicio3.toISOString().slice(0, 19).replace("T", " "),
+        indiceIIII: parseInt(restriccion4),
+        fechainicioIIII: fechaInicio4
+          .toISOString()
+          .slice(0, 19)
+          .replace("T", " "),
+        indiceIIIII: parseInt(restriccion5),
+        fechainicioIIIII: fechaInicio5
+          .toISOString()
+          .slice(0, 19)
+          .replace("T", " "),
+      };
+      console.log(formData);
+      // Realizar la solicitud HTTP para enviar los datos al endpoint
+      fetch("http://localhost:8081/insertarproceso", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       })
-      .catch((error) => {
-        console.log(error);
-        console.log("Error al crear");
-        onCrear("Error al crear");
-      });
-  };
+        .then((response) => {
+          console.log("Creado con exito");
+          alert("Registrado con exito");
+          navigate("/administrador/home");
+          console.log(response);
+          onCrear("Creado con exito");
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log("Error al crear");
+          onCrear("Error al crear");
+        });
+    } else {
+      setErrors(err)
+    }
 
   return (
     <>
@@ -153,8 +200,14 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   showMonthDropdown={false}
                   scrollableYearDropdown
                   onChange={handleYearChange}
+                  locale="es"
                 />
               </div>
+              {errors.anio && (
+                <div className="alert alert-danger p-1" role="alert">
+                  {errors.anio}
+                </div>
+              )}
             </div>
             {/* fila2 */}
             <div className="row my-2">
@@ -173,6 +226,11 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   <option value="II-PAC">II-PAC</option>
                   <option value="III-PAC">III-PAC</option>
                 </select>
+                {errors.periodo && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.periodo}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -190,8 +248,14 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   timeCaption="Hora"
                   dateFormat="HH:mm"
                   onChange={handleHoraInicioChange}
+                  locale="es"
                 />
               </div>
+              {errors.horainicio && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.horainicio}
+                  </div>
+                )}
             </div>
             {/* fila3 */}
             <div className="row my-2">
@@ -208,7 +272,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   timeCaption="Hora"
                   dateFormat="HH:mm"
                   onChange={handleHoraFinChange}
+                  locale="es"
                 />
+                {errors.horafin && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.horafin}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -230,6 +300,11 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   value={restriccion1}
                   onChange={handleRestriccion1Change}
                 />
+                {errors.indiceI && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.indiceI}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -246,7 +321,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   scrollableYearDropdown
                   selected={fechaInicio1}
                   onChange={handleFechaInicio1Change}
+                  locale="es"
                 />
+                {errors.fechainicioI && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.fechainicioI}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -265,6 +346,11 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   value={restriccion2}
                   onChange={handleRestriccion2Change}
                 />
+                {errors.indiceII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.indiceII}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -281,7 +367,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   scrollableYearDropdown
                   selected={fechaInicio2}
                   onChange={handleFechaInicio2Change}
+                  locale="es"
                 />
+                {errors.fechainicioII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.fechainicioII}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -296,10 +388,15 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   className="f-w form-control"
                   type="number"
                   id="restricion3"
-                  placeholder="Ingrese el indice de la restricción 1"
+                  placeholder="Ingrese el indice de la restricción 3"
                   value={restriccion3}
                   onChange={handleRestriccion3Change}
                 />
+                {errors.indiceIII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.indiceIII}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -317,6 +414,11 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   selected={fechaInicio3}
                   onChange={handleFechaInicio3Change}
                 />
+                {errors.fechainicioIII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.fechainicioIII}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -335,6 +437,11 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   value={restriccion4}
                   onChange={handleRestriccion4Change}
                 />
+                {errors.indiceIIII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.indiceIIII}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -351,7 +458,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   scrollableYearDropdown
                   selected={fechaInicio4}
                   onChange={handleFechaInicio4Change}
+                  locale="es"
                 />
+                {errors.fechainicioIIII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.fechainicioIIII}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -370,6 +483,11 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   value={restriccion5}
                   onChange={handleRestriccion5Change}
                 />
+                {errors.indiceIIIII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.indiceIIIII}
+                  </div>
+                )}
               </div>
             </div>
             {/* fila3 */}
@@ -386,7 +504,13 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   scrollableYearDropdown
                   selected={fechaInicio5}
                   onChange={handleFechaInicio5Change}
+                  locale="es"
                 />
+                {errors.fechainicioIIIII && (
+                  <div className="alert alert-danger p-1" role="alert">
+                    {errors.fechainicioIIIII}
+                  </div>
+                )}
               </div>
             </div>
             <div className="row my-2">
@@ -401,4 +525,5 @@ export const FormProcesoMatricula = ({ onCrear }) => {
       </form>
     </>
   );
+}
 };

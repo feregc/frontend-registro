@@ -227,7 +227,7 @@ export const Solicitudes = () => {
                 </>
               )}
 
-              {tipoSolicitud === "Pago Reposicion" && (
+              {tipoSolicitud === "Pago Reposición" && (
                 <>
                   <div className="d-flex justify-content-center align-items-center">
                     <div className="row my-1">
@@ -263,7 +263,7 @@ export const Solicitudes = () => {
                 </>
               )}
 
-              {tipoSolicitud === "Cancelación Excepcional" && (
+              {/* {tipoSolicitud === "Cancelación Excepcional" && (
                 <>
                   <div className="row my-2">
                     <div className="col-6">
@@ -286,7 +286,7 @@ export const Solicitudes = () => {
                     </div>
                   </div>
                 </>
-              )}
+              )} */}
             </div>
           </div>
         </div>
