@@ -4,14 +4,14 @@ import React, { useState } from "react";
 
 export const PagosPage = () => {
   const [pagos, setPagos] = useState({
-    matricula: false,
+    matricula: true,
     laboratorio: false,
     reposicion: false,
   });
 
   const precios = {
     matricula: 270,
-    laboratorio: 150,
+
     reposicion: 100,
   };
 
@@ -54,19 +54,7 @@ export const PagosPage = () => {
                   Pago de Matrícula - L.{precios.matricula}
                 </label>
               </div>
-              <div className="form-check my-3">
-                <label className="form-check-label">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    name="laboratorio"
-                    checked={pagos.laboratorio}
-                    onChange={handleCheckboxChange}
-                    disabled={precios.laboratorio}
-                  />
-                  Pago de Laboratorio - L.{precios.laboratorio}
-                </label>
-              </div>
+              
               <div className="form-check my-3">
                 <label className="form-check-label">
                   <input

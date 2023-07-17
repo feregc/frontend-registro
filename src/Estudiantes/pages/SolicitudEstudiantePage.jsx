@@ -26,7 +26,8 @@ export const SolicitudEstudiantePage = () => {
       state: { tipoSolicitud: "Pago Reposición" },
     });
   };
-  // const VerSolicitudes = () => {};
+  
+  const VerSolicitudes = () => {};
 
   return (
     <>
@@ -69,6 +70,14 @@ export const SolicitudEstudiantePage = () => {
               onClick={SolicitudPagoReposicion}
             >
               Solicitar pago de reposición
+            </button>
+          </div>
+          <div className="col my-4">
+            <button
+              className="btn btn-primary btn-w"
+              onClick={VerSolicitudes}
+            >
+              Ver <br />solicitudes 
             </button>
           </div>
         </div>

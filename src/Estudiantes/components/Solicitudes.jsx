@@ -22,7 +22,7 @@ export const Solicitudes = () => {
         setImgPerfilEstudiante(imgPerfil);
 
         if (imgPerfil.centro_id) {
-          fetchCarreras(imgPerfil.centro_id);
+          fetchCarreras(imgPerfil.centro_id)
         }
       } catch (error) {
         console.log("Error:", error);
