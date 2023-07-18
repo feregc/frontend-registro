@@ -8,44 +8,64 @@ export const Solicitudes = () => {
   const location = useLocation();
   const { tipoSolicitud } = location.state;
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+  const [opcionSeleccionadaNombre, setOpcionSeleccionadaNombre] = useState('');
+  const [opcionSeleccionada2, setOpcionSeleccionada2] = useState("");
   const [justificacion, setDescripcion] = useState("");
   const [imgPerfilEstudiante, setImgPerfilEstudiante] = useState({});
   const [carreras, setCarreras] = useState([]);
-
+  const [centro, setCentro] = useState([]);
   useEffect(() => {
     const fetchEstudiante = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8081/estudiante/${num_cuenta}`
-        );
+        const response = await fetch(`http://localhost:8081/estudiante/${num_cuenta}`);
         const imgPerfil = await response.json();
         setImgPerfilEstudiante(imgPerfil);
-
+  
         if (imgPerfil.centro_id) {
-          fetchCarreras(imgPerfil.centro_id)
+          fetchCarreras(imgPerfil.centro_id);
         }
       } catch (error) {
         console.log("Error:", error);
       }
     };
-
+  
     const fetchCarreras = async (centroId) => {
       try {
-        const response = await fetch(
-          `http://localhost:8081/carreras/${centroId}`
-        );
+        const response = await fetch(`http://localhost:8081/carreras/${centroId}`);
         const carrerasData = await response.json();
         setCarreras(carrerasData);
       } catch (error) {
         console.log("Error:", error);
       }
     };
-
+  
+    const fetchCentro = async () => {
+      try {
+        const response = await fetch(`http://localhost:8081/VerCentros`);
+        const centrosData = await response.json();
+        setCentro(centrosData);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+  
     fetchEstudiante();
-  }, []);
-
+    fetchCentro();
+  }, [num_cuenta]);
+  
   const handleOpcionChange = (event) => {
-    setOpcionSeleccionada(event.target.value);
+    const selectedOptionText = event.target.options[event.target.selectedIndex].text;
+    const selectedOptionValue = event.target.value;
+    setOpcionSeleccionadaNombre,(selectedOptionText);
+    setOpcionSeleccionada(selectedOptionValue);
+    
+  };
+  const handleOpcion2Change = (event) => {
+    
+    const selectedOption2Value = event.target.value;
+   
+    setOpcionSeleccionada2(selectedOption2Value);
+    
   };
 
   const handleDescripcionChange = (event) => {
@@ -53,29 +73,27 @@ export const Solicitudes = () => {
   };
 
   const handleCrearSolicitud = () => {
+    // Convertir cadena vacía a null si no se ha seleccionado ninguna opción
+    const idCarrera = opcionSeleccionada2 !== "" ? opcionSeleccionada2 : null;
+    const idCentro = opcionSeleccionada !== "" ? opcionSeleccionada : null;
+  
     const nuevaSolicitud = {
       tipo_solicitud: tipoSolicitud,
       num_cuenta: num_cuenta,
-      justificacion:
-        "Yo " +
-        imgPerfilEstudiante.primer_nombre +
-        " " +
-        +imgPerfilEstudiante.segundo_nombre +
-        " " +
-        imgPerfilEstudiante.primer_apellido +
-        " " +
-        imgPerfilEstudiante.segundo_apellido +
-        " " +
-        " con numero de cuenta " +
-        " " +
-        imgPerfilEstudiante.num_cuenta +
-        " Requiero la solicitud de " +
-        tipoSolicitud +
-        " para " +
-        opcionSeleccionada +
-        " por la siguiente razon " +
+      justificacion: "Yo " +
+       imgPerfilEstudiante.primer_nombre + " " + 
+       imgPerfilEstudiante.segundo_nombre + " " + 
+       imgPerfilEstudiante.primer_apellido + " " + 
+       imgPerfilEstudiante.segundo_apellido + " " + " con numero de cuenta " + " " + 
+       imgPerfilEstudiante.num_cuenta + " Requiero la solicitud de " +
+        tipoSolicitud + " para " + opcionSeleccionada + " por la siguiente razon " + 
         justificacion,
+      id_carrera: idCarrera,
+      id_centro: idCentro,
+      // id_clase: ;
     };
+  
+   
 
     fetch("http://localhost:8081/Crear_Solicitud", {
       method: "POST",
@@ -120,24 +138,21 @@ export const Solicitudes = () => {
                         <label htmlFor="opcion">Seleccione un centro:</label>
                       </div>
                       <div className="col-6">
-                        <select
-                          id="opcion"
-                          className="form-control"
-                          value={opcionSeleccionada}
-                          onChange={handleOpcionChange}
-                        >
-                          <option value="UNAH-CU">
-                            UNAH - Ciudad Universitaria
+                      <select
+                        id="opcion"
+                        className="form-control"
+                        value={opcionSeleccionada}
+                        onChange={handleOpcionChange}
+                      >
+                        <option value="">-- Centro --</option>
+                        {centro.map((centro) => (
+                          <option key={centro.id} value={centro.id}>
+                            {centro.nombre}
                           </option>
-                          <option value="UNAH-VS">UNAH - Valle de Sula</option>
-                          <option value="UNAH-CURC">UNAH-CURC</option>
-                          <option value="UNAH-CURLA">UNAH-CURLA</option>
-                          <option value="UNAH-CURLP">UNAH-CURLP</option>
-                          <option value="UNAH-CUROC">UNAH-CUROC</option>
-                          <option value="UNAH-CURNO">UNAH-CURNO</option>
-                          <option value="UNAH-TEC Danli">UNAH-TEC Danli</option>
-                          <option value="UNAH-TEC AGUÁN">UNAH-TEC AGUÁN</option>
-                        </select>
+                        ))}
+                      </select>
+ 
+
                       </div>
                       <div className="col-6 my-3">
                         <label htmlFor="descripcion">Justificación:</label>
@@ -182,15 +197,15 @@ export const Solicitudes = () => {
                       </div>
                       <div className="col-6">
                         <select
-                          id="opcion"
+                          id="opcion2"
                           className="form-control"
-                          value={opcionSeleccionada}
-                          onChange={handleOpcionChange}
+                          value={opcionSeleccionada2}
+                          onChange={handleOpcion2Change}
                         >
                           <option value="">-- Carreras --</option>
-                          {carreras.map((carrera) => (
-                            <option key={carrera.id} value={carrera.id}>
-                              {carrera.nombre}
+                          {carreras.map((carreras) => (
+                            <option key={carreras.id} value={carreras.id}>
+                              {carreras.nombre}
                             </option>
                           ))}
                         </select>
