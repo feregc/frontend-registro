@@ -54,13 +54,17 @@ export const Solicitudes = () => {
   }, [num_cuenta]);
   
   const handleOpcionChange = (event) => {
+    const opcionSeleccionadaNombre = event.target.options[event.target.selectedIndex].text;
     const selectedOptionValue = event.target.value;
     setOpcionSeleccionada(selectedOptionValue);
+  setopcionSeleccionadaNombre(opcionSeleccionadaNombre);
     
   };
   const handleOpcion2Change = (event) => {
+    const selectedOption2Text = event.target.options[event.target.selectedIndex].text;
     const selectedOption2Value = event.target.value;
     setOpcionSeleccionada2(selectedOption2Value);
+    setOpcionSeleccionada2(selectedOption2Text);
   };
 
   const handleDescripcionChange = (event) => {
@@ -81,7 +85,7 @@ export const Solicitudes = () => {
        imgPerfilEstudiante.primer_apellido + " " + 
        imgPerfilEstudiante.segundo_apellido + " " + " numero de cuenta " + " " + 
        imgPerfilEstudiante.num_cuenta + "  solicitud de " +
-        tipoSolicitud + " para " + opcionSeleccionadaNombre + " razon " + 
+        tipoSolicitud + " razon " + 
         justificacion,
       id_carrera: idCarrera,
       id_centro: idCentro,

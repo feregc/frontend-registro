@@ -60,7 +60,7 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
                 <tr>
                   <th scope="col">Tipo de solicitud</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Jutificación</th>
+                  <th scope="col">Jutificación</th> <th scope="col">carrera o centreo a cambiar</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
@@ -75,6 +75,10 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
                     </td>
                     <td className="p-4" scope="row">
                       {solicitud.justificacion}
+                    </td>
+                    <td className="p-4" scope="row">
+                      {solicitud.nombre_carrera}
+                      {solicitud.nombre_centro}
                     </td>
                     <td className="p-4" scope="row">
                       <div className="py-3">
