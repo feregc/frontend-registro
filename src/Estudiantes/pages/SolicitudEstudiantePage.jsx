@@ -27,7 +27,11 @@ export const SolicitudEstudiantePage = () => {
     });
   };
   
-  const VerSolicitudes = () => {};
+  const VerSolicitudes = () => {
+    navigate("../VerSolicitudPage", {
+     
+    });
+  };
 
   return (
     <>
