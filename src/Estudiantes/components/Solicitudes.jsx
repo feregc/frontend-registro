@@ -54,18 +54,13 @@ export const Solicitudes = () => {
   }, [num_cuenta]);
   
   const handleOpcionChange = (event) => {
-    const selectedOptionText = event.target.options[event.target.selectedIndex].text;
     const selectedOptionValue = event.target.value;
-    setOpcionSeleccionadaNombre,(selectedOptionText);
     setOpcionSeleccionada(selectedOptionValue);
     
   };
   const handleOpcion2Change = (event) => {
-    
     const selectedOption2Value = event.target.value;
-   
     setOpcionSeleccionada2(selectedOption2Value);
-    
   };
 
   const handleDescripcionChange = (event) => {
@@ -80,13 +75,13 @@ export const Solicitudes = () => {
     const nuevaSolicitud = {
       tipo_solicitud: tipoSolicitud,
       num_cuenta: num_cuenta,
-      justificacion: "Yo " +
+      justificacion: 
        imgPerfilEstudiante.primer_nombre + " " + 
        imgPerfilEstudiante.segundo_nombre + " " + 
        imgPerfilEstudiante.primer_apellido + " " + 
-       imgPerfilEstudiante.segundo_apellido + " " + " con numero de cuenta " + " " + 
-       imgPerfilEstudiante.num_cuenta + " Requiero la solicitud de " +
-        tipoSolicitud + " para " + opcionSeleccionada + " por la siguiente razon " + 
+       imgPerfilEstudiante.segundo_apellido + " " + " numero de cuenta " + " " + 
+       imgPerfilEstudiante.num_cuenta + "  solicitud de " +
+        tipoSolicitud + " para " + opcionSeleccionadaNombre + " razon " + 
         justificacion,
       id_carrera: idCarrera,
       id_centro: idCentro,
