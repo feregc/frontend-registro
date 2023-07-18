@@ -16,22 +16,7 @@ export const ProcesoMatriclaPage = () => {
     };
     fetchData();
   }, [validador]);
-  // debo evaluar cuando se cambia la variable validador
-  // const handleBorrarProceso = async (procesoId) => {
-  //     try {
-  //         const response = await fetch(`http://localhost:8081/proceso/${procesoId}`, {
-  //             method: 'DELETE',
-  //         });
-  //         if (response.ok) {
-  //             setData(data.filter((p) => p.id !== procesoId));
-  //             console.log('Proceso eliminado con éxito');
-  //         } else {
-  //             console.error('Error al eliminar el proceso:', response.status);
-  //         }
-  //     } catch (error) {
-  //         console.error('Error al realizar la petición:', error);
-  //     }
-  // };
+
   const handleCrearProceso = (msg) => {
     setValidador(msg);
   };
