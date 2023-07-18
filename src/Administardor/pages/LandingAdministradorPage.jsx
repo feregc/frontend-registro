@@ -30,7 +30,7 @@ export const LandingAdministradorPage = () => {
         <div className="btn-group d-flex align-items-center justify-content-center">
           <div>
             <button
-              className="btn btn-w btn-h btn-primary m-1"
+              className="btn btn-w btn-h btn-primary m-1 form-control"
               onClick={onNavRegistroDocente}
             >
               Registrar docentes
@@ -38,20 +38,20 @@ export const LandingAdministradorPage = () => {
           </div>
           <div>
             <button
-              className="btn btn-w btn-h btn-primary m-1"
+              className="btn btn-w btn-h btn-primary m-1 form-control"
               onClick={onNavRegistroEstudiante}
             >
               Registrar Estudiantes
             </button>
           </div>
           <div>
-            <button className="btn btn-w btn-h btn-primary m-1" onClick={onNavRolDocente}>
+            <button className="btn btn-w btn-h btn-primary m-1 form-control" onClick={onNavRolDocente}>
               
               Seleccionar rol del docente
             </button>
           </div>
           <div>
-            <button className="btn btn-w btn-h btn-primary m-1" onClick={onNavProcesoMatricula}>
+            <button className="btn btn-w btn-h btn-primary m-1 form-control" onClick={onNavProcesoMatricula}>
               
               Crear proceso de matricula
             </button>

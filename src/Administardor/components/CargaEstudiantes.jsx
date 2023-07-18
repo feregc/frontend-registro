@@ -149,7 +149,7 @@ export const CargaEstudiantes = () => {
             onChange={handleFileUpload}
           />
           <button
-            className="btn btn-w btn-success mt-3"
+            className="btn btn-w btn-success mt-3 form-control"
             onClick={handleSubmit}
             disabled={uploaded}
           >

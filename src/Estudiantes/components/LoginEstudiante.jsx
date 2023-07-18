@@ -92,9 +92,14 @@ export const LoginEstudiante = () => {
             <p>
               Recuerda que como estudiante <br /> tu correo termina en @unah.hn
             </p>
-            <button type="submit" className="btn btn-success form-control">
-              Iniciar Sesión
-            </button>
+            <div className="d-flex justify-content-center">
+              <button
+                type="submit"
+                className="btn btn-w btn-success form-control"
+              >
+                Iniciar Sesión
+              </button>
+            </div>
             <br />
             <br />
             <p>

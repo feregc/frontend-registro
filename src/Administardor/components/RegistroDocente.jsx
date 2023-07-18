@@ -238,9 +238,14 @@ export const RegistroDocete = () => {
                   <option value="UNAH-TEC AGUÁN">UNAH-TEC AGUÁN</option>
                 </select>
               </div>
-              <button type="submit" className="btn btn-success form-control">
-                Registrar
-              </button>
+              <div className="d-flex justify-content-center mb-3">
+                <button
+                  type="submit"
+                  className="btn btn-w btn-success form-control"
+                >
+                  Registrar
+                </button>
+              </div>
             </form>
           </div>
         </div>

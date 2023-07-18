@@ -85,9 +85,14 @@ export const LoginAdmin = () => {
               Recuerda que si eres docente o administrador <br /> tu correo
               termina en @unah.edu.hn
             </p>
-            <button type="submit" className="btn btn-success form-control">
-              Iniciar Sesión
-            </button>
+            <div className="d-flex justify-content-center">
+              <button
+                type="submit"
+                className="btn btn-w btn-success form-control"
+              >
+                Iniciar Sesión
+              </button>
+            </div>
             <br />
             <br />
             <p>
