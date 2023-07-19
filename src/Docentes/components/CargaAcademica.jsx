@@ -2,32 +2,46 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-modal";
 
 export const CargaAcademica = () => {
-  const {verCarga, setVerCarga} = useState([]);
+  const [verCarga, setVerCarga] = useState([]);
   const num_empleado = localStorage.getItem("id");
-  const {
-    nombres,
-    apellidos,
-    identidad,
-    correo,
-    centro,
-    carrera,
-    cargo,
-  } = docente;
+  const [docente, setDocente] = useState({});
 
   useEffect(() => {
-    const verCarga = async () => {
+    obtenerDocente();
+    async function obtenerDocente() {
       try {
         const response = await fetch(
-          `http://localhost:8081/consulta-secciones/${carrera}/${centro}/2`
+          `http://localhost:8081/docente/${num_empleado}`
         );
         const jsonData = await response.json();
-        setVerCarga(jsonData);
+        const docenteData = jsonData[0]; // Accedemos al primer objeto del arreglo
+        setDocente(docenteData);
+        console.log("docente ", docenteData);
       } catch (error) {
-        console.log("Error:", error);
+        console.error("Error al obtener las solicitudes del coordinador:", error);
       }
-    };
-    verCarga();
-  }, []);
+    }
+  }, [num_empleado]);
+
+  useEffect(() => {
+    if (docente.centro_id && docente.carrera_id) {
+      obtenerCarga(docente.carrera_id, docente.centro_id);
+    }
+  }, [docente]);
+
+  async function obtenerCarga(carreraId, centroId) {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/2`
+      );
+      const jsonData = await response.json();
+      setVerCarga(jsonData);
+      console.log("carga ", jsonData);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  }
+
   
   return (
     <>
@@ -51,17 +65,19 @@ export const CargaAcademica = () => {
                   <th scope="col" >Aula</th>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th>[]</th>
-                    <th>IS901</th>
-                    <th>[nombre_clase]</th>
-                    <th>12</th>
-                    <th>María Rodríguez</th>
-                    <th>15</th>
-                    <th>15</th>
-                    <th>B2</th>
-                    <th>105</th>
-                  </tr>
+                  {verCarga.map((seccion) => (
+                    <tr key={seccion.id_seccion}>
+                      <td>{seccion.id_seccion}</td>
+                      <td>{seccion.id_clase}</td>
+                      <td>{seccion.nombre_clase}</td>
+                      <td>{seccion.num_empleado}</td>
+                      <td>{seccion.nombre_empleado}</td>
+                      <td>{seccion.cant_estudiantes}</td>
+                      <td>{seccion.cupos}</td>
+                      <td>{seccion.nombre_edificio}</td>
+                      <td>{seccion.num_aula}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

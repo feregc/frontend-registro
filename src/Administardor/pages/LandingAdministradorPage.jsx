@@ -18,8 +18,10 @@ export const LandingAdministradorPage = () => {
   const onNavProcesoMatricula = () => {
     navigate("/administrador/procesoMatricula");
   };
-
-
+  const onNavProcesoSubidaNotas = () => {
+    navigate("/administrador/procesoSubidaNotas");
+  };
+  
   return (
     <>
       <div className="d-flex flex-column align-items-center justify-content-center">
@@ -54,6 +56,13 @@ export const LandingAdministradorPage = () => {
             <button className="btn btn-w btn-h btn-primary m-1 form-control" onClick={onNavProcesoMatricula}>
               
               Crear proceso de matricula
+            </button>
+          </div>
+
+          <div>
+            <button className="btn btn-w btn-h btn-primary m-1" onClick={onNavProcesoSubidaNotas}>
+              
+              Crear proceso de subida de notas
             </button>
           </div>
 
