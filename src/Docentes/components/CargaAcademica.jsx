@@ -7,6 +7,16 @@ export const CargaAcademica = () => {
   const [verCarga, setVerCarga] = useState([]);
   const num_empleado = localStorage.getItem("id");
   const [docente, setDocente] = useState({});
+  const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+
+
+  const handleOpcionChange = (event) => {
+    const selectedOptionValue = event.target.value;
+    setOpcionSeleccionada(selectedOptionValue);
+
+  };
+
+
 
   useEffect(() => {
     obtenerDocente();
@@ -32,12 +42,12 @@ export const CargaAcademica = () => {
     if (docente.centro_id && docente.carrera_id) {
       obtenerCarga(docente.carrera_id, docente.centro_id);
     }
-  }, [docente]);
+  }, [docente,opcionSeleccionada]);
 
-  async function obtenerCarga(carreraId, centroId) {
+  async function obtenerCarga(carreraId, centroId) { 
     try {
       const response = await fetch(
-        `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/2`
+        `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/${opcionSeleccionada}`
       );
       const jsonData = await response.json();
       setVerCarga(jsonData);
@@ -46,7 +56,7 @@ export const CargaAcademica = () => {
       console.log("Error:", error);
     }
   }
-
+  
   const generarPDF = () => {
     const doc = new jsPDF();
     doc.autoTable({ html: "#cargaAcademicaId" });
@@ -71,7 +81,7 @@ export const CargaAcademica = () => {
     // Liberar recursos
     URL.revokeObjectURL(url);
   };
-
+  
   return (
     <>
       <div className="container">
@@ -83,11 +93,14 @@ export const CargaAcademica = () => {
             </div>
             <div className="row">
               <div className="col-3 d-flex my-3 justify-content-start">
-                <select className="form-control btn-w3" name="" id="">
-                  <option value="">Periodo Académico</option>
-                  <option value="">I PAC</option>
-                  <option value="">II PAC</option>
-                  <option value="">III PAC</option>
+                <select className="form-control btn-w3" name="" id="opcion"
+                        value={opcionSeleccionada}
+                        onChange={handleOpcionChange}
+                      >
+                        <option value="">Periodo Académico</option>
+                  <option value="1">I PAC</option>
+                  <option value="2">II PAC</option>
+                  <option value="3">III PAC</option>
                 </select>
               </div>
               <div className="col-9 d-flex my-3 justify-content-end">

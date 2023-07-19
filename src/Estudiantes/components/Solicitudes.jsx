@@ -51,6 +51,7 @@ export const Solicitudes = () => {
   
     fetchEstudiante();
     fetchCentro();
+    fetchCarreras();
   }, [num_cuenta]);
   
   const handleOpcionChange = (event) => {
