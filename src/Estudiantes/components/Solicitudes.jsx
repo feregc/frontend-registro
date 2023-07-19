@@ -20,7 +20,7 @@ export const Solicitudes = () => {
         const response = await fetch(`http://localhost:8081/estudiante/${num_cuenta}`);
         const imgPerfil = await response.json();
         setImgPerfilEstudiante(imgPerfil);
-  
+        console.log(imgPerfil.centro_id);
         if (imgPerfil.centro_id) {
           fetchCarreras(imgPerfil.centro_id);
         }
