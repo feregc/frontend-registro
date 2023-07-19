@@ -6,6 +6,7 @@ import { EditarPerfilEstudiantePage } from "../pages/EditarPerfilEstudiantePage"
 import { SolicitudEstudiantePage } from "../pages/SolicitudEstudiantePage";
 import { SolicitudPage } from "../pages/SolicitudPage";
 import { PagosPage } from "../pages/PagosPage";
+import { VerSolicitudesPage } from "../pages/VerSolicitudesPage";
 
 export const EstudianteRoutes = () => {
   return (
@@ -24,6 +25,7 @@ export const EstudianteRoutes = () => {
         />
         <Route path="/SolicitudPage" element={<SolicitudPage />} />
         <Route path="/PagosPage" element={<PagosPage />} />
+        <Route path="/VerSolicitudPage" element={<VerSolicitudesPage />} />
       </Routes>
     </>
   );
