@@ -175,11 +175,8 @@ const MatriculaComponent = () => {
         key={seccion.id_seccion}
         onClick={() => handleSeccionClick(seccion.id_seccion)}
       >
-        <div>Sección: {seccion.id_seccion}</div>
-        <div>
-          Docente: {seccion.nombres} {seccion.apellidos}
-        </div>
-        <div>
+        <div>Sección: {seccion.id_seccion}, 
+          Docente: {seccion.nombres} {seccion.apellidos} <br />
           Hora: {seccion.horainicio} - {seccion.horafin}
         </div>
       </div>
@@ -191,54 +188,59 @@ const MatriculaComponent = () => {
       <div className="container">
         <div className="row">
           <div className="col">
-            <div className="d-flex justify-content-center">
-              <div className="row my-2">
-                <h3>Matricula</h3>
+            <div className="d-flex justify-content-center my-3">
+              <div className="row ">
+                <h3 className="my-4">Matricula</h3>
               </div>
             </div>
-              <div className="row ">
-                <div className="col-4">
-                  <div>
-                    <div className="bg-primary-primary">DEPARTAMENTOS</div>
-                    {renderDepartamentos()}
-                  </div>
-                </div>
-                <div className="col-4">
-                  <div>
-                    <div className="bg-primary-primary">CLASE</div>
-                    {selectedDepartamento && <div>{renderClases()}</div>}
-                  </div>
-                </div>
-                <div className="col-4">
-                  <div>
-                    <div className="bg-primary-primary">SECCIONES</div>
-                    {selectedClase && <div>{renderSecciones()}</div>}
-                  </div>
+            <div className="row ">
+              <div className="col-4">
+                <div>
+                  <div className="bg-t">DEPARTAMENTOS</div>
+                  {renderDepartamentos()}
                 </div>
               </div>
+              <div className="col-4">
+                <div>
+                  <div className="bg-t">CLASE</div>
+                  {selectedDepartamento && <div>{renderClases()}</div>}
+                </div>
+              </div>
+              <div className="col-4">
+                <div>
+                  <div className="bg-t">SECCIONES</div>
+                  {selectedClase && <div>{renderSecciones()}</div>}
+                </div>
+              </div>
+            </div>
 
             {/* Tarjeta para mostrar el mensaje del backend */}
             {backendMessage && (
-              <div
-                className={`alert alert-${
-                  backendMessage ===
-                  "El estudiante cumple con los requisitos para la clase solicitada"
-                    ? "success"
-                    : "danger"
-                }`}
-                role="alert"
-              >
-                {backendMessage}
-              </div>
+              <>
+                <div className="d-flex justify-content-center my-4">
+                  <div
+                    className={`alert alert-${
+                      backendMessage ===
+                      "El estudiante cumple con los requisitos para la clase solicitada"
+                        ? "success"
+                        : "danger"
+                    }`}
+                    role="alert"
+                  >
+                    {backendMessage}
+                  </div>
+                </div>
+              </>
             )}
-
-            <button
-              className="btn btn-wbtn-primary"
-              onClick={handleMatriculaClick}
-              disabled={!requisitosCumplidos}
-            >
-              Matricular
-            </button>
+            <div className="d-flex justify-content-center">
+              <button
+                className="btn btn-w btn-primary my-3"
+                onClick={handleMatriculaClick}
+                disabled={!requisitosCumplidos}
+              >
+                Matricular
+              </button>
+            </div>
           </div>
         </div>
       </div>
