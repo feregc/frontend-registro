@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { verificarFecha } from '../Helpers/api'
+import { verificarFecha } from "../Helpers/api";
 import * as XLSX from "xlsx";
 
 export const DetalleClase = () => {
@@ -34,20 +34,20 @@ export const DetalleClase = () => {
       nombre: alumno.primer_nombre,
       apellido: alumno.primer_apellido,
       cuenta: alumno.num_cuenta,
-      correo: alumno.correo_institucional
+      correo: alumno.correo_institucional,
     }));
 
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(rows);
     XLSX.utils.book_append_sheet(workbook, worksheet, "Alumnos");
     XLSX.utils.sheet_add_aoa(worksheet, [
-      ["Nombre", "Apellido", "Numero de cuenta","Correo institucional"], //Agrega correo
+      ["Nombre", "Apellido", "Numero de cuenta", "Correo institucional"], //Agrega correo
     ]);
     XLSX.writeFile(workbook, `Lista_de_Estudiantes.xlsx`, {
       compression: true,
     });
   };
-  
+
   // Obtener datos de la clase, enviando el id del docente
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -74,7 +74,7 @@ export const DetalleClase = () => {
   // ir a subir notas
   const irAsubirNota = () => {
     navigate("../subir-notas", { state: id });
-  }
+  };
 
   // Verificar si esta activo el proceos de subir notas notas
   const [fechaSubirNota, setFechaSubirNota] = useState(false);
@@ -93,7 +93,7 @@ export const DetalleClase = () => {
     };
     obtenerFecha();
   }, []);
-  
+
   useEffect(() => {
     const habilitarSubidaDeNotas = () => {
       if (datosDeFecha && datosDeFecha.length > 0) {
@@ -117,11 +117,9 @@ export const DetalleClase = () => {
         setFechaSubirNota(true);
       }
     };
-  
+
     habilitarSubidaDeNotas();
   }, [datosDeFecha]);
-  
-  
 
   return (
     <>
@@ -132,9 +130,14 @@ export const DetalleClase = () => {
               <div>
                 {Clase && (
                   <>
-                    <br />
-                    <h4>Clase: {Clase.nombre_clase}</h4>
-                    <p>Seccion: {Clase.id_seccion}</p>
+                    <div className="col">
+                      <div className="d-flex justify-content-center my-3">
+                        <h4>Clase: {Clase.nombre_clase}</h4>
+                      </div>
+                      <div className="d-flex justify-content-center my-3">
+                        <h5>Sección: {Clase.id_seccion}</h5>
+                      </div>
+                    </div>
                   </>
                 )}
               </div>
@@ -150,11 +153,14 @@ export const DetalleClase = () => {
               </button>
             </div>
             <div className="col-6 my-3 d-flex justify-content-center">
-            {/* disabled={fechaSubirNota} */}
-              <button disabled={false}
+              {/* disabled={fechaSubirNota} */}
+              <button
+                disabled={false}
                 onClick={irAsubirNota}
-                className="btn btn-w2 btn-success m-1">Ingreso de Notas</button>
-
+                className="btn btn-w2 btn-success m-1"
+              >
+                Ingreso de Notas
+              </button>
             </div>
             <table className="table table-striped table-hover">
               <thead>
@@ -170,8 +176,12 @@ export const DetalleClase = () => {
                   alumno.length > 0 &&
                   alumno.map((dato, index) => (
                     <tr key={index}>
-                      <th scope="row">{dato.primer_nombre} {" "} {dato.segundo_nombre}</th>
-                      <th scope="row">{dato.primer_apellido} {" "} {dato.segundo_apellido}</th>
+                      <th scope="row">
+                        {dato.primer_nombre} {dato.segundo_nombre}
+                      </th>
+                      <th scope="row">
+                        {dato.primer_apellido} {dato.segundo_apellido}
+                      </th>
                       <th scope="row">{dato.num_cuenta}</th>
                       <th scope="row">{dato.correo_institucional}</th>
                     </tr>

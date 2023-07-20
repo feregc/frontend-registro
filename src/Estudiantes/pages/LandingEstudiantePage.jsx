@@ -25,11 +25,7 @@ export const LandingEstudiantePage = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center flex-column">
-        <br />
-        <br />
-        <br />
-        <br />
+      <div className="d-flex justify-content-center align-items-center flex-column my-5">
         <h3>Bienvenido Estudiante</h3>
         <br />
         <button className="btn btn-w btn-primary" onClick={onNavPerfilEstudiante}>
@@ -49,7 +45,7 @@ export const LandingEstudiantePage = () => {
         </button>
 
         <br />
-        <button className="btn btn-primary" onClick={onNavCalificaciones}>
+        <button className="btn btn-w btn-primary" onClick={onNavCalificaciones}>
           Ver calificacions de periodo
         </button>
       </div>

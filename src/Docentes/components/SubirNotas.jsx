@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 export const SubirNotas = () => {
   const num_empleado = localStorage.getItem("id");
-  const [id,setId] = useState(0)
+  const [id, setId] = useState(0);
 
   const [alumno, setAlumno] = useState([]);
   const [editar, setEditar] = useState(false);
@@ -12,11 +12,9 @@ export const SubirNotas = () => {
   const [notasTemporales, setNotasTemporales] = useState([]);
   const location = useLocation();
 
-
-
   useEffect(() => {
     if (location.state) {
-      const  data  = location.state;
+      const data = location.state;
       setId(data);
     }
   }, []);
@@ -48,7 +46,6 @@ export const SubirNotas = () => {
         const response = await fetch(`http://localhost:8081/clasealumno/${id}`);
         const jsonData = await response.json();
         setAlumno(jsonData);
-    
       } catch (error) {
         console.log("Error:", error);
       }
@@ -82,7 +79,6 @@ export const SubirNotas = () => {
     }
     setEditar(false);
   };
- 
 
   const guardarNotasEnBaseDeDatos = async (num_cuenta, nota) => {
     try {
@@ -114,27 +110,54 @@ export const SubirNotas = () => {
             <div className="d-flex justify-content-center my-3">
               {Clase && (
                 <>
-                  <h4>Clase: {Clase.nombre_clase}</h4>
-                  <p>Sección: {Clase.id_seccion}</p>
+                  <div className="col">
+                    <div className="d-flex justify-content-center my-3">
+                      <h4>Clase: {Clase.nombre_clase}</h4>
+                    </div>
+                    <div className="d-flex justify-content-center my-3">
+                      <h5>Sección: {Clase.id_seccion}</h5>
+                    </div>
+                  </div>
                 </>
               )}
             </div>
           </div>
-          <div className="row">
-            {/* Editar notas de los estudiantes */}
-            {!editar && (
-              <button className="btn btn-success m-1" onClick={handleEditar}>
-                Editar
-              </button>
-            )}
+          <div className="col">
+            <div className="row">
+              {/* Editar notas de los estudiantes */}
+              {!editar && (
+                <>
+                  <div className="d-flex justify-content-center">
+                    <button
+                      className="btn btn-w btn-success m-1"
+                      onClick={handleEditar}
+                    >
+                      Editar
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="col">
+            <div className="row">
+              {/* Guardar notas de los estudiantes */}
+              {editar && (
+                <>
+                  <div className="d-flex justify-content-center">
+                    <button
+                      className="btn btn-w btn-success m-1"
+                      onClick={handleGuardar}
+                    >
+                      Guardar
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
 
-            {/* Guardar notas de los estudiantes */}
-            {editar && (
-              <button className="btn btn-success m-1" onClick={handleGuardar}>
-                Guardar
-              </button>
-            )}
-
+          <div className="row my-3">
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
