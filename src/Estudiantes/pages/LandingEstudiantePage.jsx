@@ -14,6 +14,12 @@ export const LandingEstudiantePage = () => {
     navigate("../PagosPage");
   };
 
+   const onNavMatricular = () => {
+    navigate("../matricular");
+  };
+
+
+
   return (
     <>
       <div className="d-flex justify-content-center align-items-center flex-column">
@@ -33,6 +39,10 @@ export const LandingEstudiantePage = () => {
         <br />
         <button className="btn btn-primary" onClick={onNavPagosEstudiante}>
         Estado de cuenta
+        </button>
+        <br />
+        <button className="btn btn-primary" onClick={onNavMatricular}>
+        Matricula
         </button>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">
