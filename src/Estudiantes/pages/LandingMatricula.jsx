@@ -44,11 +44,11 @@ export const LandingMatricula = () => {
         <br />
         <h3>Bienvenido al apartado de matricula</h3>
         <br />
-        <button className="btn btn-primary" onClick={onNavMatricula}>
+        <button className="btn btn-w btn-primary" onClick={onNavMatricula}>
           Matricula
         </button>
         <br />
-        <button className="btn btn-primary" onClick={onNavCancelarClase}>
+        <button className="btn btn-w btn-primary" onClick={onNavCancelarClase}>
           Cancelar clases
         </button>
       </div>

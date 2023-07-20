@@ -29,19 +29,19 @@ export const LandingEstudiantePage = () => {
         <br />
         <h3>Bienvenido Estudiante</h3>
         <br />
-        <button className="btn btn-primary" onClick={onNavPerfilEstudiante}>
+        <button className="btn btn-w btn-primary" onClick={onNavPerfilEstudiante}>
           Perfil
         </button>
         <br />
-        <button className="btn btn-primary" onClick={onNavSolicitudEstudiante}>
+        <button className="btn btn-w btn-primary" onClick={onNavSolicitudEstudiante}>
           Solicitudes
         </button>
         <br />
-        <button className="btn btn-primary" onClick={onNavPagosEstudiante}>
+        <button className="btn btn-w btn-primary" onClick={onNavPagosEstudiante}>
         Estado de cuenta
         </button>
         <br />
-        <button className="btn btn-primary" onClick={onNavMatricular}>
+        <button className="btn btn-w btn-primary" onClick={onNavMatricular}>
         Matricula
         </button>
       </div>

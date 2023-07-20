@@ -55,7 +55,8 @@ export const ProcesoSubidaNotasPage = () => {
                         <ProcesoSubidaNotas
                             onCrear={handleCrearProceso} />
                     </div>
-                    <div className="col-4 my-3">
+                    <div className="col-4 my-2">
+                        <br />
                         <br />
                         <br /><h3 >Subida de notas anteriores</h3>
                         {data.slice(-3).reverse().map((dat) => (
