@@ -9,4 +9,24 @@ const fetchClase = async (num) => {
   }
 };
 
-export default { fetchClase };
+function verificarFecha(fechaInicio, fechaFin, fechaEntrada) {
+  // const fechaInicioObj = parsearFecha(fechaInicio);
+  // const fechaFinObj = parsearFecha(fechaFin);
+  // const fechaEntradaObj = parsearFecha(fechaEntrada);
+
+  // return fechaEntradaObj >= fechaInicioObj && fechaEntradaObj <= fechaFinObj;
+}
+
+
+function parsearFecha(fecha) {
+  const fechaFormateada = fecha.split('T')[0];
+  const partes = fechaFormateada.split('-');
+  const año = parseInt(partes[0], 10);
+  const mes = parseInt(partes[1], 10) - 1; 
+  const dia = parseInt(partes[2], 10);
+
+  return new Date(año, mes, dia);
+}
+
+export { fetchClase, verificarFecha};
+
