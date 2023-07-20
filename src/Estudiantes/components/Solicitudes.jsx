@@ -53,7 +53,7 @@ export const Solicitudes = () => {
     fetchCentro();
     fetchCarreras();
   }, [num_cuenta]);
-  
+ 
   const handleOpcionChange = (event) => {
     const opcionSeleccionadaNombre = event.target.options[event.target.selectedIndex].text;
     const selectedOptionValue = event.target.value;

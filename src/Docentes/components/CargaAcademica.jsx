@@ -8,6 +8,16 @@ export const CargaAcademica = () => {
   const num_empleado = localStorage.getItem("id");
   const [docente, setDocente] = useState({});
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
+  const [opcionActual, setOpcionActual] = useState(''); // Nueva variable de estado para el año actual
+  const [opciones, setOpciones] = useState([]);
+
+
+
+  const handleYearChange = (event) => {
+    const selectedYear = event.target.value;
+    setOpcionActual(selectedYear); 
+    console.log("Año seleccionado:", selectedYear);
+  };
 
 
   const handleOpcionChange = (event) => {
@@ -16,7 +26,32 @@ export const CargaAcademica = () => {
 
   };
 
+ 
+useEffect(() => {
+    const getCurrentYear = () => {
+      return new Date().getFullYear();
+    };
 
+    const generateYearOptions = () => {
+      const currentYear = getCurrentYear();
+      const years = [currentYear, currentYear - 1, currentYear - 2, currentYear - 3];
+      const options = years.map((year) => (
+        <option key={year} value={year}>
+          {year}
+        </option>
+      ));
+      setOpciones(options);
+    };
+
+    generateYearOptions();
+  }, []);
+  
+  const formatToDateTime = (year) => {
+    return `${year}-01-01`;
+  }; 
+
+  const formattedDateTime = formatToDateTime(opcionActual);
+  console.log(formattedDateTime)
 
   useEffect(() => {
     obtenerDocente();
@@ -42,12 +77,13 @@ export const CargaAcademica = () => {
     if (docente.centro_id && docente.carrera_id) {
       obtenerCarga(docente.carrera_id, docente.centro_id);
     }
-  }, [docente,opcionSeleccionada]);
+  }, [docente,opcionSeleccionada,opciones]);
 
   async function obtenerCarga(carreraId, centroId) { 
     try {
       const response = await fetch(
-        `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/${opcionSeleccionada}`
+       // `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/${opciones}/${opcionSeleccionada}`
+       `http://localhost:8081/consulta-secciones/14/10/2023/I-PAC`
       );
       const jsonData = await response.json();
       setVerCarga(jsonData);
@@ -91,17 +127,31 @@ export const CargaAcademica = () => {
             <div className="d-flex my-3 justify-content-center">
               <h3>Carga Académica</h3>
             </div>
+            
             <div className="row">
+              
               <div className="col-3 d-flex my-3 justify-content-start">
                 <select className="form-control btn-w3" name="" id="opcion"
                         value={opcionSeleccionada}
                         onChange={handleOpcionChange}
                       >
                         <option value="">Periodo Académico</option>
-                  <option value="1">I PAC</option>
-                  <option value="2">II PAC</option>
-                  <option value="3">III PAC</option>
+                  <option value="I-PAC">I PAC</option>
+                  <option value="II-PAC">II PAC</option>
+                  <option value="III-PAC">III PAC</option>
                 </select>
+              </div>
+              <div className="col-3 d-flex my-3 justify-content-start">
+              <select
+                className="form-control btn-w3"
+                name=""
+                id="opcion"
+                value={opcionActual} 
+                onChange={handleYearChange} 
+              >
+                <option value="">Año</option>
+                {opciones}
+              </select>
               </div>
               <div className="col-9 d-flex my-3 justify-content-end">
                 <button
