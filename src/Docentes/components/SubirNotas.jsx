@@ -1,15 +1,25 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export const SubirNotas = () => {
   const num_empleado = localStorage.getItem("id");
-  const { id } = useParams();
+  const [id,setId] = useState(0)
+
   const [alumno, setAlumno] = useState([]);
   const [editar, setEditar] = useState(false);
   const [clases, setClases] = useState([]);
   const [Clase, setClase] = useState(null);
   const [notasTemporales, setNotasTemporales] = useState([]);
+  const location = useLocation();
 
+
+
+  useEffect(() => {
+    if (location.state) {
+      const  data  = location.state;
+      setId(data);
+    }
+  }, []);
   // Obtener datos de la clase, enviando el id del docente
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -38,6 +48,7 @@ export const SubirNotas = () => {
         const response = await fetch(`http://localhost:8081/clasealumno/${id}`);
         const jsonData = await response.json();
         setAlumno(jsonData);
+    
       } catch (error) {
         console.log("Error:", error);
       }
@@ -71,14 +82,15 @@ export const SubirNotas = () => {
     }
     setEditar(false);
   };
+ 
 
   const guardarNotasEnBaseDeDatos = async (num_cuenta, nota) => {
     try {
-      const url = `http://localhost:8081/notaEstudiante/nota/${num_cuenta}`;
+      const url = `http://localhost:8081/clase-pasada-nota/${id}/${num_cuenta}`;
+      // const url = "http://localhost:8081/clase-pasada-nota/2/20231022"
       const data = { nota: nota };
-
       const response = await fetch(url, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

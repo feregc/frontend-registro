@@ -9,6 +9,8 @@ import { PagosPage } from "../pages/PagosPage";
 import { MatriculaPage } from "../pages/MatriculaPage";
 import { LandingMatricula } from "../pages/LandingMatricula";
 import { CancelarPage } from "../pages/CancelarPage";
+import { VerCalificacionesPage } from "../pages/VerCalificacionesPage";
+import { EvaluarDocente } from "../components/EvaluarDocente";
 
 export const EstudianteRoutes = () => {
   return (
@@ -17,6 +19,9 @@ export const EstudianteRoutes = () => {
       <Routes>
         <Route path="/home" element={<LandingEstudiantePage />} />
         <Route path="/PerfilEstudiante" element={<PerfilEstudiantePage />} />
+
+        <Route path="/ver-calificaciones" element={<VerCalificacionesPage/>} />
+        <Route path="/evaluar-docente" element={<EvaluarDocente/>} />
         <Route
           path="/EditarPerfilEstudiante"
           element={<EditarPerfilEstudiantePage />}
