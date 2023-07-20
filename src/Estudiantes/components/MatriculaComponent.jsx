@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { convertirFecha } from '../helpers/convertirFecha';
+import React, { useState, useEffect } from "react";
+import { convertirFecha } from "../helpers/convertirFecha";
 
 const MatriculaComponent = () => {
   const [departamentos, setDepartamentos] = useState([]);
   const [clasesDepartamento, setClasesDepartamento] = useState([]);
   const [seccionesClase, setSeccionesClase] = useState([]);
-  const [selectedDepartamento, setSelectedDepartamento] = useState('');
-  const [selectedClase, setSelectedClase] = useState('');
+  const [selectedDepartamento, setSelectedDepartamento] = useState("");
+  const [selectedClase, setSelectedClase] = useState("");
   const [datosClases, setDatosClases] = useState([]);
   const [requisitosCumplidos, setRequisitosCumplidos] = useState(false);
-  const [verificarRequisitosResult, setVerificarRequisitosResult] = useState('');
-  const [backendMessage, setBackendMessage] = useState('');
+  const [verificarRequisitosResult, setVerificarRequisitosResult] =
+    useState("");
+  const [backendMessage, setBackendMessage] = useState("");
 
-  const id = localStorage.getItem('id');
+  const id = localStorage.getItem("id");
 
   const [data, setData] = useState([]);
 
@@ -20,43 +21,48 @@ const MatriculaComponent = () => {
     // Función para obtener los datos del endpoint
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:8081/proceso-anio-periodo');
+        const response = await fetch(
+          "http://localhost:8081/proceso-anio-periodo"
+        );
         if (!response.ok) {
-          throw new Error('Error al obtener los datos');
+          throw new Error("Error al obtener los datos");
         }
         const jsonData = await response.json();
         // console.log(jsonData);
         setData(jsonData);
       } catch (error) {
-        console.error('Error al obtener los datos:', error);
+        console.error("Error al obtener los datos:", error);
       }
     };
     fetchData();
   }, []);
 
-  const fecha = convertirFecha(data[0]?.anio)
-  
+  const fecha = convertirFecha(data[0]?.anio);
 
   useEffect(() => {
     // Realizar la solicitud HTTP al endpoint
     fetch(`http://localhost:8081/clasesFaltantesEstudiante/${id}`)
-      .then(response => response.json())
-      .then(data => setDatosClases(data))
-      .catch(error => {
-        console.error('Error al obtener las clases del estudiante:', error);
+      .then((response) => response.json())
+      .then((data) => setDatosClases(data))
+      .catch((error) => {
+        console.error("Error al obtener las clases del estudiante:", error);
       });
   }, []);
 
   useEffect(() => {
-    const carrerasUnicas = [...new Set(datosClases.map(clase => clase.nombre_carrera))];
+    const carrerasUnicas = [
+      ...new Set(datosClases.map((clase) => clase.nombre_carrera)),
+    ];
     setDepartamentos(carrerasUnicas);
   }, [datosClases]);
 
   const handleDepartamentoClick = (departamento) => {
-    const clases = datosClases.filter((clase) => clase.nombre_carrera === departamento);
+    const clases = datosClases.filter(
+      (clase) => clase.nombre_carrera === departamento
+    );
     setClasesDepartamento(clases);
     setSelectedDepartamento(departamento);
-    setSelectedClase('');
+    setSelectedClase("");
     setSeccionesClase([]);
   };
 
@@ -67,17 +73,29 @@ const MatriculaComponent = () => {
   };
 
   const handleSeccionClick = (idSeccion) => {
-    const seccion = seccionesClase.find((seccion) => seccion.id_seccion === idSeccion);
+    const seccion = seccionesClase.find(
+      (seccion) => seccion.id_seccion === idSeccion
+    );
     if (seccion) {
-      fetch(`http://localhost:8081/verificar-horario/${idSeccion}/${id}/${fecha}/${data[0]?.periodo}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.resultado === 'El estudiante no tiene otra clase matriculada a la misma hora') {
-            fetch(`http://localhost:8081/verificar-requisitos/${seccion.id_clase}`)
-              .then(response => response.json())
-              .then(data => {
+      fetch(
+        `http://localhost:8081/verificar-horario/${idSeccion}/${id}/${fecha}/${data[0]?.periodo}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (
+            data.resultado ===
+            "El estudiante no tiene otra clase matriculada a la misma hora"
+          ) {
+            fetch(
+              `http://localhost:8081/verificar-requisitos/${seccion.id_clase}`
+            )
+              .then((response) => response.json())
+              .then((data) => {
                 setVerificarRequisitosResult(data.resultado);
-                if (data.resultado === 'El estudiante cumple con los requisitos para la clase solicitada') {
+                if (
+                  data.resultado ===
+                  "El estudiante cumple con los requisitos para la clase solicitada"
+                ) {
                   setRequisitosCumplidos(true);
                   setBackendMessage(data.resultado);
                 } else {
@@ -85,58 +103,64 @@ const MatriculaComponent = () => {
                   setBackendMessage(data.resultado);
                 }
               })
-              .catch(error => {
-                console.error('Error al verificar los requisitos:', error);
+              .catch((error) => {
+                console.error("Error al verificar los requisitos:", error);
               });
           } else {
             setBackendMessage(data.resultado);
             setRequisitosCumplidos(false);
           }
         })
-        .catch(error => {
-          console.error('Error al verificar el horario:', error);
+        .catch((error) => {
+          console.error("Error al verificar el horario:", error);
           setRequisitosCumplidos(false);
         });
     }
   };
 
   const handleMatriculaClick = () => {
-
-    const claseSeleccionada = clasesDepartamento.find((clase) => clase.nombre_clase === selectedClase);
+    const claseSeleccionada = clasesDepartamento.find(
+      (clase) => clase.nombre_clase === selectedClase
+    );
     if (claseSeleccionada) {
       const idClase = claseSeleccionada.id_clase;
       fetch(`http://localhost:8081/insertMatricula`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           num_cuenta: id,
-          idSeccion: idClase
-        })
+          idSeccion: idClase,
+        }),
       })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Resultado de matriculaSeccion:', data.message);
-          alert('matriculado con exito')
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("Resultado de matriculaSeccion:", data.message);
+          alert("matriculado con exito");
           //navegar hasta la pagina anterior
         })
-        .catch(error => {
-          console.error('Error al ejecutar matriculaSeccion:', error);
+        .catch((error) => {
+          console.error("Error al ejecutar matriculaSeccion:", error);
         });
     }
   };
 
   const renderDepartamentos = () => {
     return departamentos.map((departamento) => (
-      <div key={departamento} onClick={() => handleDepartamentoClick(departamento)}>
+      <div
+        key={departamento}
+        onClick={() => handleDepartamentoClick(departamento)}
+      >
         {departamento}
       </div>
     ));
   };
 
   const renderClases = () => {
-    const uniqueClases = Array.from(new Set(clasesDepartamento.map(clase => clase.nombre_clase)));
+    const uniqueClases = Array.from(
+      new Set(clasesDepartamento.map((clase) => clase.nombre_clase))
+    );
 
     return uniqueClases.map((clase) => (
       <div key={clase} onClick={() => handleClaseClick(clase)}>
@@ -147,46 +171,78 @@ const MatriculaComponent = () => {
 
   const renderSecciones = () => {
     return seccionesClase.map((seccion) => (
-      <div key={seccion.id_seccion} onClick={() => handleSeccionClick(seccion.id_seccion)}>
+      <div
+        key={seccion.id_seccion}
+        onClick={() => handleSeccionClick(seccion.id_seccion)}
+      >
         <div>Sección: {seccion.id_seccion}</div>
-        <div>Docente: {seccion.nombres} {seccion.apellidos}</div>
-        <div>Hora: {seccion.horainicio} - {seccion.horafin}</div>
+        <div>
+          Docente: {seccion.nombres} {seccion.apellidos}
+        </div>
+        <div>
+          Hora: {seccion.horainicio} - {seccion.horafin}
+        </div>
       </div>
     ));
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex' }}>
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <div>DEPARTAMENTOS</div>
-          {renderDepartamentos()}
-        </div>
-        <div style={{ flex: 1, marginRight: '10px' }}>
-          <div>CLASE</div>
-          {selectedDepartamento && (
-            <div>{renderClases()}</div>
-          )}
-        </div>
-        <div style={{ flex: 1 }}>
-          <div>SECCIONES</div>
-          {selectedClase && (
-            <div>{renderSecciones()}</div>
-          )}
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <div className="d-flex justify-content-center">
+              <div className="row my-2">
+                <h3>Matricula</h3>
+              </div>
+            </div>
+              <div className="row ">
+                <div className="col-4">
+                  <div>
+                    <div className="bg-primary-primary">DEPARTAMENTOS</div>
+                    {renderDepartamentos()}
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div>
+                    <div className="bg-primary-primary">CLASE</div>
+                    {selectedDepartamento && <div>{renderClases()}</div>}
+                  </div>
+                </div>
+                <div className="col-4">
+                  <div>
+                    <div className="bg-primary-primary">SECCIONES</div>
+                    {selectedClase && <div>{renderSecciones()}</div>}
+                  </div>
+                </div>
+              </div>
+
+            {/* Tarjeta para mostrar el mensaje del backend */}
+            {backendMessage && (
+              <div
+                className={`alert alert-${
+                  backendMessage ===
+                  "El estudiante cumple con los requisitos para la clase solicitada"
+                    ? "success"
+                    : "danger"
+                }`}
+                role="alert"
+              >
+                {backendMessage}
+              </div>
+            )}
+
+            <button
+              className="btn btn-wbtn-primary"
+              onClick={handleMatriculaClick}
+              disabled={!requisitosCumplidos}
+            >
+              Matricular
+            </button>
+          </div>
         </div>
       </div>
-
-      {/* Tarjeta para mostrar el mensaje del backend */}
-      {backendMessage && (
-        <div className={`alert alert-${backendMessage === 'El estudiante cumple con los requisitos para la clase solicitada' ? 'success' : 'danger'}`} role="alert">
-          {backendMessage}
-        </div>
-      )}
-
-      <button onClick={handleMatriculaClick} disabled={!requisitosCumplidos}>
-        Matricular
-      </button>
-    </div>
+    </>
   );
 };
 
