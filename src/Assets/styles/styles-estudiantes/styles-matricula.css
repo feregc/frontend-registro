@@ -1,0 +1,14 @@
+.selected {
+  background-color: #006494;
+  color: #fff;
+}
+
+.selected:hover{
+  background-color: #006494;
+  color: #fff;
+}
+
+.bg-t{
+  background-color: #006494 !important;
+  color: #fff !important;
+}
