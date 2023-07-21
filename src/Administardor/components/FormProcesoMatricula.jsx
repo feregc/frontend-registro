@@ -203,7 +203,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.anio && (
-                <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                   {errors.anio}
                 </div>
               )}
@@ -228,7 +228,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   <option value="III-PAC">III-PAC</option>
                 </select>
                 {errors.periodo && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.periodo}
                   </div>
                 )}
@@ -252,7 +252,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.horainicio && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.horainicio}
                   </div>
                 )}
@@ -276,7 +276,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.horafin && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.horafin}
                   </div>
                 )}
@@ -303,7 +303,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleRestriccion1Change}
                 />
                 {errors.indiceI && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.indiceI}
                   </div>
                 )}
@@ -326,7 +326,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioI && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.fechainicioI}
                   </div>
                 )}
@@ -349,7 +349,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleRestriccion2Change}
                 />
                 {errors.indiceII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.indiceII}
                   </div>
                 )}
@@ -372,7 +372,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.fechainicioII}
                   </div>
                 )}
@@ -395,7 +395,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleRestriccion3Change}
                 />
                 {errors.indiceIII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.indiceIII}
                   </div>
                 )}
@@ -418,7 +418,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioIII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.fechainicioIII}
                   </div>
                 )}
@@ -441,7 +441,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   onChange={handleRestriccion4Change}
                 />
                 {errors.indiceIIII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.indiceIIII}
                   </div>
                 )}
@@ -464,7 +464,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioIIII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.fechainicioIIII}
                   </div>
                 )}
@@ -488,7 +488,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
 
                 />
                 {errors.indiceIIIII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.indiceIIIII}
                   </div>
                 )}
@@ -511,7 +511,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioIIIII && (
-                  <div className="alert col-6 alert-danger py-1 my-2" role="alert">
+                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
                     {errors.fechainicioIIIII}
                   </div>
                 )}

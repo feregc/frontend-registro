@@ -40,48 +40,78 @@ export const RecuperacionDocentePage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div className="mt-6 d-flex flex-column align-items-center bg-primary">
-          <h3 className="mt-6">Docentes disponibles</h3>
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <form onSubmit={handleSubmit}>
+              <div className="my-3 d-flex justify-content-center bg-primary">
+                <h3 className="my-3">Docentes disponibles</h3>
+              </div>
+              <div className="my-3 d-flex justify-content-center bg-primary">
+                <label htmlFor="">Ingrese el correo del docente a buscar</label>
+              </div>
+              <div className="my-3 d-flex justify-content-center bg-primary">
+                <input
+                  type="text"
+                  className="form-control w-50"
+                  placeholder="Ingrese el correo del docente"
+                  value={correoDocente}
+                  onChange={(e) => setCorreoDocente(e.target.value)}
+                />
+              </div>
+              <div className="my-3 d-flex justify-content-center">
+                <button className="btn btn-w btn-primary" type="submit">
+                  Buscar
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-        <div className="mt-6 d-flex flex-column align-items-center bg-primary">
-          <label htmlFor="">Ingrese el correo del docente a buscar</label>
-        </div>
-        <div className="mt-6 d-flex flex-column align-items-center bg-primary">
-          <input
-            type="text"
-            placeholder="Ingrese el correo del docente"
-            value={correoDocente}
-            onChange={(e) => setCorreoDocente(e.target.value)}
-          />
-        </div>
-        <button type="submit">Buscar</button>
-      </form>
+      </div>
 
       {formularioEnviado && (
         <>
           {docentesSeleccionado && Array.isArray(docentesSeleccionado) ? (
             <>
-              <br /><br />
-              <div className="mt-6 d-flex flex-column align-items-center bg-primary ">
-                <h3 className="mt-6">Docentes Encontrados</h3>
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                      <br />
+                    <div className="my-6 d-flex justify-content-center bg-primary ">
+                      <h3 className="my-6">Docentes Encontrados</h3>
+                    </div>
+                    <div className="my-6 d-flex align-items-center">
+                      <div className="container">
+                        <ul id="card-doc" className="row">
+                          {docentesSeleccionado.map((docente) => (
+                            <DocenteCard
+                              key={docente.num_empleado}
+                              docente={docente}
+                            />
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <br />
-              <div className="container">
-                <ul id="card-doc" className="row">
-                  {docentesSeleccionado.map((docente) => (
-                    <DocenteCard
-                      key={docente.num_empleado}
-                      docente={docente}
-                    />
-                  ))}
-                </ul>
-              </div>
+              <br />
             </>
           ) : (
-            <div className="alert alert-warning" role="alert">
-              Docente no encontrado
-            </div>
+            <>
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                    <div className="d-flex justify-content-center">
+                      <div className="alert alert-warning" role="alert">
+                        Docente no encontrado
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
           )}
         </>
       )}
