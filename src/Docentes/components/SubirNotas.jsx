@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 export const SubirNotas = () => {
   const num_empleado = localStorage.getItem("id");
-  const [id, setId] = useState(0);
+  // const [id, setId] = useState(0);
 
   const [alumno, setAlumno] = useState([]);
   const [editar, setEditar] = useState(false);
@@ -11,13 +11,8 @@ export const SubirNotas = () => {
   const [Clase, setClase] = useState(null);
   const [notasTemporales, setNotasTemporales] = useState([]);
   const location = useLocation();
-
-  useEffect(() => {
-    if (location.state) {
-      const data = location.state;
-      setId(data);
-    }
-  }, []);
+  const id = location.state;
+  ;
   // Obtener datos de la clase, enviando el id del docente
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -38,20 +33,22 @@ export const SubirNotas = () => {
       const buscar = clases.find((clase) => clase.id_clase === parseInt(id));
       setClase(buscar || null);
     }
-  }, [clases, id]);
+  }, [clases]);
   //Traer lista de alumnos de la BD
   useEffect(() => {
     const fetchclase = async () => {
       try {
+
         const response = await fetch(`http://localhost:8081/clasealumno/${id}`);
         const jsonData = await response.json();
-        setAlumno(jsonData);
+        setAlumno(jsonData)
+        console.log(jsonData)
       } catch (error) {
         console.log("Error:", error);
       }
     };
     fetchclase();
-  }, [id, editar]);
+  }, [editar]);
   //registrar notas de cada input vinculado al num_cunenta de cada estudiante
   const numeroDeEntrada = (event, num_cuenta) => {
     const input = event.target.value;
@@ -168,9 +165,8 @@ export const SubirNotas = () => {
                 </tr>
               </thead>
               <tbody>
-                {alumno &&
-                  alumno.length > 0 &&
-                  alumno.map((dato, index) => (
+                {
+                  alumno?.map((dato, index) => (
                     <tr key={index}>
                       <th>
                         <img

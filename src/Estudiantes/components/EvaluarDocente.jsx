@@ -77,9 +77,8 @@ export const EvaluarDocente = () => {
       comentarioIIIII: `${respuestas[4]}`,
       comentarioIIIIII: `${respuestas[5]}`,
     };
-
     if (validarFormulario(respuestaData)) {
-      console.log(validarFormulario(respuestaData));
+     
       fetch("http://localhost:8081/comentarios-insertar", {
         method: "POST",
         headers: {

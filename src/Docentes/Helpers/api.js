@@ -10,11 +10,11 @@ const fetchClase = async (num) => {
 };
 
 function verificarFecha(fechaInicio, fechaFin, fechaEntrada) {
-  // const fechaInicioObj = parsearFecha(fechaInicio);
-  // const fechaFinObj = parsearFecha(fechaFin);
-  // const fechaEntradaObj = parsearFecha(fechaEntrada);
+  const fechaInicioObj = parsearFecha(fechaInicio);
+  const fechaFinObj = parsearFecha(fechaFin);
+  const fechaEntradaObj = parsearFecha(fechaEntrada);
 
-  // return fechaEntradaObj >= fechaInicioObj && fechaEntradaObj <= fechaFinObj;
+  return fechaEntradaObj >= fechaInicioObj && fechaEntradaObj <= fechaFinObj;
 }
 
 
