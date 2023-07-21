@@ -1,27 +1,30 @@
-import "../../Assets/styles/styles-landing/Landin-styles.css";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 export const PagosPage = () => {
+  
+  const num_cuenta = localStorage.getItem("id");
+
   const [pagos, setPagos] = useState({
     matricula: true,
-    laboratorio: false,
     reposicion: false,
   });
 
   const precios = {
     matricula: 270,
-
     reposicion: 100,
   };
 
+  
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
-    setPagos((prevPagos) => ({ ...prevPagos, [name]: checked }));
+    setPagos((prevPagos) => ({
+      ...prevPagos,
+      [name]: checked,
+    }));
   };
-
+  
   const calcularTotal = () => {
-    let total = 0;
+    let total = 270;
     Object.keys(pagos).forEach((pago) => {
       if (pagos[pago]) {
         total += precios[pago];
@@ -29,8 +32,18 @@ export const PagosPage = () => {
     });
     return total;
   };
-
-  const deshabilitarCheckbox = (opcion) => {};
+  
+  // Effect para obtener el estado del pago de reposición desde el servidor
+  useEffect(() => {
+    fetch(`http://localhost:8081/PagoReposicion/${num_cuenta}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setPagos({ reposicion: data.Pago_reposolicitud });
+      })
+      .catch((error) => {
+        console.error('Error al obtener el estado del pago de reposición:', error);
+      });
+  }, [num_cuenta]);
 
   return (
     <>
@@ -49,7 +62,7 @@ export const PagosPage = () => {
                     name="matricula"
                     checked={pagos.matricula}
                     onChange={handleCheckboxChange}
-                    disabled={precios.matricula}
+                    disabled={true}
                   />
                   Pago de Matrícula - L.{precios.matricula}
                 </label>
@@ -63,7 +76,7 @@ export const PagosPage = () => {
                     name="reposicion"
                     checked={pagos.reposicion}
                     onChange={handleCheckboxChange}
-                    disabled={!pagos.reposicion}
+                    disabled={true}
                   />
                   Pago de Reposición - L.{precios.reposicion}
                 </label>

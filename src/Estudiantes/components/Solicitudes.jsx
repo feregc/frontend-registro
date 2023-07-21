@@ -48,7 +48,7 @@ export const Solicitudes = () => {
         console.log("Error:", error);
       }
     };
-  
+    fetchCarreras();
     fetchEstudiante();
     fetchCentro();
   }, [num_cuenta]);
@@ -64,7 +64,7 @@ export const Solicitudes = () => {
     const selectedOption2Text = event.target.options[event.target.selectedIndex].text;
     const selectedOption2Value = event.target.value;
     setOpcionSeleccionada2(selectedOption2Value);
-    setOpcionSeleccionada2(selectedOption2Text);
+    opcionSeleccionadaNombre(selectedOption2Text);
   };
 
   const handleDescripcionChange = (event) => {
