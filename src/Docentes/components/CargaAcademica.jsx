@@ -23,6 +23,7 @@ export const CargaAcademica = () => {
   const handleOpcionChange = (event) => {
     const selectedOptionValue = event.target.value;
     setOpcionSeleccionada(selectedOptionValue);
+    console.log("Periodo:", selectedOptionValue);
 
   };
 
@@ -46,12 +47,7 @@ useEffect(() => {
     generateYearOptions();
   }, []);
   
-  const formatToDateTime = (year) => {
-    return `${year}-01-01`;
-  }; 
 
-  const formattedDateTime = formatToDateTime(opcionActual);
-  console.log(formattedDateTime)
 
   useEffect(() => {
     obtenerDocente();
@@ -77,13 +73,14 @@ useEffect(() => {
     if (docente.centro_id && docente.carrera_id) {
       obtenerCarga(docente.carrera_id, docente.centro_id);
     }
-  }, [docente,opcionSeleccionada,opciones]);
+  }, [docente,opcionActual, opcionSeleccionada]);
 
-  async function obtenerCarga(carreraId, centroId) { 
+
+  async function obtenerCarga(carreraId, centroId) {
+    console.log(carreraId, centroId, opcionActual, opcionSeleccionada);
     try {
       const response = await fetch(
-       // `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/${opciones}/${opcionSeleccionada}`
-       `http://localhost:8081/consulta-secciones/14/10/2023/I-PAC`
+        `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/${opcionActual}/${opcionSeleccionada}`
       );
       const jsonData = await response.json();
       setVerCarga(jsonData);
@@ -92,6 +89,7 @@ useEffect(() => {
       console.log("Error:", error);
     }
   }
+  
   
   const generarPDF = () => {
     const doc = new jsPDF();
@@ -191,7 +189,7 @@ useEffect(() => {
                   {verCarga.map((seccion) => (
                     <tr key={seccion.id_seccion}>
                       <td>{seccion.id_seccion} </td>
-                      <td>{seccion.id_clase} </td>
+                      <td>{seccion.codigo_clase} </td>
                       <td>{seccion.nombre_clase} </td>
                       <td>{seccion.num_empleado} </td>
                       <td>{seccion.nombre_empleado} </td>
