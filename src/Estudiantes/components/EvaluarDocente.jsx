@@ -6,16 +6,11 @@ export const EvaluarDocente = () => {
   const [respuestas, setRespuestas] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const [dataGenral, setDataGeneral] = useState([]);
-  const num_cuenta = localStorage.getItem("id");
 
+  const num_cuenta = localStorage.getItem("id");
+  const { data } = location.state;
   // Datos de clase y docente
-  useEffect(() => {
-    if (location.state) {
-      const { data } = location.state;
-      setDataGeneral(data);
-    }
-  }, []);
+ 
   // ---------------------
 
   const handleOpciones = (index, value) => {
@@ -67,8 +62,8 @@ export const EvaluarDocente = () => {
 
   const enviarRespuesta = () => {
     const respuestaData = {
-      id_seccion: dataGenral[0].id_seccion,
-      num_empleado: dataGenral[0].num_empleado,
+      id_seccion: data.id_seccion,
+      num_empleado: data.num_empleado,
       num_cuenta: num_cuenta,
       comentarioI: `${respuestas[0]}`,
       comentarioII: `${respuestas[1]}`,

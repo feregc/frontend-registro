@@ -57,8 +57,8 @@ export const VerCalificaciones = () => {
 
   const navigate = useNavigate();
 
-  const evaluar = () => {
-    navigate("../evaluar-docente", { state: { data: clases } });
+  const evaluar = (clase) => {
+    navigate("../evaluar-docente", { state: { data: clase } });
   };
 
   return (
@@ -98,7 +98,7 @@ export const VerCalificaciones = () => {
                           <button
                             className="btn btn-success btn-w"
                             disabled={dato.evaluado == 1}
-                            onClick={evaluar}
+                            onClick={()=>evaluar(dato)}
                           >
                             Evaluar docente
                           </button>
