@@ -34,7 +34,7 @@ export const LandingDocente = () => {
               clases.length > 0 &&
               clases.map((dato, index) => (
                 <Link to={`../detalle-de-clase/${dato.id_clase}`} key={index}>
-                  <button className="btn btn-w btn-success">{dato.nombre_clase}</button>
+                  <button className="btn btn-w mx-2 btn-success">{dato.nombre_clase}</button>
                 </Link>
               ))}
           </div>

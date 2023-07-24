@@ -153,9 +153,9 @@ export const DetalleClase = () => {
               </button>
             </div>
             <div className="col-6 my-3 d-flex justify-content-center">
-              {/* disabled={fechaSubirNota} */}
               <button
-                disabled={false}
+              disabled={fechaSubirNota}
+                // disabled={false}
                 onClick={irAsubirNota}
                 className="btn btn-w2 btn-success m-1"
               >

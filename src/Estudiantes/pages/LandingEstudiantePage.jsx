@@ -46,7 +46,7 @@ export const LandingEstudiantePage = () => {
 
         <br />
         <button className="btn btn-w btn-primary" onClick={onNavCalificaciones}>
-          Ver calificacions de periodo
+          Ver calificaciones de periodo
         </button>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">

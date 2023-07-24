@@ -88,28 +88,72 @@ export const CargaAcademica = () => {
   }
 
   const generarPDF = () => {
+    // Crear un nuevo documento PDF
     const doc = new jsPDF();
-    doc.autoTable({ html: "#cargaAcademicaId" });
 
+    // Configurar la tabla con los datos
+    const tableData = verCarga.map((carga) => [
+      carga.id_seccion,
+      carga.codigo_clase,
+      carga.nombre_clase,
+      carga.num_empleado,
+      carga.nombre_empleado,
+      carga.cupos,
+      carga.nombre_edificio,
+      carga.num_aula,
+    ]);
+
+    // Agregar el encabezado de la tabla
+    const headers = [
+      "Sección",
+      "Cod. Asignatura",
+      "Asignatura",
+      "No. Docente",
+      "Docente",
+      "Cupos Habilitados",
+      "Edificio",
+      "Aula",
+    ];
+
+    // Agregar la tabla al documento PDF
+    doc.autoTable({
+      head: [headers],
+      body: tableData,
+    });
     doc.save("CargaAcademinca.pdf");
     console.log("si se imprime");
   };
 
   const generarExcel = () => {
-    const wb = XLSX.utils.table_to_book(
-      document.getElementById("cargaAcademicaId")
-    );
-    const wbout = XLSX.write(wb, { bookType: "xlsx", type: "array" });
-    const blob = new Blob([wbout], { type: "application/octet-stream" });
+    const rows = verCarga.map((carga) => ({
+      seccion: carga.id_seccion,
+      codigoClase: carga.codigo_clase,
+      nombreClase: carga.nombre_clase,
+      numEmpleado: carga.num_empleado,
+      empleado: carga.nombre_empleado,
+      cupos: carga.cupos,
+      edificio: carga.nombre_edificio,
+      aula: carga.num_aula,
+    }));
 
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "tabla.xlsx";
-    a.click();
-
-    // Liberar recursos
-    URL.revokeObjectURL(url);
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(rows);
+    XLSX.utils.book_append_sheet(workbook, worksheet, "CargaAcademica");
+    XLSX.utils.sheet_add_aoa(worksheet, [
+      [
+        "Sección",
+        "Cod. Asignatura",
+        "Asignatura",
+        "No. Docente",
+        "Docente",
+        "Cupos Habilitados",
+        "Edificio",
+        "Aula",
+      ], //Agrega correo
+    ]);
+    XLSX.writeFile(workbook, `CargaAcademica.xlsx`, {
+      compression: true,
+    });
   };
 
   return (
@@ -155,14 +199,14 @@ export const CargaAcademica = () => {
                   type="button"
                   onClick={generarPDF}
                 >
-                  Descargar como archivo PDF
+                  Descargar PDF
                 </button>
                 <button
                   className="btn btn-w3 mx-2 btn-primary control-form"
                   type="button"
                   onClick={generarExcel}
                 >
-                  Descargar como archivo Excel
+                  Descargar Excel
                 </button>
               </div>
             </div>
@@ -178,7 +222,6 @@ export const CargaAcademica = () => {
                   <th scope="col">Asignatura</th>
                   <th scope="col">No. Docente</th>
                   <th scope="col">Docente</th>
-                  <th scope="col">Cant. Estudiantes</th>
                   <th scope="col">Cupos Habilitados</th>
                   <th scope="col">Edificio</th>
                   <th scope="col">Aula</th>
@@ -191,7 +234,6 @@ export const CargaAcademica = () => {
                       <td>{seccion.nombre_clase} </td>
                       <td>{seccion.num_empleado} </td>
                       <td>{seccion.nombre_empleado} </td>
-                      <td>{seccion.cant_estudiantes} </td>
                       <td>{seccion.cupos} </td>
                       <td>{seccion.nombre_edificio} </td>
                       <td>{seccion.num_aula} </td>
