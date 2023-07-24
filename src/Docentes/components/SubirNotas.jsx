@@ -159,8 +159,8 @@ export const SubirNotas = () => {
               <thead>
                 <tr>
                   <th scope="col">Foto</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
+                  <th scope="col">Nombres</th>
+                  <th scope="col">Apellidos</th>
                   <th scope="col">Nota</th>
                 </tr>
               </thead>
@@ -168,7 +168,7 @@ export const SubirNotas = () => {
                 {
                   alumno?.map((dato, index) => (
                     <tr key={index}>
-                      <th>
+                      <th scope="row">
                         <img
                           style={{
                             width: "20px",
@@ -181,10 +181,10 @@ export const SubirNotas = () => {
                       </th>
                       <th scope="row">{dato.primer_nombre}</th>
                       <th scope="row">{dato.primer_apellido}</th>
-                      <th>
+                      <th scope="row">
                         {editar ? (
                           <input
-                            className="form-control"
+                            className="form-control btn-w2"
                             type="text"
                             value={
                               notasTemporales.find(

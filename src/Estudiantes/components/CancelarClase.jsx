@@ -75,6 +75,7 @@ export const CancelarClase = () => {
 
         // Mostramos una alerta de éxito
         window.alert("Clase cancelada correctamente.");
+        
       } catch (error) {
         console.log("Error al cancelar la clase:", error);
       }

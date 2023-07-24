@@ -139,6 +139,7 @@ const MatriculaComponent = () => {
           console.log("Resultado de matriculaSeccion:", data.message);
           alert("matriculado con exito");
           //navegar hasta la pagina anterior
+          history.back();
         })
         .catch((error) => {
           console.error("Error al ejecutar matriculaSeccion:", error);
