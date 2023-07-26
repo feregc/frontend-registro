@@ -1,60 +1,133 @@
-import React, { useEffect, useState } from 'react'
+
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { convertirSoloAFecha } from '../helpers/convertirFecha';
+
 
 export const LandingMatricula = () => {
-    const navigate = useNavigate();
-    const onNavMatricula = () => {
-        navigate("../matriculaClase");
-      };
-      const onNavCancelarClase = () => {
-        navigate("../cancelarClase");
-      };
+  const navigate = useNavigate();
+  const onNavMatricula = () => {
+    navigate("../matriculaClase");
+  };
+  const onNavCancelarClase = () => {
+    navigate("../cancelarClase");
+  };
 
-      const [procesosDisponibles, setProcesosDisponibles] = useState([]);
+  const [estudiante, setEstudiante] = useState([]);
+  const [procesosDisponibles, setProcesosDisponibles] = useState([]);
 
-      // Función para llamar al endpoint y guardar los datos en el estado
-      const fetchProcesosDisponibles = async () => {
-        try {
-          const response = await fetch('http://localhost:8081/proceso_disponibilidad');
+  useEffect(() => {
+    const numCuentaLocalStorage = localStorage.getItem('id');
+
+    if (numCuentaLocalStorage) {
+      fetch(`http://localhost:8081/estudiante/${numCuentaLocalStorage}`)
+        .then(response => {
           if (!response.ok) {
-            throw new Error('Error al obtener los datos');
+            throw new Error('Error al obtener los datos del estudiante');
           }
-          const jsonData = await response.json();
-          setProcesosDisponibles(jsonData);
-        } catch (error) {
-          console.error('Error al obtener los datos:', error);
-        }
-      };
-    
-      // useEffect para llamar a la función al cargar el componente
-      useEffect(() => {
-        fetchProcesosDisponibles();
-      }, []);
-    
-     
-      console.log(procesosDisponibles);
-    
+          return response.json();
+        })
+        .then(data => {
+          setEstudiante(data);
+        })
+        .catch(error => {
+          console.error('Error al obtener los datos del estudiante:', error);
+        });
+    }
+  }, []);
+
+
+  // Función para llamar al endpoint y guardar los datos en el estado
+  const fetchProcesosDisponibles = async () => {
+    try {
+      const response = await fetch('http://localhost:8081/proceso_disponibilidad');
+      if (!response.ok) {
+        throw new Error('Error al obtener los datos');
+      }
+      const jsonData = await response.json();
+      setProcesosDisponibles(jsonData);
+    } catch (error) {
+      console.error('Error al obtener los datos:', error);
+    }
+  };
+
+  // useEffect para llamar a la función al cargar el componente
+  useEffect(() => {
+    fetchProcesosDisponibles();
+  }, []);
+
+  const {
+    indiceI,
+    fechainicioI,
+    indiceII,
+    fechainicioII,
+    indiceIII,
+    fechainicioIII,
+    indiceIIII,
+    fechainicioIIII,
+    indiceIIIII,
+    fechainicioIIIII,
+  } = procesosDisponibles.length > 0 ? procesosDisponibles[0] : {};
+
+  const verificarMatricula = (global, fechaActual) => {
+    if (global >= indiceI && fechaActual === convertirSoloAFecha(fechainicioI)) {
+      return true;
+    }
+
+    if (global >= indiceII && global <= indiceI && fechaActual === convertirSoloAFecha(fechainicioII)) {
+      return true;
+    }
+
+    if (global >= indiceIII && global <= indiceII && fechaActual === convertirSoloAFecha(fechainicioIII)) {
+      return true;
+    }
+
+    if (global >= indiceIIII && global <= indiceIII && fechaActual === convertirSoloAFecha(fechainicioIIII)) {
+      return true;
+    }
+
+    if (global >= indiceIIIII && fechaActual === convertirSoloAFecha(fechainicioIIIII)) {
+      return true;
+    }
+
+    return false;
+  };
+
+  const fechaActual = new Date().toISOString().slice(0, 10);
+  const esDiaDeMatricula = verificarMatricula(estudiante?.indice, fechaActual);
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center flex-column">
-        <br />
-        <br />
-        <br />
-        <br />
-        <h3>Bienvenido al apartado de matricula</h3>
-        <br />
-        <button className="btn btn-w btn-primary" onClick={onNavMatricula}>
-          Matricula
-        </button>
-        <br />
-        <button className="btn btn-w btn-primary" onClick={onNavCancelarClase}>
-          Cancelar clases
-        </button>
-      </div>
+      {esDiaDeMatricula ? (
+        <div className="d-flex justify-content-center align-items-center flex-column">
+          <br />
+          <br />
+          <br />
+          <br />
+          <h3>Bienvenido al apartado de matrícula</h3>
+          <br />
+          <button className="btn btn-w btn-primary" onClick={onNavMatricula}>
+            Matricular clases
+          </button>
+          <br />
+          <button className="btn btn-w btn-primary" onClick={onNavCancelarClase}>
+            Cancelar clases
+          </button>
+        </div>
+      ) : (
+        <div className="d-flex justify-content-center align-items-center flex-column">
+          <br />
+          <br />
+          <br />
+          <br />
+          <div className="alert alert-danger" role="alert">
+           Hoy no es su dia de matricula. Favor revisar el calendario de matricula
+          </div>
+        </div>
+      )}
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">
         <img src="../src/Assets/img/footer-bg.png" alt="" />
       </div>
     </>
-  )
-}
+  );
+};

@@ -10,6 +10,16 @@ export const LandingJefePage = () => {
     navigate("/docente/crearSeccion");
   };
 
+  
+  const onHistorial = () => {
+    navigate("/docente/historialAcademico");
+  };
+
+  const onCancelarSecciones = () => {
+    navigate("/docente/cancelarSecciones");
+  };
+
+
   return (
     <>
       <div className="mt-6 d-flex flex-column align-items-center bg-primary ">
@@ -27,6 +37,18 @@ export const LandingJefePage = () => {
           onClick={onCrearSeccion}
         >
           Registrar Sección
+        </button>
+        <button
+          className="btn btn-w btn-h btn-primary mt-3 form-control"
+          onClick={onHistorial}
+        >
+          Ver Historial Academicos
+        </button>
+        <button
+          className="btn btn-w btn-h btn-primary mt-3 form-control"
+          onClick={onCancelarSecciones}
+        >
+          Cancelar Secciones
         </button>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">
