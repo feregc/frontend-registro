@@ -45,14 +45,15 @@ export const PerfilEstudiante = () => {
   return (
     <>
       <div className="container">
-        <h3 className="mt-5">Información General</h3>
-        <br />
+        <div className="d-flex justify-content-center my-4">
+          <h3>Información General</h3>
+        </div>
         {/* Contenedor */}
         <div className=" row">
           {/* Carrusel */}
           <div
             id="carouselExample"
-            className="carousel img-size d-flex align-items-center slide col-4"
+            className="carousel img-size d-flex align-items-center slide col-3"
           >
             <div className="carousel-inner">
               {imagen.map((img, index) => (
@@ -97,7 +98,7 @@ export const PerfilEstudiante = () => {
           </div>
 
           {/* Datos generales */}
-          <div className="card1 p-5 col d-flex flex-column align-items-start justify-content-center">
+          <div className="card1 p-5 col-5 d-flex flex-column align-items-start justify-content-center">
             <p>
               Nombre: {imgPerfilEstudiante.primer_nombre}{" "}
               {imgPerfilEstudiante.segundo_nombre}{" "}
@@ -111,22 +112,23 @@ export const PerfilEstudiante = () => {
               Correo Institucional: {imgPerfilEstudiante.correo_institucional}
             </p>
           </div>
-        </div>
-        {/* Descripción del estudiante */}
-        <div className="card2 border-3">
-          <h3 className="mt-3">Descripción</h3>
-          <br />
-          <div className="card3 border-3">
-            {imgPerfilEstudiante.descripcion}
+          <div className="col-4 d-flex  justify-content-end align-items-center">
+            <Link to="../EditarPerfilEstudiante">
+              <button className="btn btn-w p-3 btn-primary mt-1 mb-5 ">
+                Editar Perfil
+              </button>
+            </Link>
           </div>
         </div>
-
-        <div className="mt-5 d-flex flex-colum justify-content-center">
-          <Link to="../EditarPerfilEstudiante">
-            <button className="btn p-3 btn-primary mt-1 mb-5 ">
-              Editar Perfil
-            </button>
-          </Link>
+        {/* Descripción del estudiante */}
+        <div className="card2 col">
+          <div className="d-flex justify-content-center my-3">
+            <h3>Descripción</h3>
+          </div>
+          <br />
+          <div className="card3 h-75 rounded-3">
+            {imgPerfilEstudiante.descripcion}
+          </div>
         </div>
       </div>
     </>

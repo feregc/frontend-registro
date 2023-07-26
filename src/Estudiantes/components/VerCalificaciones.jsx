@@ -75,10 +75,11 @@ export const VerCalificaciones = () => {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th scope="col">Asignatura</th>
-                  <th scope="col">Sección</th>
-                  <th scope="col">Nota</th>
-                  <th scope="col">Evaluar Docente</th>
+                  <th scope="col" className="d-flex justify-content-center">Asignatura</th>
+                  <th scope="col" >Sección</th>
+                  <th scope="col" >Nota</th>
+                  <th scope="col" >Observación</th>
+                  <th scope="col" className="d-flex justify-content-center" >Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -93,6 +94,7 @@ export const VerCalificaciones = () => {
                       ) : (
                         <th scope="row">--</th>
                       )}
+                      <th scope="row">vacio</th>
                       <th scope="row">
                         <div className="d-flex justify-content-center">
                           <button

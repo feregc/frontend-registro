@@ -165,6 +165,7 @@ export const DetalleClase = () => {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
+                  <th scope="col">No. Lista</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Apellido</th>
                   <th scope="col">Número de Cuenta</th>
@@ -176,13 +177,14 @@ export const DetalleClase = () => {
                   alumno.length > 0 &&
                   alumno.map((dato, index) => (
                     <tr key={index}>
+                      <th scope="row">{index + 1}</th>
                       <th scope="row">
                         {dato.primer_nombre} {dato.segundo_nombre}
                       </th>
                       <th scope="row">
                         {dato.primer_apellido} {dato.segundo_apellido}
                       </th>
-                      <th scope="row">{dato.num_cuenta}</th>
+                      <th scope="row" >{dato.num_cuenta}</th>
                       <th scope="row">{dato.correo_institucional}</th>
                     </tr>
                   ))}

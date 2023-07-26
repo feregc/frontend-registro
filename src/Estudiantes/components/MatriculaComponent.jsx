@@ -176,8 +176,9 @@ const MatriculaComponent = () => {
         key={seccion.id_seccion}
         onClick={() => handleSeccionClick(seccion.id_seccion)}
       >
-        <div>Sección: {seccion.id_seccion}, 
-          Docente: {seccion.nombres} {seccion.apellidos} <br />
+        <div>
+          Sección: {seccion.id_seccion}, Docente: {seccion.nombres}{" "}
+          {seccion.apellidos} <br />
           Hora: {seccion.horainicio} - {seccion.horafin}
         </div>
       </div>
@@ -190,28 +191,55 @@ const MatriculaComponent = () => {
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-center my-3">
-              <div className="row ">
-                <h3 className="my-4">Matricula</h3>
-              </div>
+              <h3 className="my-4">Matricula</h3>
             </div>
             <div className="row ">
               <div className="col-4">
-                <div>
-                  <div className="bg-t">DEPARTAMENTOS</div>
-                  {renderDepartamentos()}
-                </div>
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Departamento</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td scope="row">{renderDepartamentos()}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
               <div className="col-4">
-                <div>
-                  <div className="bg-t">CLASE</div>
-                  {selectedDepartamento && <div>{renderClases()}</div>}
-                </div>
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Asignatura</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                      {selectedDepartamento && (
+                        <tr>
+                          <td scope="">
+
+                          {renderClases()}
+                          </td>
+                        </tr>
+                      )}
+                    
+                  </tbody>
+                </table>
               </div>
               <div className="col-4">
-                <div>
-                  <div className="bg-t">SECCIONES</div>
-                  {selectedClase && <div>{renderSecciones()}</div>}
-                </div>
+                <table className="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sección</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>{selectedClase && <td>{renderSecciones()}</td>}</tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 

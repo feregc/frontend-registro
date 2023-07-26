@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const EditarPerfilEstudiante = () => {
   const [textDescripcion, setTextDescripcion] = useState("");
@@ -43,6 +44,7 @@ export const EditarPerfilEstudiante = () => {
       );
       if (response.ok) {
         console.log("Descripción actualizada exitosamente");
+        history.back();
       } else {
         throw new Error("Error en la solicitud de actualización");
       }
@@ -84,7 +86,6 @@ export const EditarPerfilEstudiante = () => {
     /**Datos de pueba para controlar el numero de imagenes */
   }
   const desabilitarBoton = imgLimit.length >= 3;
-
 
   useEffect(() => {
     const image = async () => {
@@ -131,56 +132,64 @@ export const EditarPerfilEstudiante = () => {
   };
   return (
     <>
-      <div className="d-flex flex-column justify-content-center align-items-center ">
-        <br /><br />
-        <h3>Editar Perfil</h3>
-        <br />
-        {/*Actualización de la descripcion*/}
-        <div className=" d-flex flex-column justify-content-center align-items-center w-100 h-100">
-          {actualizando && (
-            <div>
-              <span style={{ marginLeft: "10px" }}>Actualizando</span>
+      <div className="container">
+        <div className="row">
+          <div className="d-flex justify-content-center my-5">
+            <h3>Editar Perfil</h3>
+          </div>
+          <div className="col-6 ">
+            <div className="d-flex justify-content-center">
+              <textarea
+                className="w-75 h-75 rounded-3 p-3"
+                placeholder="Escribe aquí tu nueva descripción"
+                value={textDescripcion}
+                onChange={editarDescripcion}
+              ></textarea>
             </div>
-          )}
-          <textarea
-            className="w-75 h-75 rounded-3"
-            placeholder="Escribe aquí tu nueva descripción"
-            value={textDescripcion}
-            onChange={editarDescripcion}
-          ></textarea>
-          <br />
-        </div>
-        <button
-          className="btn p-3 btn-primary rounded-3 mt-3"
-          onClick={actualizarDescripcion}
-        >
-          Actualizar descripción
-        </button>
-        <hr />
-        <div className="container">
-          <div className="row">
-            <div className="d-flex flex-row flex-wrap align-items-center align-content-center  ">
+            <br />
+            <div className="d-flex justify-content-center ">
+              <input
+                placeholder="Ingrese una foto"
+                className="rounded-3 form-control w-75"
+                disabled={desabilitarBoton}
+                type="file"
+                accept="image/*"
+                onChange={cargarImagen}
+              />
+            </div>
+            <div className="d-flex justify-content-center">
+              <button
+                className="btn btn-w p-3 btn-primary rounded-3 mt-3 mb-5"
+                type="submit"
+                onClick={() => subirImagen()}
+                disabled={desabilitarBoton}
+              >
+                Subir imagen
+              </button>
+            </div>
+          </div>
+          <div className="col-3">
+            {/* <div className="container "> */}
+            <div className="row d-flex flex-wrap ">
               {/*borar imagenes*/}
               {imgLimit &&
                 imgLimit.length > 0 &&
                 imgLimit.map((datoImg) => (
                   <>
                     <div
-                      className="d-flex flex-row flex-wrap align-items-center col-4 px-3 justify-content-center"
+                      className="col-6 justify-content-center"
                       key={datoImg.id}
                     >
-                      <div className="w-100 h-100">
+                      <div className=" p-2">
                         <img
                           className="img-fluid img-thumbnail"
                           src={datoImg.url}
                           alt="Imagen"
                         />
-                      </div>
-
-                      <div className=" ">
+                        <FontAwesomeIcon icon="fa-solid fa-trash" />
                         <button
                           onClick={() => handleEliminarImagen(datoImg.id)}
-                          className=" btn btn-primary rounded-3 mt-3 mb-5"
+                          className=" btn w-100 btn-primary rounded-3 my-2"
                         >
                           Borrar
                         </button>
@@ -188,28 +197,19 @@ export const EditarPerfilEstudiante = () => {
                     </div>
                   </>
                 ))}
+              {/* </div> */}
             </div>
           </div>
-        </div>
-        <div className="d-flex flex-column justify-content-center align-items-center">
-          
-          <input
-            placeholder="Ingrese una foto"
-            className="rounded-3 form-control"
-            disabled={desabilitarBoton}
-            type="file"
-            accept="image/*"
-            onChange={cargarImagen}
-          />
-
-          <button
-            className="btn p-3 btn-primary rounded-3 mt-3 mb-5"
-            type="submit"
-            onClick={() => subirImagen()}
-            disabled={desabilitarBoton}
-          >
-            Subir imagen
-          </button>
+          <div className="col-3">
+            <div className="d-flex justify-content-center">
+              <button
+                className="btn btn-w p-3 btn-primary rounded-3 mt-3"
+                onClick={actualizarDescripcion}
+              >
+                Guardar Cambios
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
