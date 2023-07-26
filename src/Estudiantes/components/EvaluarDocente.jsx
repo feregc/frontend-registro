@@ -6,12 +6,11 @@ export const EvaluarDocente = () => {
   const [respuestas, setRespuestas] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [dataGenral, setDataGeneral] = useState([]);
   const num_cuenta = localStorage.getItem("id");
+
   const { data } = location.state;
-  // Datos de clase y docente
- 
-  // ---------------------
+
 
   const handleOpciones = (index, value) => {
     setRespuestas((prevRespuestas) => {
@@ -30,6 +29,32 @@ export const EvaluarDocente = () => {
     });
   };
 
+  // const validarFormulario = (data) => {
+  //   const opcionesValidas = ["Bueno", "Muy bueno", "Excelente"];
+
+  //   for (const clave in data) {
+  //     if (
+  //       [
+  //         "comentarioI",
+  //         "comentarioII",
+  //         "comentarioIII",
+  //         "comentarioIIII",
+  //         "comentarioIIIII",
+  //       ].includes(clave)
+  //     ) {
+  //       const valor = data[clave];
+
+  //       if (!opcionesValidas.includes(valor) && (
+  //         typeof(data.comentarioIIIIII) !== "string" ||
+  //         data.comentarioIIIIII.length < 0 ||
+  //         data.comentarioIIIIII === undefined)) {
+  //         return false;
+  //       }
+  //     }
+  //   }
+  //   return true;
+  // };
+
   const validarFormulario = (data) => {
     const opcionesValidas = ["Bueno", "Muy bueno", "Excelente"];
 
@@ -44,19 +69,21 @@ export const EvaluarDocente = () => {
         ].includes(clave)
       ) {
         const valor = data[clave];
+
         if (!opcionesValidas.includes(valor)) {
+          console.log(!opcionesValidas.includes(valor), 'Las opciones estan bien')
           return false;
         }
       }
     }
 
-    if (
-      typeof data.comentarioIIIIII !== "string" ||
-      data.comentarioIIIIII.length <= 1 ||
-      data.comentarioIIIIII === undefined
-    ) {
+    const comentarioIIIIII = data["comentarioIIIIII"];
+
+    if (typeof comentarioIIIIII !== "string" || comentarioIIIIII.trim() === "") {
+      console.log('No es un string');
       return false;
     }
+
     return true;
   };
 
@@ -72,8 +99,10 @@ export const EvaluarDocente = () => {
       comentarioIIIII: `${respuestas[4]}`,
       comentarioIIIIII: `${respuestas[5]}`,
     };
+
+    // validarFormulario(respuestaData)
     if (validarFormulario(respuestaData)) {
-     
+
       fetch("http://localhost:8081/comentarios-insertar", {
         method: "POST",
         headers: {
@@ -98,12 +127,20 @@ export const EvaluarDocente = () => {
     }
   };
 
+
+  const regresar = () => {
+    navigate("../ver-calificaciones")
+  }
+
   return (
     <>
       <div className="container">
         <div className="row">
           <div className="col">
             <div className="row my-4">
+              <br />
+              <button className="btn btn-success btn-w"
+                onClick={regresar}>Atras</button>
               <div className="d-flex justify-content-center">
                 <h3>Calificar Docentes</h3>
               </div>
@@ -121,13 +158,13 @@ export const EvaluarDocente = () => {
                     <th scope="row">{dato.pregunta}</th>
                     <th scope="row">
                       <select
-                      className="form-control"
+                        className="form-control"
                         value={respuestas[index]}
                         onChange={(event) =>
                           handleOpciones(index, event.target.value)
                         }
                       >
-                        <option value="null">Seleccionar opción</option>
+                        <option value="null">Opciones</option>
                         <option value="Bueno">Bueno</option>
                         <option value="Muy bueno">Muy bueno</option>
                         <option value="Excelente">Excelente</option>
@@ -146,7 +183,6 @@ export const EvaluarDocente = () => {
               </div>
               <textarea
                 className="w-100"
-                value={respuestas[preguntas.length] || ""}
                 onChange={handleTextArea}
               ></textarea>
             </div>
