@@ -60,7 +60,7 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
                 <tr>
                   <th scope="col">Tipo de solicitud</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Jutificación</th> <th scope="col">carrera o centreo a cambiar</th>
+                  <th scope="col">Jutificación</th> <th scope="col">Carrera o Centro a Cambiar</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>

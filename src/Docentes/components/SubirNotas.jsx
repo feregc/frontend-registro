@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 export const SubirNotas = () => {
   const num_empleado = localStorage.getItem("id");
-  const { id } = useParams();
+  // const [id, setId] = useState(0);
+
   const [alumno, setAlumno] = useState([]);
   const [editar, setEditar] = useState(false);
   const [clases, setClases] = useState([]);
   const [Clase, setClase] = useState(null);
   const [notasTemporales, setNotasTemporales] = useState([]);
-
+  const location = useLocation();
+  const id = location.state;
   // Obtener datos de la clase, enviando el id del docente
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -30,7 +32,7 @@ export const SubirNotas = () => {
       const buscar = clases.find((clase) => clase.id_clase === parseInt(id));
       setClase(buscar || null);
     }
-  }, [clases, id]);
+  }, [clases]);
   //Traer lista de alumnos de la BD
   useEffect(() => {
     const fetchclase = async () => {
@@ -38,18 +40,22 @@ export const SubirNotas = () => {
         const response = await fetch(`http://localhost:8081/clasealumno/${id}`);
         const jsonData = await response.json();
         setAlumno(jsonData);
+        console.log(jsonData);
       } catch (error) {
         console.log("Error:", error);
       }
     };
     fetchclase();
-  }, [id, editar]);
+  }, [editar]);
   //registrar notas de cada input vinculado al num_cunenta de cada estudiante
   const numeroDeEntrada = (event, num_cuenta) => {
     const input = event.target.value;
     const notasTemporalesActualizadas = notasTemporales.map((notaTemporal) => {
       if (notaTemporal.num_cuenta === num_cuenta) {
-        return { ...notaTemporal, nota: input };
+        return {
+          ...notaTemporal,
+          nota: input,
+        };
       }
       return notaTemporal;
     });
@@ -74,11 +80,11 @@ export const SubirNotas = () => {
 
   const guardarNotasEnBaseDeDatos = async (num_cuenta, nota) => {
     try {
-      const url = `http://localhost:8081/notaEstudiante/nota/${num_cuenta}`;
+      const url = `http://localhost:8081/clase-pasada-nota/${id}/${num_cuenta}`;
+      // const url = "http://localhost:8081/clase-pasada-nota/2/20231022"
       const data = { nota: nota };
-
       const response = await fetch(url, {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -102,75 +108,104 @@ export const SubirNotas = () => {
             <div className="d-flex justify-content-center my-3">
               {Clase && (
                 <>
-                  <h4>Clase: {Clase.nombre_clase}</h4>
-                  <p>Sección: {Clase.id_seccion}</p>
+                  <div className="col">
+                    <div className="d-flex justify-content-center my-3">
+                      <h4>Clase: {Clase.nombre_clase}</h4>
+                    </div>
+                    <div className="d-flex justify-content-center my-3">
+                      <h5>Sección: {Clase.id_seccion}</h5>
+                    </div>
+                  </div>
                 </>
               )}
             </div>
           </div>
-          <div className="row">
-            {/* Editar notas de los estudiantes */}
-            {!editar && (
-              <button className="btn btn-success m-1" onClick={handleEditar}>
-                Editar
-              </button>
-            )}
+          <div className="col">
+            <div className="row">
+              {/* Editar notas de los estudiantes */}
+              {!editar && (
+                <>
+                  <div className="d-flex justify-content-center">
+                    <button
+                      className="btn btn-w btn-success m-1"
+                      onClick={handleEditar}
+                    >
+                      Editar
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+          <div className="col">
+            <div className="row">
+              {/* Guardar notas de los estudiantes */}
+              {editar && (
+                <>
+                  <div className="d-flex justify-content-center">
+                    <button
+                      className="btn btn-w btn-success m-1"
+                      onClick={handleGuardar}
+                    >
+                      Guardar
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
 
-            {/* Guardar notas de los estudiantes */}
-            {editar && (
-              <button className="btn btn-success m-1" onClick={handleGuardar}>
-                Guardar
-              </button>
-            )}
-
+          <div className="row my-3">
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
                   <th scope="col">Foto</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
-                  <th scope="col">Nota</th>
+                  <th scope="col">Nombres</th>
+                  <th scope="col">Apellidos</th>
+                  <th scope="col">Observación</th>
+                  <th scope="col" className="d-flex justify-content-center">
+                    Nota
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {alumno &&
-                  alumno.length > 0 &&
-                  alumno.map((dato, index) => (
-                    <tr key={index}>
-                      <th>
-                        <img
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "red}",
-                          }}
-                          src=""
-                          alt=""
+                {alumno?.map((dato, index) => (
+                  <tr key={index}>
+                    <th scope="row">
+                      <img
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          backgroundColor: "red}",
+                        }}
+                        src=""
+                        alt=""
+                      />
+                    </th>
+                    <th scope="row">{dato.primer_nombre}</th>
+                    <th scope="row">{dato.primer_apellido}</th>
+                    <th scope="row">vacio</th>
+                    <th scope="row" className="d-flex justify-content-center">
+                      {editar ? (
+                        <input
+                          className="form-control btn-w "
+                          type="text"
+                          value={
+                            notasTemporales.find(
+                              (notaTemporal) =>
+                                notaTemporal.num_cuenta === dato.num_cuenta
+                            )?.nota || ""
+                          }
+                          onChange={(event) =>
+                            numeroDeEntrada(event, dato.num_cuenta)
+                          }
                         />
-                      </th>
-                      <th scope="row">{dato.primer_nombre}</th>
-                      <th scope="row">{dato.primer_apellido}</th>
-                      <th>
-                        {editar ? (
-                          <input
-                            className="form-control"
-                            type="text"
-                            value={
-                              notasTemporales.find(
-                                (notaTemporal) =>
-                                  notaTemporal.num_cuenta === dato.num_cuenta
-                              )?.nota || ""
-                            }
-                            onChange={(event) =>
-                              numeroDeEntrada(event, dato.num_cuenta)
-                            }
-                          />
-                        ) : (
-                          <p>{dato.nota ? dato.nota : "--"}</p>
-                        )}
-                      </th>
-                    </tr>
-                  ))}
+                      ) : (
+                        <p>{dato.nota ? dato.nota : "--"}</p>
+                      )}
+                    </th>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

@@ -10,6 +10,7 @@ import {EditarPerfil} from '../components/EditarPerfil'
 import { CrearSeccionesPage } from '../pages/CrearSeccionesPage'
 import { SolicitudListaCoord } from "../pages/SolicitudListaCoord";
 import { SubirNotas } from '../components/SubirNotas'
+import { CargaAcademicaCoord } from '../pages/CargaAcademicaCoord'
 
 
 export const DocenteRoutes = () => {
@@ -25,7 +26,8 @@ export const DocenteRoutes = () => {
         <Route path='/editar-perfil' element={<EditarPerfil />} />
         <Route path='/crearSeccion' element={<CrearSeccionesPage />} />
         <Route path='/listaSolicitud' element={<SolicitudListaCoord/>}/>
-        <Route path='/subir-notas/:id' element={<SubirNotas />} />
+        <Route path='/subir-notas' element={<SubirNotas />} />
+        <Route path='/cargaAcademica' element={<CargaAcademicaCoord />} />
       </Routes>
     </>
   )
