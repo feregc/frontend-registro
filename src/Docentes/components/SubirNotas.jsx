@@ -12,7 +12,6 @@ export const SubirNotas = () => {
   const [notasTemporales, setNotasTemporales] = useState([]);
   const location = useLocation();
   const id = location.state;
-  ;
   // Obtener datos de la clase, enviando el id del docente
   useEffect(() => {
     const obtenerDatos = async () => {
@@ -38,11 +37,10 @@ export const SubirNotas = () => {
   useEffect(() => {
     const fetchclase = async () => {
       try {
-
         const response = await fetch(`http://localhost:8081/clasealumno/${id}`);
         const jsonData = await response.json();
-        setAlumno(jsonData)
-        console.log(jsonData)
+        setAlumno(jsonData);
+        console.log(jsonData);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -54,7 +52,10 @@ export const SubirNotas = () => {
     const input = event.target.value;
     const notasTemporalesActualizadas = notasTemporales.map((notaTemporal) => {
       if (notaTemporal.num_cuenta === num_cuenta) {
-        return { ...notaTemporal, nota: input };
+        return {
+          ...notaTemporal,
+          nota: input,
+        };
       }
       return notaTemporal;
     });
@@ -161,47 +162,50 @@ export const SubirNotas = () => {
                   <th scope="col">Foto</th>
                   <th scope="col">Nombres</th>
                   <th scope="col">Apellidos</th>
-                  <th scope="col">Nota</th>
+                  <th scope="col">Observación</th>
+                  <th scope="col" className="d-flex justify-content-center">
+                    Nota
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {
-                  alumno?.map((dato, index) => (
-                    <tr key={index}>
-                      <th scope="row">
-                        <img
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "red}",
-                          }}
-                          src=""
-                          alt=""
+                {alumno?.map((dato, index) => (
+                  <tr key={index}>
+                    <th scope="row">
+                      <img
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          backgroundColor: "red}",
+                        }}
+                        src=""
+                        alt=""
+                      />
+                    </th>
+                    <th scope="row">{dato.primer_nombre}</th>
+                    <th scope="row">{dato.primer_apellido}</th>
+                    <th scope="row">vacio</th>
+                    <th scope="row" className="d-flex justify-content-center">
+                      {editar ? (
+                        <input
+                          className="form-control btn-w "
+                          type="text"
+                          value={
+                            notasTemporales.find(
+                              (notaTemporal) =>
+                                notaTemporal.num_cuenta === dato.num_cuenta
+                            )?.nota || ""
+                          }
+                          onChange={(event) =>
+                            numeroDeEntrada(event, dato.num_cuenta)
+                          }
                         />
-                      </th>
-                      <th scope="row">{dato.primer_nombre}</th>
-                      <th scope="row">{dato.primer_apellido}</th>
-                      <th scope="row">
-                        {editar ? (
-                          <input
-                            className="form-control btn-w2"
-                            type="text"
-                            value={
-                              notasTemporales.find(
-                                (notaTemporal) =>
-                                  notaTemporal.num_cuenta === dato.num_cuenta
-                              )?.nota || ""
-                            }
-                            onChange={(event) =>
-                              numeroDeEntrada(event, dato.num_cuenta)
-                            }
-                          />
-                        ) : (
-                          <p>{dato.nota ? dato.nota : "--"}</p>
-                        )}
-                      </th>
-                    </tr>
-                  ))}
+                      ) : (
+                        <p>{dato.nota ? dato.nota : "--"}</p>
+                      )}
+                    </th>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
