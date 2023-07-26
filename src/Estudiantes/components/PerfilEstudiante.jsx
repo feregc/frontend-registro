@@ -1,6 +1,6 @@
 import "../../Assets/styles/styles-estudiantes/perfil-estudiante.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 export const PerfilEstudiante = () => {
   const [imgPerfilEstudiante, setImgPerfilEstudiante] = useState({});
@@ -42,9 +42,18 @@ export const PerfilEstudiante = () => {
     image();
   }, []);
 
+  const navigate = useNavigate();
+  const regresar = () => {
+    navigate("../home")
+  }
+
   return (
     <>
       <div className="container">
+        {/* Boton para regresar a la pagina anterior */}
+        <br />
+        <button className="btn btn-success btn-w"
+          onClick={regresar}>Atras</button>
         <div className="d-flex justify-content-center my-4">
           <h3>Información General</h3>
         </div>

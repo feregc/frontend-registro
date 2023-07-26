@@ -22,6 +22,10 @@ export const LandingEstudiantePage = () => {
     navigate("../ver-calificaciones");
   };
 
+  const onNavClaseMatriculadas = () => {
+    navigate("../clases-matriculadas");
+  };
+  
 
   return (
     <>
@@ -43,7 +47,10 @@ export const LandingEstudiantePage = () => {
         <button className="btn btn-w btn-primary" onClick={onNavMatricular}>
         Matricula
         </button>
-
+        <br />
+        <button className="btn btn-w btn-primary" onClick={onNavClaseMatriculadas}>
+          Ver clases matriculas
+        </button>
         <br />
         <button className="btn btn-w btn-primary" onClick={onNavCalificaciones}>
           Ver calificaciones de periodo

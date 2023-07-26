@@ -32,6 +32,7 @@ export const VerCalificaciones = () => {
             `http://localhost:8081/consulta-clases/${num_cuenta}/${fechaFormateada}/${datosPreliminares[0].periodo}`
           );
           const jsonData = await response.json();
+
           setClases(jsonData);
         } catch (error) {
           console.log("Error:", error);
@@ -61,6 +62,10 @@ export const VerCalificaciones = () => {
     navigate("../evaluar-docente", { state: { data: clase } });
   };
 
+  const regresar = () => {
+    navigate("../home")
+  }
+
   return (
     <>
       <br />
@@ -68,6 +73,11 @@ export const VerCalificaciones = () => {
         <div className="row mt-1">
           <div className="col">
             <div className="row my-3">
+              <br />
+              <button className="btn btn-success btn-w"
+                onClick={regresar}>Atras</button>
+
+
               <div className="d-flex justify-content-center">
                 <h4>Calificaciones</h4>
               </div>
@@ -75,11 +85,10 @@ export const VerCalificaciones = () => {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th scope="col" className="d-flex justify-content-center">Asignatura</th>
-                  <th scope="col" >Sección</th>
-                  <th scope="col" >Nota</th>
-                  <th scope="col" >Observación</th>
-                  <th scope="col" className="d-flex justify-content-center" >Acciones</th>
+                  <th scope="col">Asignatura</th>
+                  <th scope="col">Sección</th>
+                  <th scope="col">Nota</th>
+                  <th scope="col">Evaluar Docente</th>
                 </tr>
               </thead>
               <tbody>
@@ -94,13 +103,12 @@ export const VerCalificaciones = () => {
                       ) : (
                         <th scope="row">--</th>
                       )}
-                      <th scope="row">vacio</th>
                       <th scope="row">
                         <div className="d-flex justify-content-center">
                           <button
                             className="btn btn-success btn-w"
                             disabled={dato.evaluado == 1}
-                            onClick={()=>evaluar(dato)}
+                            onClick={() => evaluar(dato)}
                           >
                             Evaluar docente
                           </button>
