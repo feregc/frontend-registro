@@ -14,7 +14,9 @@ export const DetalleClase = () => {
   useEffect(() => {
     const fetchclase = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/estudiantes-seccion/${id}`);
+        const response = await fetch(
+          `http://localhost:8081/estudiantes-seccion/${id}`
+        );
         const jsonData = await response.json();
 
         setAlumno(jsonData);
@@ -117,25 +119,25 @@ export const DetalleClase = () => {
     habilitarSubidaDeNotas();
   }, [datosDeFecha]);
 
-
   const regresar = () => {
-    navigate("../home")
-  }
+    navigate("../home");
+  };
 
   return (
     <>
       <div className="container">
+        {/* Boton para regresar a la paguina anterior */}
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="col">
           <div className="row">
-            <div className="d-flex justify-content-center my-3">
+            <div className="d-flex justify-content-center my-1">
               <div>
                 {Clase && (
                   <>
                     <div className="col">
                       <div className="d-flex justify-content-center my-3">
-                        {/* Boton para regresar a la paguina anterior */}
-                        <button className="btn btn-success btn-w"
-                          onClick={regresar}>Atras</button>
                         <h4>Clase: {Clase.nombre_clase}</h4>
                       </div>
                       <div className="d-flex justify-content-center my-3">
