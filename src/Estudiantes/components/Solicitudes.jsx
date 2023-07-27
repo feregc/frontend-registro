@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import { convertirFecha } from "../helpers/convertirFecha";
 import { useEffect } from "react";
+
 const num_cuenta = localStorage.getItem("id");
 
 export const Solicitudes = () => {
@@ -10,17 +11,66 @@ export const Solicitudes = () => {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
   const [opcionSeleccionadaNombre, setOpcionSeleccionadaNombre] = useState('');
   const [opcionSeleccionada2, setOpcionSeleccionada2] = useState("");
+  const [opcionSeleccionada3, setOpcionSeleccionada3] = useState("");
   const [justificacion, setDescripcion] = useState("");
   const [imgPerfilEstudiante, setImgPerfilEstudiante] = useState({});
   const [carreras, setCarreras] = useState([]);
   const [centro, setCentro] = useState([]);
+  const [data, setData] = useState([]);
+  const [clases, setClases] = useState([]);
+
+
+  useEffect(() => {
+    // Función para obtener los datos del endpoint
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8081/proceso-anio-periodo"
+        );
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos");
+        }
+        const jsonData = await response.json();
+        setData(jsonData);
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const fecha = convertirFecha(data[0]?.anio);
+      const periodo = data[0]?.periodo;
+
+      const obtenerClases = async () => {
+        try {
+          const response = await fetch(
+            `http://localhost:8081/clases-matriculadas/${num_cuenta}/${fecha}/${periodo}`
+          );
+          if (!response.ok) {
+            throw new Error("Error al obtener las clases");
+          }
+          const jsonData = await response.json();
+          setClases(jsonData);
+          console.log(jsonData);
+        } catch (error) {
+          console.log("Error:", error);
+        }
+      };
+
+      obtenerClases();
+    }
+  }, [data, num_cuenta]);
+
   useEffect(() => {
     const fetchEstudiante = async () => {
       try {
         const response = await fetch(`http://localhost:8081/estudiante/${num_cuenta}`);
         const imgPerfil = await response.json();
         setImgPerfilEstudiante(imgPerfil);
-        console.log(imgPerfil.centro_id);
+       
         if (imgPerfil.centro_id) {
           fetchCarreras(imgPerfil.centro_id);
         }
@@ -53,6 +103,11 @@ export const Solicitudes = () => {
     fetchCentro();
   }, [num_cuenta]);
   
+
+
+
+
+
   const handleOpcionChange = (event) => {
     const opcionSeleccionadaNombre = event.target.options[event.target.selectedIndex].text;
     const selectedOptionValue = event.target.value;
@@ -66,7 +121,12 @@ export const Solicitudes = () => {
     setOpcionSeleccionada2(selectedOption2Value);
     opcionSeleccionadaNombre(selectedOption2Text);
   };
-
+  const handleOpcion3Change = (event) => {
+    const selectedOption3Text = event.target.options[event.target.selectedIndex].text;
+    const selectedOption3Value = event.target.value;
+    setOpcionSeleccionada3(selectedOption3Value);
+    opcionSeleccionadaNombre(selectedOption3Text);
+  };
   const handleDescripcionChange = (event) => {
     setDescripcion(event.target.value);
   };
@@ -75,7 +135,7 @@ export const Solicitudes = () => {
     // Convertir cadena vacía a null si no se ha seleccionado ninguna opción
     const idCarrera = opcionSeleccionada2 !== "" ? opcionSeleccionada2 : null;
     const idCentro = opcionSeleccionada !== "" ? opcionSeleccionada : null;
-  
+    const idClase = opcionSeleccionada3 !== "" ? opcionSeleccionada3 : null;
     const nuevaSolicitud = {
       tipo_solicitud: tipoSolicitud,
       num_cuenta: num_cuenta,
@@ -89,9 +149,8 @@ export const Solicitudes = () => {
         justificacion,
       id_carrera: idCarrera,
       id_centro: idCentro,
-      // id_clase: ;
+      id_clase:idClase,
     };
-  
    
 
     fetch("http://localhost:8081/Crear_Solicitud", {
@@ -277,7 +336,7 @@ export const Solicitudes = () => {
                 </>
               )}
 
-              {/* {tipoSolicitud === "Cancelación Excepcional" && (
+               {tipoSolicitud === "Cancelación Excepcional" && (
                 <>
                   <div className="row my-2">
                     <div className="col-6">
@@ -286,21 +345,50 @@ export const Solicitudes = () => {
                       </label>
                     </div>
                     <div className="col-6">
-                      <select
-                        id="opcion"
-                        className="form-control f-w"
-                        value={opcionSeleccionada}
-                        onChange={handleOpcionChange}
-                      >
-                        <option value="">-- Clases --</option>
-                        <option value="opcion1">Opción 1</option>
-                        <option value="opcion2">Opción 2</option>
-                        <option value="opcion3">Opción 3</option>
-                      </select>
-                    </div>
+                        <select
+                          id="opcion2"
+                          className="form-control"
+                          value={opcionSeleccionada3}
+                          onChange={handleOpcion3Change}
+                        >
+                          <option value="">-- clases --</option>
+                          {clases.map((clases) => (
+                            <option key={clases.id} value={clases.id_clase}>
+                              {clases.nombre}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="col-6 my-3">
+                        <label htmlFor="descripcion">Justificación:</label>
+                      </div>
+                      <div className="col-6 my-3">
+                        <textarea
+                          id="justificacion"
+                          className="form-control "
+                          value={justificacion}
+                          onChange={handleDescripcionChange}
+                        />
+                      </div>
+                      <div className="col-6 d-flex justify-content-center my-3">
+                        <button
+                          className="btn btn-success btn-w"
+                          onClick={handleCrearSolicitud}
+                        >
+                          Crear Solicitud
+                        </button>
+                      </div>
+                      <div className="col-6 d-flex justify-content-center my-3">
+                        <button
+                          className="btn btn-success btn-w"
+                          onClick={handleCancelar}
+                        >
+                          Cancelar
+                        </button>
+                      </div>
                   </div>
                 </>
-              )} */}
+              )} 
             </div>
           </div>
         </div>

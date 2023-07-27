@@ -13,7 +13,9 @@ export const LandingCoordiPage = () => {
   const onNavCargaAca = () => {
     navigate("/docente/CargaAcademica");
   }
-
+  const onNavSolicitudHistorial = () => {
+    navigate("/docente/");
+  }
   return (
     <>
       <div className="mt-6 d-flex flex-column align-items-center bg-primary ">
@@ -23,9 +25,16 @@ export const LandingCoordiPage = () => {
         <br />
         <button
           className="btn btn-w btn-primary"
+          onClick={onNavSolicitudHistorial}
+        >
+          Historial de solicitudes
+        </button>
+        <br />
+        <button
+          className="btn btn-w btn-primary"
           onClick={onNavSolicitud}
         >
-          Lista de Solicitudes
+          Lista de Solicitudes pendientes
         </button>
         <br />
         <button

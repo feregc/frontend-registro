@@ -52,14 +52,14 @@ export const SolicitudEstudiantePage = () => {
               Solicitar Cambio de carrera
             </button>
           </div>
-          {/* <div className="col my-3">
+           <div className="col my-3">
               <button
                 className="btn btn-primary btn-w"
                 onClick={SolicitudCancelacionExcepcional}
               >
                 Solicitar cancelación excepcional
               </button>
-            </div> */}
+            </div> 
           <div className="col my-4">
             <button
               className="btn btn-primary btn-w"
