@@ -63,21 +63,18 @@ export const VerCalificaciones = () => {
   };
 
   const regresar = () => {
-    navigate("../home")
-  }
+    navigate("../home");
+  };
 
   return (
     <>
-      <br />
       <div className="container">
-        <div className="row mt-1">
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
+        <div className="row">
           <div className="col">
             <div className="row my-3">
-              <br />
-              <button className="btn btn-success btn-w"
-                onClick={regresar}>Atras</button>
-
-
               <div className="d-flex justify-content-center">
                 <h4>Calificaciones</h4>
               </div>

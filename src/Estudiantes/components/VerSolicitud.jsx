@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const ListaSolicitudes = ({ numCuenta }) => {
   const [solicitudes, setSolicitudes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const num_cuenta = localStorage.getItem("id");
+  const registrosPorPagina = 5; // Cambiamos a 5 registros por página
 
   useEffect(() => {
     obtenerSolicitudes();
@@ -12,7 +14,7 @@ export const ListaSolicitudes = ({ numCuenta }) => {
           `http://localhost:8081/VerSolicitud?num_cuenta=${num_cuenta}`
         );
         const data = await response.json();
-        setSolicitudes(data);
+        setSolicitudes(data.reverse()); // Invertimos el orden del array
         console.log("Solicitudes obtenidas:", data);
       } catch (error) {
         console.error(
@@ -23,10 +25,21 @@ export const ListaSolicitudes = ({ numCuenta }) => {
     }
   }, [numCuenta]);
 
- 
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const indiceUltimoRegistro = currentPage * registrosPorPagina;
+  const indicePrimerRegistro = indiceUltimoRegistro - registrosPorPagina;
+  const registrosActuales = solicitudes.slice(indicePrimerRegistro, indiceUltimoRegistro);
+
+  // Calcular el número total de páginas basado en la cantidad actual de registros
+  const totalPaginas = Math.ceil(solicitudes.length / registrosPorPagina);
+
   return (
     <>
-    <br /><br />
+      <br />
+      <br />
       <div className="container">
         <div className="row">
           <div className="col">
@@ -38,12 +51,11 @@ export const ListaSolicitudes = ({ numCuenta }) => {
                 <tr>
                   <th scope="col">Tipo de solicitud</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Jutificación</th>
-                 
+                  <th scope="col">Justificación</th>
                 </tr>
               </thead>
               <tbody>
-                {solicitudes.map((solicitud) => (
+                {registrosActuales.map((solicitud) => (
                   <tr key={solicitud.id}>
                     <td className="p-4" scope="row">
                       {solicitud.tipo_solicitud}
@@ -54,14 +66,37 @@ export const ListaSolicitudes = ({ numCuenta }) => {
                     <td className="p-4" scope="row">
                       {solicitud.justificacion}
                     </td>
-                    
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            <nav>
+              <ul className="pagination justify-content-center">
+                {Array.from({ length: totalPaginas }, (_, index) => index + 1).map(
+                  (pagina) => (
+                    <li
+                      key={pagina}
+                      className={`page-item ${
+                        pagina === currentPage ? "active" : ""
+                      }`}
+                    >
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(pagina)}
+                      >
+                        {pagina}
+                      </button>
+                    </li>
+                  )
+                )}
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
     </>
   );
 };
+
+

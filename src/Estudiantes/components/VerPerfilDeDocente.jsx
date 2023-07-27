@@ -12,7 +12,6 @@ export const VerPerfilDeDocente = () => {
   const location = useLocation();
   const num_empleado = location.state;
 
-
   // Carga de imagen
   useEffect(() => {
     const image = async () => {
@@ -63,72 +62,88 @@ export const VerPerfilDeDocente = () => {
   }, []);
 
   const navigate = useNavigate();
-  const regresar =()=>{
-    navigate("../clases-matriculadas")
-  }
+  const regresar = () => {
+    navigate("../clases-matriculadas");
+  };
 
   return (
     <>
-
       <div className="container">
-        <br />
-        <button  className="btn btn-success btn-w" 
-        onClick={regresar}>Atras</button>
-
-        <h3 className="mt-5">Información General</h3>
-        <br />
-        {/* Contenedor */}
-        <div className=" row d-flex align-items-center">
-          <div
-            id="carouselExample"
-            className="img-size d-flex align-items-center col-4"
-          >
-            {imagen && imagen.length > 0 ? (
-              <div className="">
-                <img
-                  src={imagen[0].url}
-                  className="img-size2  img-thumbnail"
-                  alt="..."
-                />
-              </div>
-            ) : (
-              <FontAwesomeIcon
-                className="img-size2 img-thumbnail"
-                style={{ color: "#006494" }}
-                icon={faUser}
-              />
-            )}
+        <div className="row">
+          <div className="col">
+            <div className="d-flex justify-content-start my-4">
+              <button className="btn btn-success" onClick={regresar}>
+                Atras
+              </button>
+            </div>
           </div>
-          {/* Datos generales */}
-          {info.length > 0 && (
-            <div className="card1 p-5 col d-flex flex-column align-items-start justify-content-center">
-              <p>Nombre: {info[0].nombres}</p>
-              <p> Apellido: {info[0].apellidos}</p>
-              <p>Correo Institucional {info[0].correo}</p>
-              <p> Cargo: {info[0].cargo}</p>
-              <p> Carrera: {info[0].carrera}</p>
-            </div>
-          )}
         </div>
-        {/* Descripción del docente */}
-        <div className="card2 border-3">
-          <h3 className="mt-3"> Video de presentación</h3>
-          <br />
-          {verVideo.length > 0 ? (
-            <video
-              className="vid"
-              src={verVideo[0].url}
-              type="video/mp4"
-              controls
-            ></video>
-          ) : (
-            <div className=" card">
-              <p className="">Video de precentación...</p>
+        <div className="row">
+          <div className="col">
+            <div className="d-flex justify-content-center my-3">
+              <h3>Información General</h3>
             </div>
-          )}
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className=" row d-flex align-items-center">
+              <div
+                id="carouselExample"
+                className="img-size d-flex align-items-center col-4"
+              >
+                {imagen && imagen.length > 0 ? (
+                  <div className="">
+                    <img
+                      src={imagen[0].url}
+                      className="img-size2  img-thumbnail"
+                      alt="..."
+                    />
+                  </div>
+                ) : (
+                  <FontAwesomeIcon
+                    className="img-size2 img-thumbnail"
+                    style={{ color: "#006494" }}
+                    icon={faUser}
+                  />
+                )}
+              </div>
+              {/* Datos generales */}
+              {info.length > 0 && (
+                <div className="card1 p-5 col-8 d-flex flex-column align-items-start justify-content-center">
+                  <p>Nombre: {info[0].nombres}</p>
+                  <p> Apellido: {info[0].apellidos}</p>
+                  <p>Correo Institucional {info[0].correo}</p>
+                  <p> Cargo: {info[0].cargo}</p>
+                  <p> Carrera: {info[0].carrera}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className="d-flex justify-content-center my-3">
+              <div className="card2 border-3">
+                <h3 className="mt-3"> Video de presentación</h3>
+                <br />
+                {verVideo.length > 0 ? (
+                  <video
+                    className="vid"
+                    src={verVideo[0].url}
+                    type="video/mp4"
+                    controls
+                  ></video>
+                ) : (
+                  <div className=" card">
+                    <p className="">Video de precentación...</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
   );
 };
-

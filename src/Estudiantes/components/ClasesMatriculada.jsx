@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-
 export const ClasesMatriculada = () => {
   const [datosPreliminares, setDatosPreliminares] = useState([]);
   const [clases, setClases] = useState([]);
@@ -59,49 +57,62 @@ export const ClasesMatriculada = () => {
 
   const VerPerfilDeDocente = async (idEmpleado) => {
     navigate("../perfil-docente", { state: idEmpleado });
-  }
+  };
 
   const regresar = () => {
-    navigate("../home")
-  }
+    navigate("../home");
+  };
 
   return (
     <>
-    {/* Boton para regresar atras */}
-      <br />
-      <button className="btn btn-success btn-w"
-        onClick={regresar}>Atras</button>
-
-      <hr />
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">Asignatura</th>
-            <th scope="col">Sección</th>
-            <th scope="col">Nota</th>
-            <th scope="col">Perfil de docente</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            clases?.map((dato, index) => (
-              <tr key={index}>
-                <th scope="row">{dato.nombre_clase}</th>
-                <th scope="row">{dato.id_seccion}</th>
-                <th scope="row">
-                  <div className="d-flex justify-content-center">
-                    <button
-                      className="btn btn-success btn-w"
-                      onClick={() => VerPerfilDeDocente(dato.num_empleado)}
-                    >
-                      Ver perfil del docente
-                    </button>
-                  </div>
-                </th>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+      {/* Boton para regresar atras */}
+      <div className="container">
+        <div className="row">
+          <div className="col">
+            <div className="d-flex justify-content-start my-4">
+              <button className="btn btn-success" onClick={regresar}>
+                Atras
+              </button>
+            </div>
+            <div className="d-flex justify-content-center my-3">
+              <h3>Clases Matriculadas</h3>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <table className="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">Asignatura</th>
+                  <th scope="col">Sección</th>
+                  <th scope="col">Nota</th>
+                  <th scope="col">Perfil de docente</th>
+                </tr>
+              </thead>
+              <tbody>
+                {clases?.map((dato, index) => (
+                  <tr key={index}>
+                    <th scope="row">{dato.nombre_clase}</th>
+                    <th scope="row">{dato.id_seccion}</th>
+                    <th scope="row">{dato.nota}</th>
+                    <th scope="row">
+                      <div className="d-flex justify-content-center">
+                        <button
+                          className="btn btn-success btn-w"
+                          onClick={() => VerPerfilDeDocente(dato.num_empleado)}
+                        >
+                          Ver perfil del docente
+                        </button>
+                      </div>
+                    </th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </>
-  )
-}
+  );
+};

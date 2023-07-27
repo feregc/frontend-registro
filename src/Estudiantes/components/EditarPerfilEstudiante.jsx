@@ -132,23 +132,19 @@ export const EditarPerfilEstudiante = () => {
     setImgLimit(imgLimit.filter((imagen) => imagen.id !== id));
   };
 
-
   const navigate = useNavigate();
   const regresar = () => {
-    navigate("../PerfilEstudiante")
-  }
-
+    navigate("../PerfilEstudiante");
+  };
 
   return (
     <>
       <div className="container">
-        <br />
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
-          {/* Boton para regresar a la pagina anterior */}
-          <button className="btn btn-success btn-w"
-            onClick={regresar}>Atras</button>
-
-          <div className="d-flex justify-content-center my-5">
+          <div className="d-flex justify-content-center my-3">
             <h3>Editar Perfil</h3>
           </div>
           <div className="col-6 ">

@@ -51,10 +51,9 @@ export const PerfilEstudiante = () => {
     <>
       <div className="container">
         {/* Boton para regresar a la pagina anterior */}
-        <br />
-        <button className="btn btn-success btn-w"
+        <button className="btn btn-success my-4"
           onClick={regresar}>Atras</button>
-        <div className="d-flex justify-content-center my-4">
+        <div className="d-flex justify-content-center my-3">
           <h3>Información General</h3>
         </div>
         {/* Contenedor */}
@@ -130,7 +129,7 @@ export const PerfilEstudiante = () => {
           </div>
         </div>
         {/* Descripción del estudiante */}
-        <div className="card2 col">
+        <div className="card2 col my-3">
           <div className="d-flex justify-content-center my-3">
             <h3>Descripción</h3>
           </div>
