@@ -17,6 +17,7 @@ export const CancelarSeccionesPage = () => {
       });
   };
 
+
   const fetchClases = () => {
     if (docenteData.length > 0 && docenteData[0].carrera_id) {
       fetch(
@@ -25,6 +26,7 @@ export const CancelarSeccionesPage = () => {
         .then((response) => response.json())
         .then((data) => {
           setClases(data);
+         
         })
         .catch((error) => {
           console.error("Error al obtener las clases:", error);
@@ -38,6 +40,7 @@ export const CancelarSeccionesPage = () => {
       .then((data) => {
         setSecciones(data);
         setShowSecciones(true);
+        console.log(data)
       })
       .catch((error) => {
         console.error("Error al obtener las secciones:", error);

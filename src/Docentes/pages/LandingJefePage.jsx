@@ -18,6 +18,10 @@ export const LandingJefePage = () => {
   const onCancelarSecciones = () => {
     navigate("/docente/cancelarSecciones");
   };
+  const onVerSecciones = () => {
+    navigate("/docente/verSecciones");
+  };
+
 
 
   return (
@@ -32,12 +36,7 @@ export const LandingJefePage = () => {
         >
           Reiniciar Clave de Docente
         </button>
-        <button
-          className="btn btn-w btn-h btn-primary mt-3 form-control"
-          onClick={onCrearSeccion}
-        >
-          Registrar Sección
-        </button>
+      
         <button
           className="btn btn-w btn-h btn-primary mt-3 form-control"
           onClick={onHistorial}
@@ -46,9 +45,21 @@ export const LandingJefePage = () => {
         </button>
         <button
           className="btn btn-w btn-h btn-primary mt-3 form-control"
+          onClick={onCrearSeccion}
+        >
+          Registrar Sección
+        </button>
+        <button
+          className="btn btn-w btn-h btn-primary mt-3 form-control"
           onClick={onCancelarSecciones}
         >
           Cancelar Secciones
+        </button>
+        <button
+          className="btn btn-w btn-h btn-primary mt-3 form-control"
+          onClick={onVerSecciones}
+        >
+          Ver secciones
         </button>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">

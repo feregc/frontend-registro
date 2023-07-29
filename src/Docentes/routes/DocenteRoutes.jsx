@@ -13,6 +13,8 @@ import { SubirNotas } from '../components/SubirNotas'
 import { CargaAcademicaCoord } from '../pages/CargaAcademicaCoord'
 import { HistorialPage } from '../pages/HistorialPage'
 import { CancelarSeccionesPage } from '../pages/CancelarSeccionesPage'
+import {VerSeccionesPage} from "../pages/VerSeccionesPage"
+import { EditarSeccion } from '../components/EditarSeccion'
 
 export const DocenteRoutes = () => {
   return (
@@ -31,6 +33,9 @@ export const DocenteRoutes = () => {
         <Route path='/cargaAcademica' element={<CargaAcademicaCoord />} />
         <Route path='/historialAcademico' element={<HistorialPage />} />
         <Route path='/cancelarSecciones' element={<CancelarSeccionesPage />} />
+
+        <Route path='/verSecciones' element={<VerSeccionesPage />} />
+        <Route path='/verSecciones/editarSeccion' element={<EditarSeccion />} />
       </Routes>
     </>
   )
