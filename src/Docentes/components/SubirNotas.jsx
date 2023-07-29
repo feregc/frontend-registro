@@ -122,14 +122,15 @@ export const SubirNotas = () => {
     try {
       const response = await fetch(`http://localhost:8081/enviar-correos-notificacion/${id}`);
       if (response.ok) {
-        console.log(`Notificación enviada`);
+        alert(`Notificación enviada`);
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.error("Error-->",error)
     }
   };
 
   const navigate = useNavigate();
+  
   const regresar = () => {
     navigate(`../detalle-de-clase/${id}`)
   }

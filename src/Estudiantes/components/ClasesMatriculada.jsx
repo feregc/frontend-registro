@@ -43,7 +43,7 @@ export const ClasesMatriculada = () => {
         const fechaFormateada = formatearFecha(datosPreliminares[0].anio);
         try {
           const response = await fetch(
-            `http://localhost:8081/consulta-clases/${num_cuenta}/${fechaFormateada}/${datosPreliminares[0].periodo}`
+            `http://localhost:8081/clases-matriculadas/${num_cuenta}/${fechaFormateada}/${datosPreliminares[0].periodo}`
           );
           const jsonData = await response.json();
           setClases(jsonData);
@@ -86,25 +86,25 @@ export const ClasesMatriculada = () => {
                 <tr>
                   <th scope="col">Asignatura</th>
                   <th scope="col">Sección</th>
-                  <th scope="col">Nota</th>
+                <th scope="col">Período</th>
                   <th scope="col">Perfil de docente</th>
                 </tr>
               </thead>
               <tbody>
                 {clases?.map((dato, index) => (
                   <tr key={index}>
-                    <th scope="row">{dato.nombre_clase}</th>
+                    <th scope="row">{dato.nombre}</th>
                     <th scope="row">{dato.id_seccion}</th>
-                    <th scope="row">{dato.nota}</th>
+                    <th scope="row">{dato.periodo}</th>
                     <th scope="row">
-                      <div className="d-flex justify-content-center">
+                      {/* <div className="d-flex justify-content-center"> */}
                         <button
                           className="btn btn-success btn-w"
                           onClick={() => VerPerfilDeDocente(dato.num_empleado)}
                         >
                           Ver perfil del docente
                         </button>
-                      </div>
+                      {/* </div> */}
                     </th>
                   </tr>
                 ))}
