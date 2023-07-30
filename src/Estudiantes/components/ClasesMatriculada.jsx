@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 export const ClasesMatriculada = () => {
   const [datosPreliminares, setDatosPreliminares] = useState([]);
   const [clases, setClases] = useState([]);
   const navigate = useNavigate();
-
   const num_cuenta = localStorage.getItem("id");
   // Obtener el año y el periodo por medio del numero de cuenta del estudiantes
   useEffect(() => {
@@ -22,21 +20,16 @@ export const ClasesMatriculada = () => {
     };
     obtenerDatosPreliminares();
   }, []);
-
   const formatearFecha = (fechaISO) => {
     const fecha = new Date(fechaISO);
-
     const anio = fecha.getFullYear();
     const mes = String(fecha.getMonth() + 1).padStart(2, "0");
     const dia = String(fecha.getDate()).padStart(2, "0");
-
     const hora = String(fecha.getHours()).padStart(2, "0");
     const minutos = String(fecha.getMinutes()).padStart(2, "0");
     const segundos = String(fecha.getSeconds()).padStart(2, "0");
-
     return `${anio}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
   };
-
   useEffect(() => {
     const obtenerClases = async () => {
       if (datosPreliminares && datosPreliminares.length > 0) {
@@ -54,15 +47,12 @@ export const ClasesMatriculada = () => {
     };
     obtenerClases();
   }, [datosPreliminares]);
-
   const VerPerfilDeDocente = async (idEmpleado) => {
     navigate("../perfil-docente", { state: idEmpleado });
   };
-
   const regresar = () => {
     navigate("../home");
   };
-
   return (
     <>
       {/* Boton para regresar atras */}

@@ -28,7 +28,7 @@ export const HistorialPage = () => {
                     <div className="col">
                         <form onSubmit={handleSubmit}>
                             <div className="my-3 d-flex justify-content-center bg-primary">
-                                <h3 className="my-3">Buscar Estudiante</h3>
+                                <h2 className="my-3">Buscar Estudiante</h2>
                             </div>
                             <div className="my-3 d-flex justify-content-center bg-primary">
                                 <label htmlFor="">Ingrese el número de cuenta del alumno a buscar</label>
@@ -61,28 +61,28 @@ export const HistorialPage = () => {
                                     <div className="col">
                                         <br />
                                         <div className="my-6 d-flex justify-content-center bg-primary ">
-                                            <h3 className="my-6">Estudiante Encontrado:</h3>
+                                        <h3>Historial del Estudiante</h3>
                                         </div>
                                         <div className="container mt-5">
-                                            <h2>Historial del Estudiante</h2>
-                                            <table className="table table-striped">
+                                            
+                                            <table className="table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Código</th>
-                                                        <th>Nombre de la Clase</th>
-                                                        <th>Año</th>
-                                                        <th>Período</th>
-                                                        <th>Nota</th>
+                                                        <th scope='col'>Código</th>
+                                                        <th scope='col'>Nombre de la Clase</th>
+                                                        <th scope='col'>Año</th>
+                                                        <th scope='col'>Período</th>
+                                                        <th scope='col'>Nota</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {estudianteSeleccionado.map((clase, index) => (
                                                         <tr key={index}>
-                                                            <td>{clase.codigo}</td>
-                                                            <td>{clase.nombre_clase}</td>
-                                                            <td>{convertirFechaAño(clase.anio)}</td>
-                                                            <td>{clase.periodo}</td>
-                                                            <td>{clase.nota}</td>
+                                                            <td scope='row'>{clase.codigo}</td>
+                                                            <td scope='row'>{clase.nombre_clase}</td>
+                                                            <td scope='row'>{convertirFechaAño(clase.anio)}</td>
+                                                            <td scope='row'>{clase.periodo}</td>
+                                                            <td scope='row'>{clase.nota}</td>
                                                         </tr>
                                                     ))}
                                                 </tbody>

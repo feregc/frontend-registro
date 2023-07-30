@@ -38,7 +38,7 @@ export const EditarSeccion = () => {
       const url = `http://localhost:8081/actualizar-cupos/${id}`;
 
       const data = {
-        cupos: cuposActuales[id]
+        cupos: cuposActuales[id],
       };
       const response = await fetch(url, {
         method: "PUT",
@@ -58,74 +58,110 @@ export const EditarSeccion = () => {
     }
   };
 
-
   return (
     <>
-      <br />
-      <table className="table table-hover table-stripted">
-        <thead>
-          <tr>
-            <th scope="col">Sección</th>
-            <th scope="col">Docente</th>
-            <th scope="col">Edificio</th>
-            <th scope="col">Aula</th>
-            <th scope="col">Hi</th>
-            <th scope="col">Hf</th>
-            <th scope="col">Matricula</th>
-            <th scope="col">Lista de espera</th>
-            <th scope="col">Editar Cupos</th>
-          </tr>
-        </thead>
-        <tbody>
-          {secciones?.map((seccion) => (
-            <tr key={seccion.id_seccion}>
-              <td scope="row">{seccion.id_seccion}</td>
-              <td scope="row">{seccion.nombres} {seccion.apellidos}</td>
-              <td scope="row">{seccion.nombre_edificio}</td>
-              <td scope="row">{seccion.num_aula}</td>
-              <td scope="row">{seccion.horainicio}</td>
-              <td scope="row">{seccion.horafin}</td>
-              <td scope="row">
-                {editarCupos[seccion.id_seccion] ? (
-                  <input
-                    type="number"
-                    value={cuposActuales[seccion.id_seccion]}
-                    onChange={(e) => setCuposActuales((prev) => ({ ...prev, [seccion.id_seccion]: e.target.value }))}
-                  />
-                ) : (
-                  `${seccion.numero_estudiantes_matriculados}/${seccion.numero_cupos}`
-                )}
-              </td>
-              <td scope="row">{seccion.numero_estudiantes_lista_espera}</td>
-              <td scope="row">
-                {!editarCupos[seccion.id_seccion] ? (
-                  <button
-                    className="btn btn-success btn-w"
-                    onClick={() => handleEditarCupos(seccion.id_seccion, seccion.numero_cupos)}
-                  >
-                    Editar cupos
-                  </button>
-                ) : (
-                  <>
-                    <button
-                      className="btn btn-success btn-w"
-                      onClick={() => acualizarCupos(seccion.id_seccion)}
-                    >
-                      Guardar
-                    </button>
-                    <button
-                      className="btn btn-success btn-w"
-                      onClick={() => setEditarCupos((prev) => ({ ...prev, [seccion.id_seccion]: false }))}
-                    >
-                      Cancelar
-                    </button>
-                  </>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="container">
+        <div className="row my-5">
+          <div className="my-3 d-flex justify-content-center">
+            <h2>Editar Sección</h2>
+          </div>
+          <div className="col">
+            <div className="d-flex justify-content-center">
+              <table className="table table-hover table-stripted">
+                <thead>
+                  <tr>
+                    <th scope="col">Sección</th>
+                    <th scope="col">Docente</th>
+                    <th scope="col">Edificio</th>
+                    <th scope="col">Aula</th>
+                    <th scope="col">Hi</th>
+                    <th scope="col">Hf</th>
+                    <th scope="col">Matricula</th>
+                    <th scope="col">Lista de espera</th>
+                    <th scope="col">Editar Cupos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {secciones?.map((seccion) => (
+                    <tr key={seccion.id_seccion}>
+                      <td scope="row">{seccion.id_seccion}</td>
+                      <td scope="row">
+                        {seccion.nombres} {seccion.apellidos}
+                      </td>
+                      <td scope="row">{seccion.nombre_edificio}</td>
+                      <td scope="row">{seccion.num_aula}</td>
+                      <td scope="row">{seccion.horainicio}</td>
+                      <td scope="row">{seccion.horafin}</td>
+                      <td scope="row">
+                        {editarCupos[seccion.id_seccion] ? (
+                          <input
+                            type="number"
+                            value={cuposActuales[seccion.id_seccion]}
+                            onChange={(e) =>
+                              setCuposActuales((prev) => ({
+                                ...prev,
+                                [seccion.id_seccion]: e.target.value,
+                              }))
+                            }
+                          />
+                        ) : (
+                          `${seccion.numero_estudiantes_matriculados}/${seccion.numero_cupos}`
+                        )}
+                      </td>
+                      <td scope="row">
+                        {seccion.numero_estudiantes_lista_espera}
+                      </td>
+                      <td scope="row">
+                        {!editarCupos[seccion.id_seccion] ? (
+                          <button
+                            className="btn btn-success btn-w"
+                            onClick={() =>
+                              handleEditarCupos(
+                                seccion.id_seccion,
+                                seccion.numero_cupos
+                              )
+                            }
+                          >
+                            Editar cupos
+                          </button>
+                        ) : (
+                          <>
+                            <div className="row">
+                              <div className="col-6">
+                                <button
+                                  className="btn btn-success "
+                                  onClick={() =>
+                                    acualizarCupos(seccion.id_seccion)
+                                  }
+                                >
+                                  Guardar
+                                </button>
+                              </div>
+                              <div className="col-6">
+                                <button
+                                  className="btn btn-success "
+                                  onClick={() =>
+                                    setEditarCupos((prev) => ({
+                                      ...prev,
+                                      [seccion.id_seccion]: false,
+                                    }))
+                                  }
+                                >
+                                  Cancelar
+                                </button>
+                              </div>
+                            </div>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
