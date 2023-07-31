@@ -20,6 +20,7 @@ export const Solicitudes = () => {
   const [clases, setClases] = useState([]);
   const [documento, setDocumento] = useState(null); 
 
+
   useEffect(() => {
     // Función para obtener los datos del endpoint
     const fetchData = async () => {
@@ -133,8 +134,8 @@ export const Solicitudes = () => {
 
   const handleCrearSolicitud = () => {
     // Convertir cadena vacía a null si no se ha seleccionado ninguna opción
-    
-    const idCarrera = opcionSeleccionada2 ? parseInt(opcionSeleccionada2) : null;
+
+ const idCarrera = opcionSeleccionada2 ? parseInt(opcionSeleccionada2) : null;
     const idCentro = opcionSeleccionada ? parseInt(opcionSeleccionada) : null;
     const idClase = opcionSeleccionada3 ? parseInt(opcionSeleccionada3) : null;
   
@@ -155,7 +156,7 @@ export const Solicitudes = () => {
     formData.append("id_centro", idCentro);
     formData.append("id_clase", idClase);
     formData.append("Documento", documento || "");
-  
+
     fetch("http://localhost:8081/Crear_Solicitud", {
       method: "POST",
       body: formData,
@@ -175,20 +176,26 @@ export const Solicitudes = () => {
   const handleCancelar = () => {
     window.history.back();
   };
+
+  const regresar = () => {
+    window.history.back();
+  };
+
   
    const handleDocumentoChange = (event) => {
     setDocumento(event.target.files[0]); // Tomar el primer archivo seleccionado
   };
 
- 
+
 
   return (
     <>
       <div className="container">
+      <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col px-5">
-            <br />
-            <br />
             <div className="d-flex justify-content-center my-3">
               <h3>Solicitud de {tipoSolicitud}</h3>
             </div>
@@ -401,6 +408,7 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
+
                       <input
                         placeholder="Ingrese un PDF"
                         className="rounded-3 form-control w-75"
@@ -408,6 +416,7 @@ export const Solicitudes = () => {
                         accept="application/pdf"
                         onChange={handleDocumentoChange}
                       />
+
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"

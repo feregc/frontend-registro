@@ -9,18 +9,16 @@ export const DetalleClase = () => {
   const [alumno, setAlumno] = useState([]);
   const [clases, setClases] = useState([]);
   const [Clase, setClase] = useState(null);
-
-  //Lista de alumnos
-  // const [valorInput, setValorInput] = useState(0);
-  // const [editar, setEditar] = useState(false);
-  // const [numCuenta, setNumCuenta] = useState(null);
   const num_empleado = localStorage.getItem("id");
 
   useEffect(() => {
     const fetchclase = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/clasealumno/${id}`);
+        const response = await fetch(
+          `http://localhost:8081/estudiantes-seccion/${id}`
+        );
         const jsonData = await response.json();
+
         setAlumno(jsonData);
       } catch (error) {
         console.log("Error:", error);
@@ -121,12 +119,20 @@ export const DetalleClase = () => {
     habilitarSubidaDeNotas();
   }, [datosDeFecha]);
 
+  const regresar = () => {
+    navigate("../home");
+  };
+
   return (
     <>
       <div className="container">
+        {/* Boton para regresar a la paguina anterior */}
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="col">
           <div className="row">
-            <div className="d-flex justify-content-center my-3">
+            <div className="d-flex justify-content-center my-1">
               <div>
                 {Clase && (
                   <>
@@ -153,9 +159,9 @@ export const DetalleClase = () => {
               </button>
             </div>
             <div className="col-6 my-3 d-flex justify-content-center">
+              {/* disabled={fechaSubirNota} */}
               <button
-              disabled={fechaSubirNota}
-                // disabled={false}
+                disabled={false}
                 onClick={irAsubirNota}
                 className="btn btn-w2 btn-success m-1"
               >
@@ -165,7 +171,6 @@ export const DetalleClase = () => {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th scope="col">No. Lista</th>
                   <th scope="col">Nombre</th>
                   <th scope="col">Apellido</th>
                   <th scope="col">Número de Cuenta</th>
@@ -177,14 +182,13 @@ export const DetalleClase = () => {
                   alumno.length > 0 &&
                   alumno.map((dato, index) => (
                     <tr key={index}>
-                      <th scope="row">{index + 1}</th>
                       <th scope="row">
                         {dato.primer_nombre} {dato.segundo_nombre}
                       </th>
                       <th scope="row">
                         {dato.primer_apellido} {dato.segundo_apellido}
                       </th>
-                      <th scope="row" >{dato.num_cuenta}</th>
+                      <th scope="row">{dato.num_cuenta}</th>
                       <th scope="row">{dato.correo_institucional}</th>
                     </tr>
                   ))}

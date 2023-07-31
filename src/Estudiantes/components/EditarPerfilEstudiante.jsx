@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useNavigate } from "react-router-dom";
 
 export const EditarPerfilEstudiante = () => {
   const [textDescripcion, setTextDescripcion] = useState("");
@@ -21,7 +22,7 @@ export const EditarPerfilEstudiante = () => {
           `http://localhost:8081/estudiante/${num_cuenta}`
         );
         const datos = await response.json();
-        setDatosPersonales(datos);
+        // setDatosPersonales(datos);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -30,7 +31,7 @@ export const EditarPerfilEstudiante = () => {
   }, []);
   const actualizarDescripcion = async () => {
     try {
-      setActualizando(true);
+      // setActualizando(true);
       const body = JSON.stringify({ descripcion: textDescripcion });
       const response = await fetch(
         `http://localhost:8081/estudiantesDescri/descripcion/${num_cuenta}`,
@@ -52,7 +53,7 @@ export const EditarPerfilEstudiante = () => {
       console.error("Error al actualizar la descripción:", error);
     } finally {
       setTimeout(() => {
-        setActualizando(false);
+        // setActualizando(false);
       }, 1000);
     }
   };
@@ -130,11 +131,20 @@ export const EditarPerfilEstudiante = () => {
     await imgX(id);
     setImgLimit(imgLimit.filter((imagen) => imagen.id !== id));
   };
+
+  const navigate = useNavigate();
+  const regresar = () => {
+    navigate("../PerfilEstudiante");
+  };
+
   return (
     <>
       <div className="container">
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
-          <div className="d-flex justify-content-center my-5">
+          <div className="d-flex justify-content-center my-3">
             <h3>Editar Perfil</h3>
           </div>
           <div className="col-6 ">

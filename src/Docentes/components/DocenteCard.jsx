@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const DocenteCard = ({ docente }) => {
+  const navigate = useNavigate();
   const {
     num_empleado,
     nombres,
@@ -32,6 +34,15 @@ export const DocenteCard = ({ docente }) => {
 
     console.log(`Restablecer contraseña del docente ${nombres} ${apellidos}`);
   };
+  const handleVerclases = () => {
+    navigate(`/docente/VerNotasDocentePage/${num_empleado}`);
+
+  };
+  const handleEvaluacionDoc = () => {
+    navigate(`/docente/VerEvaluaciones/${num_empleado}`);
+  };
+
+
 
   return (
     <>
@@ -58,6 +69,12 @@ export const DocenteCard = ({ docente }) => {
             <div className="d-flex justify-content-end">
             <button className="btn btn-primary" onClick={handleResetPassword}>
               Restablecer contraseña
+            </button>
+            <button className="btn btn-primary" onClick={handleVerclases}>
+              Ver Clases
+            </button>
+            <button className="btn btn-primary" onClick={handleEvaluacionDoc}>
+              Evaluacion Docente 
             </button>
             </div>
             {/* {message && <p>{message}</p>} */}

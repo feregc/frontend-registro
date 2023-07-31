@@ -173,6 +173,10 @@ export const FormProcesoMatricula = ({ onCrear }) => {
 
   };
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
       {/* <div className="container">
@@ -180,10 +184,12 @@ export const FormProcesoMatricula = ({ onCrear }) => {
           <div className="col"> */}
       <form onSubmit={handleSubmit}>
         <div className="container">
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
           <div className="row my-2">
             <div className="col">
-              <br />
-              <br />
+              
               <h3 className="my-2">Formulario para proceso de Matricula</h3>
             </div>
             {/* fila1 */}

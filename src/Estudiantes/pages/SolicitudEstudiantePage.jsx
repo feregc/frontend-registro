@@ -26,23 +26,25 @@ export const SolicitudEstudiantePage = () => {
       state: { tipoSolicitud: "Pago Reposición" },
     });
   };
-  
+
   const VerSolicitudes = () => {
-    navigate("../VerSolicitudPage", {
-     
-    });
+    navigate("../VerSolicitudPage", {});
+  };
+  const regresar = () => {
+    window.history.back();
   };
 
   return (
     <>
-      <br />
-      <br />
-      <div className="container d-flex justify-content-center align-items-center">
+      <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row ">
           <div className="d-flex justify-content-center align-items-center">
             <h3>Solicitudes </h3>
           </div>
-            <br />
+          <br />
 
           <div className="col my-4">
             <button
@@ -52,7 +54,8 @@ export const SolicitudEstudiantePage = () => {
               Solicitar Cambio de carrera
             </button>
           </div>
-           <div className="col my-3">
+
+         <div className="col my-3">
               <button
                 className="btn btn-primary btn-w"
                 onClick={SolicitudCancelacionExcepcional}
@@ -60,6 +63,7 @@ export const SolicitudEstudiantePage = () => {
                 Solicitar cancelación excepcional
               </button>
             </div> 
+
           <div className="col my-4">
             <button
               className="btn btn-primary btn-w"
@@ -77,11 +81,9 @@ export const SolicitudEstudiantePage = () => {
             </button>
           </div>
           <div className="col my-4">
-            <button
-              className="btn btn-primary btn-w"
-              onClick={VerSolicitudes}
-            >
-              Ver <br />solicitudes 
+            <button className="btn btn-primary btn-w" onClick={VerSolicitudes}>
+              Ver <br />
+              solicitudes
             </button>
           </div>
         </div>

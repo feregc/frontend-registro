@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
-import { jsPDF } from "jspdf";
-import { autoTable } from "jspdf-autotable";
-import * as XLSX from "xlsx";
 
-export const CargaAcademica = () => {
+import { useParams } from "react-router-dom";
+export const EvaluacionPage = () => {
   const [verCarga, setVerCarga] = useState([]);
-  const num_empleado = localStorage.getItem("id");
+  const {num_empleado } = useParams();
   const [docente, setDocente] = useState({});
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
   const [opcionActual, setOpcionActual] = useState(""); // Nueva variable de estado para el año actual
@@ -77,7 +75,8 @@ export const CargaAcademica = () => {
     console.log(carreraId, centroId, opcionActual, opcionSeleccionada);
     try {
       const response = await fetch(
-        `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/${opcionActual}/${opcionSeleccionada}`
+     
+        `http://localhost:8081/Evaluaciones/${num_empleado}/${opcionActual}/${opcionSeleccionada}`
       );
       const jsonData = await response.json();
       setVerCarga(jsonData);
@@ -87,90 +86,16 @@ export const CargaAcademica = () => {
     }
   }
 
-  const generarPDF = () => {
-    // Crear un nuevo documento PDF
-    const doc = new jsPDF();
-
-    // Configurar la tabla con los datos
-    const tableData = verCarga.map((carga) => [
-      carga.id_seccion,
-      carga.codigo_clase,
-      carga.nombre_clase,
-      carga.num_empleado,
-      carga.nombre_empleado,
-      carga.cupos,
-      carga.nombre_edificio,
-      carga.num_aula,
-    ]);
-
-    // Agregar el encabezado de la tabla
-    const headers = [
-      "Sección",
-      "Cod. Asignatura",
-      "Asignatura",
-      "No. Docente",
-      "Docente",
-      "Cupos Habilitados",
-      "Edificio",
-      "Aula",
-    ];
-
-    // Agregar la tabla al documento PDF
-    doc.autoTable({
-      head: [headers],
-      body: tableData,
-    });
-    doc.save("CargaAcademinca.pdf");
-    console.log("si se imprime");
-  };
-
-  const generarExcel = () => {
-    const rows = verCarga.map((carga) => ({
-      seccion: carga.id_seccion,
-      codigoClase: carga.codigo_clase,
-      nombreClase: carga.nombre_clase,
-      numEmpleado: carga.num_empleado,
-      empleado: carga.nombre_empleado,
-      cupos: carga.cupos,
-      edificio: carga.nombre_edificio,
-      aula: carga.num_aula,
-    }));
-
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.json_to_sheet(rows);
-    XLSX.utils.book_append_sheet(workbook, worksheet, "CargaAcademica");
-    XLSX.utils.sheet_add_aoa(worksheet, [
-      [
-        "Sección",
-        "Cod. Asignatura",
-        "Asignatura",
-        "No. Docente",
-        "Docente",
-        "Cupos Habilitados",
-        "Edificio",
-        "Aula",
-      ], //Agrega correo
-    ]);
-    XLSX.writeFile(workbook, `CargaAcademica.xlsx`, {
-      compression: true,
-    });
-  };
-
-  const regresar = () => {
-    window.history.back();
-  };
+  
 
   return (
     <>
       <div className="container">
-        <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
-        </button>
         <div className="row">
           <div className="col ">
             <br />
             <div className="d-flex my-3 justify-content-center">
-              <h3>Carga Académica</h3>
+              <h3>Evaluaciones Docente {docente.nombres} {docente.apellidos}</h3>
             </div>
 
             <div className="row">
@@ -200,22 +125,7 @@ export const CargaAcademica = () => {
                   {opciones}
                 </select>
               </div>
-              <div className="col-6 d-flex my-3 justify-content-end">
-                <button
-                  className="btn btn-w3 mx-2 btn-primary control-form"
-                  type="button"
-                  onClick={generarPDF}
-                >
-                  Descargar PDF
-                </button>
-                <button
-                  className="btn btn-w3 mx-2 btn-primary control-form"
-                  type="button"
-                  onClick={generarExcel}
-                >
-                  Descargar Excel
-                </button>
-              </div>
+              
             </div>
 
             <div className="d-flex my-3 justify-content-center">
@@ -224,26 +134,26 @@ export const CargaAcademica = () => {
                 className="table table-striped table-hover table-bordered"
               >
                 <thead>
-                  <th scope="col">Sección</th>
-                  <th scope="col">Cod. Asignatura</th>
                   <th scope="col">Asignatura</th>
-                  <th scope="col">No. Docente</th>
-                  <th scope="col">Docente</th>
-                  <th scope="col">Cupos Habilitados</th>
-                  <th scope="col">Edificio</th>
-                  <th scope="col">Aula</th>
+                  <th scope="col">comentarioI</th>
+                  <th scope="col">comentarioII</th>
+                  <th scope="col">comentarioIII</th>
+                  <th scope="col">comentarioIIII</th>
+                  <th scope="col">comentarioIIIII</th>
+                  <th scope="col">comentarioIIIIII</th>
+                 
                 </thead>
                 <tbody>
                   {verCarga.map((seccion) => (
                     <tr key={seccion.id_seccion}>
-                      <td>{seccion.id_seccion} </td>
-                      <td>{seccion.codigo_clase} </td>
                       <td>{seccion.nombre_clase} </td>
-                      <td>{seccion.num_empleado} </td>
-                      <td>{seccion.nombre_empleado} </td>
-                      <td>{seccion.cupos} </td>
-                      <td>{seccion.nombre_edificio} </td>
-                      <td>{seccion.num_aula} </td>
+                      <td>{seccion.comentarioI} </td>
+                      <td>{seccion.comentarioII} </td>
+                      <td>{seccion.comentarioIII} </td>
+                      <td>{seccion.comentarioIIII} </td>
+                      <td>{seccion.comentarioIIIII} </td>
+                      <td>{seccion.comentarioIIIIII} </td>
+                     
                     </tr>
                   ))}
                 </tbody>
@@ -254,4 +164,5 @@ export const CargaAcademica = () => {
       </div>
     </>
   );
+
 };

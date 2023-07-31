@@ -11,3 +11,12 @@ export const convertirFecha = (fechaISO) => {
     
     return `${anio}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
   }
+
+   export const convertirSoloAFecha = (fechaISO) => {
+    const fecha = new Date(fechaISO);
+    
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+    const dia = String(fecha.getDate()).padStart(2, '0');
+    return `${anio}-${mes}-${dia}`;
+  }

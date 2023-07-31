@@ -14,40 +14,80 @@ export const LandingEstudiantePage = () => {
     navigate("../PagosPage");
   };
 
-   const onNavMatricular = () => {
+  const onNavMatricular = () => {
     navigate("../matricular");
   };
-  
+
   const onNavCalificaciones = () => {
     navigate("../ver-calificaciones");
   };
 
+  const onNavClaseMatriculadas = () => {
+    navigate("../clases-matriculadas");
+  };
 
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center flex-column my-5">
-        <h3>Bienvenido Estudiante</h3>
-        <br />
-        <button className="btn btn-w btn-primary" onClick={onNavPerfilEstudiante}>
-          Perfil
-        </button>
-        <br />
-        <button className="btn btn-w btn-primary" onClick={onNavSolicitudEstudiante}>
-          Solicitudes
-        </button>
-        <br />
-        <button className="btn btn-w btn-primary" onClick={onNavPagosEstudiante}>
-        Estado de cuenta
-        </button>
-        <br />
-        <button className="btn btn-w btn-primary" onClick={onNavMatricular}>
-        Matricula
-        </button>
-
-        <br />
-        <button className="btn btn-w btn-primary" onClick={onNavCalificaciones}>
-          Ver calificaciones de periodo
-        </button>
+      <div className="container">
+        <div className="row my-2">
+          <div className="my-3 d-flex justify-content-center">
+            <h3>Bienvenido Estudiante</h3>
+          </div>
+        </div>
+        <div className="row my-3">
+          <div className="d-flex justify-content-center">
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavPerfilEstudiante}
+              >
+                Perfil
+              </button>
+            </div>
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavSolicitudEstudiante}
+              >
+                Solicitudes
+              </button>
+            </div>
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavPagosEstudiante}
+              >
+                Estado de cuenta
+              </button>
+            </div>
+          </div>
+          <div className="d-flex justify-content-center my-3">
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavMatricular}
+              >
+                Matricula
+              </button>
+            </div>
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavClaseMatriculadas}
+              >
+                Ver clases matriculas
+              </button>
+            </div>
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavCalificaciones}
+              >
+                Ver calificaciones de periodo
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">
         <img src="../src/Assets/img/footer-bg.png" alt="" />
