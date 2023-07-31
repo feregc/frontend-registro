@@ -98,7 +98,7 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
                       {solicitud.nombre_centro}
                     </td>
                     <td className="p-4" scope="row">
-                      {solicitud.nombre_carrera}
+                      {solicitud.observacion}
                      
                     </td>
                     <td className="p-4" scope="row">
