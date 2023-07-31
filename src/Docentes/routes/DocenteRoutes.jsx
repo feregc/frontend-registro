@@ -17,6 +17,7 @@ import { EvaluacionPage } from '../pages/EvaluacionPage'
 import { VerNotasDocentePage } from '../pages/VerNotasDocentePage'
 import {VerSeccionesPage} from "../pages/VerSeccionesPage"
 import { EditarSeccion } from '../components/EditarSeccion'
+import { HistorialSolicitudes } from '../pages/HistorialSolicitudes'
 
 
 export const DocenteRoutes = () => {
@@ -40,6 +41,7 @@ export const DocenteRoutes = () => {
         <Route path='/VerNotasDocentePage/:num_empleado' Component={VerNotasDocentePage} element={<VerNotasDocentePage />} />
         <Route path='/verSecciones' element={<VerSeccionesPage />} />
         <Route path='/verSecciones/editarSeccion' element={<EditarSeccion />} />
+        <Route path='/HistorialSolicitudes' element={<HistorialSolicitudes />} />
 
       </Routes>
     </>

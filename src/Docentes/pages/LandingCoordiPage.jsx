@@ -15,6 +15,9 @@ export const LandingCoordiPage = () => {
   const onHistorial = () => {
     navigate("/docente/historialAcademico");
   };
+  const onNavSolicitudHistorial = () => {
+    navigate("/docente/HistorialSolicitudes");
+  }
 
   return (
     <>
@@ -27,19 +30,22 @@ export const LandingCoordiPage = () => {
             <div className="d-flex justify-content-center my-3">
               <button
                 className="btn btn-w btn-primary"
+                onClick={onNavSolicitudHistorial}
+              >
+                Historial de solicitudes
+              </button>
+            </div>
+            <div className="d-flex justify-content-center my-3">
+              <button
+                className="btn btn-w btn-primary"
                 onClick={onNavSolicitud}
               >
-                Lista de Solicitudes
+                Lista de Solicitudes pendientes
               </button>
             </div>
             <div className="d-flex justify-content-center my-3">
               <button className="btn btn-w btn-primary" onClick={onNavCargaAca}>
                 Carga Académica
-              </button>
-            </div>
-            <div className="d-flex justify-content-center my-3">
-              <button className="btn btn-w btn-primary" onClick={onHistorial}>
-                Ver Historial Academicos
               </button>
             </div>
           </div>
