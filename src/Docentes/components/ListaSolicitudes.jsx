@@ -46,10 +46,16 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
     window.location.reload();
   };
 
+  const regresar = () => {
+    window.history.back()
+  };
+
   return (
     <>
-    <br /><br />
       <div className="container">
+      <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-center my-3">

@@ -31,16 +31,23 @@ export const ListaSolicitudes = ({ numCuenta }) => {
 
   const indiceUltimoRegistro = currentPage * registrosPorPagina;
   const indicePrimerRegistro = indiceUltimoRegistro - registrosPorPagina;
-  const registrosActuales = solicitudes.slice(indicePrimerRegistro, indiceUltimoRegistro);
+  const registrosActuales = solicitudes.slice(
+    indicePrimerRegistro,
+    indiceUltimoRegistro
+  );
 
   // Calcular el número total de páginas basado en la cantidad actual de registros
   const totalPaginas = Math.ceil(solicitudes.length / registrosPorPagina);
+  const regresar = () => {
+    window.history.back();
+  };
 
   return (
     <>
-      <br />
-      <br />
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-center my-3">
@@ -73,23 +80,24 @@ export const ListaSolicitudes = ({ numCuenta }) => {
 
             <nav>
               <ul className="pagination justify-content-center">
-                {Array.from({ length: totalPaginas }, (_, index) => index + 1).map(
-                  (pagina) => (
-                    <li
-                      key={pagina}
-                      className={`page-item ${
-                        pagina === currentPage ? "active" : ""
-                      }`}
+                {Array.from(
+                  { length: totalPaginas },
+                  (_, index) => index + 1
+                ).map((pagina) => (
+                  <li
+                    key={pagina}
+                    className={`page-item ${
+                      pagina === currentPage ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(pagina)}
                     >
-                      <button
-                        className="page-link"
-                        onClick={() => handlePageChange(pagina)}
-                      >
-                        {pagina}
-                      </button>
-                    </li>
-                  )
-                )}
+                      {pagina}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
@@ -98,5 +106,3 @@ export const ListaSolicitudes = ({ numCuenta }) => {
     </>
   );
 };
-
-

@@ -15,6 +15,9 @@ import { HistorialPage } from '../pages/HistorialPage'
 import { CancelarSeccionesPage } from '../pages/CancelarSeccionesPage'
 import { EvaluacionPage } from '../pages/EvaluacionPage'
 import { VerNotasDocentePage } from '../pages/VerNotasDocentePage'
+import {VerSeccionesPage} from "../pages/VerSeccionesPage"
+import { EditarSeccion } from '../components/EditarSeccion'
+
 
 export const DocenteRoutes = () => {
   return (
@@ -35,6 +38,9 @@ export const DocenteRoutes = () => {
         <Route path='/cancelarSecciones' element={<CancelarSeccionesPage />} />
         <Route path='/VerEvaluaciones/:num_empleado' Component={EvaluacionPage} element={<EvaluacionPage />} />
         <Route path='/VerNotasDocentePage/:num_empleado' Component={VerNotasDocentePage} element={<VerNotasDocentePage />} />
+        <Route path='/verSecciones' element={<VerSeccionesPage />} />
+        <Route path='/verSecciones/editarSeccion' element={<EditarSeccion />} />
+
       </Routes>
     </>
   )

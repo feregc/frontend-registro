@@ -78,10 +78,17 @@ export const RegistroDocete = () => {
     onResetForm,
   } = useFormDocente(initialData, onValidation);
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
-      <div className="">
-        <div className="d-flex justify-content-center align-items-center bg-primary bd-layout">
+      <div className="container">
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
+        <div className="rowd-flex justify-content-center align-items-center">
           <div className="form">
             <br />
             <h2>Registro de Docentes</h2>
@@ -238,9 +245,14 @@ export const RegistroDocete = () => {
                   <option value="UNAH-TEC AGUÁN">UNAH-TEC AGUÁN</option>
                 </select>
               </div>
-              <button type="submit" className="btn btn-success form-control">
-                Registrar
-              </button>
+              <div className="my-3 d-flex justify-content-center">
+                <button
+                  type="submit"
+                  className="btn btn-success btn-w form-control"
+                >
+                  Registrar
+                </button>
+              </div>
             </form>
           </div>
         </div>

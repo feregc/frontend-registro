@@ -39,10 +39,11 @@ export const SubirNotas = () => {
   useEffect(() => {
     const fetchclase = async () => {
       try {
-
-        const response = await fetch(`http://localhost:8081/estudiantes-seccion/${id}`);
+        const response = await fetch(
+          `http://localhost:8081/estudiantes-seccion/${id}`
+        );
         const jsonData = await response.json();
-        setAlumno(jsonData)
+        setAlumno(jsonData);
       } catch (error) {
         console.log("Error:", error);
       }
@@ -58,17 +59,18 @@ export const SubirNotas = () => {
   const numeroDeEntrada = (event, num_cuenta) => {
     const input = event.target.value;
     if (validarNota(input)) {
-      const notasTemporalesActualizadas = notasTemporales.map((notaTemporal) => {
-        if (notaTemporal.num_cuenta === num_cuenta) {
-          return { ...notaTemporal, nota: input };
+      const notasTemporalesActualizadas = notasTemporales.map(
+        (notaTemporal) => {
+          if (notaTemporal.num_cuenta === num_cuenta) {
+            return { ...notaTemporal, nota: input };
+          }
+          return notaTemporal;
         }
-        return notaTemporal;
-      });
+      );
 
       setNotasTemporales(notasTemporalesActualizadas);
     }
   };
-
 
   //boton para activar los input de las notas a editar
   const handleEditar = () => {
@@ -82,7 +84,6 @@ export const SubirNotas = () => {
   };
   //boton para guardar las notas editadas
   const handleGuardar = async () => {
-
     for (const { num_cuenta, nota } of notasTemporales) {
       await guardarNotasEnBaseDeDatos(num_cuenta, nota);
     }
@@ -99,7 +100,7 @@ export const SubirNotas = () => {
       const data = {
         id_clase: id,
         id_estudiante: num_cuenta,
-        nota: nota
+        nota: nota,
       };
       const response = await fetch(url, {
         method: "POST",
@@ -120,24 +121,30 @@ export const SubirNotas = () => {
 
   const notificarSubidaDeNotas = async () => {
     try {
-      const response = await fetch(`http://localhost:8081/enviar-correos-notificacion/${id}`);
+      const response = await fetch(
+        `http://localhost:8081/enviar-correos-notificacion/${id}`
+      );
       if (response.ok) {
-        console.log(`Notificación enviada`);
+        alert(`Notificación enviada`);
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.error("Error-->", error);
     }
   };
 
   const navigate = useNavigate();
-  const regresar = () => {
-    navigate(`../detalle-de-clase/${id}`)
-  }
 
+  const regresar = () => {
+    navigate(`../detalle-de-clase/${id}`);
+  };
 
   return (
     <>
       <div className="container">
+        {/* Boton para regresar a la pagina anterior */}
+        <button className="btn btn-success my-3" onClick={regresar}>
+          Atras
+        </button>
         <div className="col">
           <div className="row">
             <div className="d-flex justify-content-center my-3">
@@ -145,11 +152,6 @@ export const SubirNotas = () => {
                 <>
                   <div className="col">
                     <div className="d-flex justify-content-center my-3">
-                      {/* Boton para regresar a la pagina anterior */}
-                      <button className="btn btn-success btn-w"
-                        onClick={regresar}>Atras</button>
-
-
                       <h4>Clase: {Clase.nombre_clase}</h4>
                     </div>
                     <div className="d-flex justify-content-center my-3">
@@ -183,8 +185,6 @@ export const SubirNotas = () => {
                 </>
               )}
             </div>
-
-
           </div>
           <div className="col">
             <div className="row">
@@ -216,50 +216,60 @@ export const SubirNotas = () => {
                 </tr>
               </thead>
               <tbody>
-                {
-                  alumno?.map((dato, index) => (
-                    <tr key={index}>
-                      <th>
-                        <img
-                          style={{
-                            width: "20px",
-                            height: "20px",
-                            backgroundColor: "red}",
-                          }}
-                          src={dato.nombre_archivo_completo}
-                          alt=""
-                        />
-                      </th>
-                      <th scope="row">{dato.primer_nombre}</th>
-                      <th scope="row">{dato.primer_apellido}</th>
-                      <th>
-                        {editar ? (
-                          <>
-                            <input
-                              className="form-control"
-                              type="text"
-                              value={
-                                notasTemporales.find(
-                                  (notaTemporal) =>
-                                    notaTemporal.num_cuenta === dato.num_cuenta
-                                )?.nota || ""
-                              }
-                              onChange={(event) =>
-                                numeroDeEntrada(event, dato.num_cuenta)
-                              }
-                            />
-                            {!validarNota(notasTemporales.find((notaTemporal) => notaTemporal.num_cuenta === dato.num_cuenta)?.nota) && (
-                              <p style={{ color: "red" }}>Ingrese un valor válido (0-100)</p>
-                            )}
-                          </>
-                        ) : (
-                          <p>{dato.nota ? dato.nota : "--"}</p>
-                        )}
-                      </th>
-                      {dato.nota === "" ? (<th> </th>) : (mostrarObservacion && (dato.nota >= 65 ? <th>Aprobó</th> : <th>Reprobó</th>))}
-
-                    </tr>
-                  ))}
+                {alumno?.map((dato, index) => (
+                  <tr key={index}>
+                    <th>
+                      <img
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          backgroundColor: "red}",
+                        }}
+                        src={dato.nombre_archivo_completo}
+                        alt=""
+                      />
+                    </th>
+                    <th scope="row">{dato.primer_nombre}</th>
+                    <th scope="row">{dato.primer_apellido}</th>
+                    <th>
+                      {editar ? (
+                        <>
+                          <input
+                            className="form-control"
+                            type="text"
+                            value={
+                              notasTemporales.find(
+                                (notaTemporal) =>
+                                  notaTemporal.num_cuenta === dato.num_cuenta
+                              )?.nota || ""
+                            }
+                            onChange={(event) =>
+                              numeroDeEntrada(event, dato.num_cuenta)
+                            }
+                          />
+                          {!validarNota(
+                            notasTemporales.find(
+                              (notaTemporal) =>
+                                notaTemporal.num_cuenta === dato.num_cuenta
+                            )?.nota
+                          ) && (
+                            <p style={{ color: "red" }}>
+                              Ingrese un valor válido (0-100)
+                            </p>
+                          )}
+                        </>
+                      ) : (
+                        <p>{dato.nota ? dato.nota : "--"}</p>
+                      )}
+                    </th>
+                    {dato.nota === "" ? (
+                      <th> </th>
+                    ) : (
+                      mostrarObservacion &&
+                      (dato.nota >= 65 ? <th>Aprobó</th> : <th>Reprobó</th>)
+                    )}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
