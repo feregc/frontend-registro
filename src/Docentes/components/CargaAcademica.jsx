@@ -156,9 +156,16 @@ export const CargaAcademica = () => {
     });
   };
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col ">
             <br />

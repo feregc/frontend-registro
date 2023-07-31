@@ -96,7 +96,9 @@ export const CargaEstudiantes = () => {
       const fileName = file.name;
       const fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
       if (fileExtension.toLowerCase() !== "csv") {
-        setMsg({ message: "Formato no aceptado. Por favor, sube un archivo CSV." });
+        setMsg({
+          message: "Formato no aceptado. Por favor, sube un archivo CSV.",
+        });
         fileInputRef.current.value = null; // Limpiar el campo de entrada de tipo file
         return;
       }
@@ -129,34 +131,50 @@ export const CargaEstudiantes = () => {
         console.error("Error al enviar los datos al backend:", error);
       });
   };
+
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
-      <div className="d-flex flex-column justify-content-center align-items-center bg-primary ">
-        <br />
-        <br />
-        <br />
-        <br />
-        <h2>Carga de Estudiantes</h2>
-        <br />
-        <p>Seleccione el archivo CSV con los datos de los estudiantes</p>
-        <br />
-        <div className="carga">
-          <input
-            ref={fileInputRef}
-            className="form-control mb-3"
-            type="file"
-            id="formFile"
-            onChange={handleFileUpload}
-          />
-          <button
-            className="btn btn-w btn-success mt-3"
-            onClick={handleSubmit}
-            disabled={uploaded}
-          >
-            Subir Estudiantes
-          </button>
-          <br />
-          <p>{msg?.message}</p>
+      <div className="container">
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
+        <div className="col my-5">
+          <div className="row">
+            <div className="my-3 d-flex justify-content-center">
+              <h2>Carga de Estudiantes</h2>
+            </div>
+            <div className="my-3 d-flex justify-content-center">
+              <p>Seleccione el archivo CSV con los datos de los estudiantes</p>
+            </div>
+            <div className="my-3 d-flex justify-content-center">
+              <div className="row">
+                <div className="col">
+                  <div className="carga">
+                    <input
+                      ref={fileInputRef}
+                      className="form-control mb-3"
+                      type="file"
+                      id="formFile"
+                      onChange={handleFileUpload}
+                    />
+                    <button
+                      className="btn btn-w btn-success mt-3"
+                      onClick={handleSubmit}
+                      disabled={uploaded}
+                    >
+                      Subir Estudiantes
+                    </button>
+                    <br />
+                    <p>{msg?.message}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>

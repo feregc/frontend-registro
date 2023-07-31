@@ -175,14 +175,18 @@ export const Solicitudes = () => {
   const handleCancelar = () => {
     window.history.back();
   };
+  const regresar = () => {
+    window.history.back();
+  };
 
   return (
     <>
       <div className="container">
+      <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col px-5">
-            <br />
-            <br />
             <div className="d-flex justify-content-center my-3">
               <h3>Solicitud de {tipoSolicitud}</h3>
             </div>

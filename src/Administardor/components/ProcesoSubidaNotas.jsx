@@ -93,16 +93,22 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
       setErrors(err);
     }
   };
+  const regresar = () => {
+    window.history.back();
+  };
 
   return (
     <>
       <br />
+      <button className="btn btn-success my-4" onClick={regresar}>
+        Atras
+      </button>
       <br />
       <form className="form" onSubmit={handleSubmit}>
         <div className="container">
           <div className="row my-2">
             <div className="col">
-                <br />
+              <br />
               <h3>Formulario para proceso subida de notas</h3>
               <br />
             </div>

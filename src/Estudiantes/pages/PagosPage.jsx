@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export const PagosPage = () => {
-  
   const num_cuenta = localStorage.getItem("id");
 
   const [pagos, setPagos] = useState({
@@ -14,7 +13,6 @@ export const PagosPage = () => {
     reposicion: 100,
   };
 
-  
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
     setPagos((prevPagos) => ({
@@ -22,7 +20,7 @@ export const PagosPage = () => {
       [name]: checked,
     }));
   };
-  
+
   const calcularTotal = () => {
     let total = 270;
     Object.keys(pagos).forEach((pago) => {
@@ -32,7 +30,7 @@ export const PagosPage = () => {
     });
     return total;
   };
-  
+
   // Effect para obtener el estado del pago de reposición desde el servidor
   useEffect(() => {
     fetch(`http://localhost:8081/PagoReposicion/${num_cuenta}`)
@@ -41,15 +39,23 @@ export const PagosPage = () => {
         setPagos({ reposicion: data.Pago_reposolicitud });
       })
       .catch((error) => {
-        console.error('Error al obtener el estado del pago de reposición:', error);
+        console.error(
+          "Error al obtener el estado del pago de reposición:",
+          error
+        );
       });
   }, [num_cuenta]);
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
-      <br />
-      <br />
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="d-flex flex-column align-items-center justify-content-center">
             <div className="col my-3">
@@ -67,7 +73,7 @@ export const PagosPage = () => {
                   Pago de Matrícula - L.{precios.matricula}
                 </label>
               </div>
-              
+
               <div className="form-check my-3">
                 <label className="form-check-label">
                   <input

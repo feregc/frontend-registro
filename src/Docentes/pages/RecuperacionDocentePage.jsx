@@ -38,9 +38,16 @@ export const RecuperacionDocentePage = () => {
     }
   };
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col">
             <form onSubmit={handleSubmit}>
@@ -76,7 +83,7 @@ export const RecuperacionDocentePage = () => {
               <div className="container">
                 <div className="row">
                   <div className="col">
-                      <br />
+                    <br />
                     <div className="my-6 d-flex justify-content-center bg-primary ">
                       <h3 className="my-6">Docentes Encontrados</h3>
                     </div>

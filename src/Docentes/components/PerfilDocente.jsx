@@ -63,9 +63,16 @@ export const PerfilDocente = () => {
     /**Datos de pueba */
   }
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <h3 className="mt-5">Información General</h3>
         <br />
         {/* Contenedor */}
