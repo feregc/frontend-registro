@@ -135,5 +135,6 @@ export const VerNotasDocentePage = () => {
     </>
   );
 
+};
 
 
