@@ -339,7 +339,13 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
-                      
+                      <input
+                        placeholder="Ingrese un PDF"
+                        className="rounded-3 form-control w-75"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleDocumentoChange}
+                      />
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"

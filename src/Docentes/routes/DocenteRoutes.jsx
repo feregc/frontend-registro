@@ -11,7 +11,7 @@ import { CrearSeccionesPage } from '../pages/CrearSeccionesPage'
 import { SolicitudListaCoord } from "../pages/SolicitudListaCoord";
 import { SubirNotas } from '../components/SubirNotas'
 import { CargaAcademicaCoord } from '../pages/CargaAcademicaCoord'
-
+import { HistorialSolicitudes } from '../pages/HistorialSolicitudes'
 
 export const DocenteRoutes = () => {
   return (
@@ -28,6 +28,8 @@ export const DocenteRoutes = () => {
         <Route path='/listaSolicitud' element={<SolicitudListaCoord/>}/>
         <Route path='/subir-notas' element={<SubirNotas />} />
         <Route path='/cargaAcademica' element={<CargaAcademicaCoord />} />
+        <Route path='/HistorialSolicitudes' element={<HistorialSolicitudes />} />
+    
       </Routes>
     </>
   )

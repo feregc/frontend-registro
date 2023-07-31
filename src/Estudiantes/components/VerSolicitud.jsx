@@ -52,6 +52,7 @@ export const ListaSolicitudes = ({ numCuenta }) => {
                   <th scope="col">Tipo de solicitud</th>
                   <th scope="col">Estado</th>
                   <th scope="col">Justificación</th>
+                  <th scope="col">Observacion</th>
                 </tr>
               </thead>
               <tbody>
@@ -65,6 +66,9 @@ export const ListaSolicitudes = ({ numCuenta }) => {
                     </td>
                     <td className="p-4" scope="row">
                       {solicitud.justificacion}
+                    </td>
+                    <td className="p-4" scope="row">
+                      {solicitud.observacion}
                     </td>
                   </tr>
                 ))}

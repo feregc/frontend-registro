@@ -14,7 +14,7 @@ export const LandingCoordiPage = () => {
     navigate("/docente/CargaAcademica");
   }
   const onNavSolicitudHistorial = () => {
-    navigate("/docente/");
+    navigate("/docente/HistorialSolicitudes");
   }
   return (
     <>
