@@ -15,6 +15,9 @@ export const LandingCoordiPage = () => {
   const onHistorial = () => {
     navigate("/docente/historialAcademico");
   };
+  const onNavSolicitudHistorial = () => {
+    navigate("/docente/HistorialSolicitudes");
+  }
 
   return (
     <>
@@ -25,26 +28,29 @@ export const LandingCoordiPage = () => {
               <h3>Bienvenido coordinador</h3>
             </div>
             <div className="d-flex justify-content-center my-3">
+               <button
+          className="btn btn-w btn-primary"
+          onClick={onNavSolicitudHistorial}
+        >
+          Historial de solicitudes
+        </button>
+              <div className="d-flex justify-content-center my-3">
               <button
-                className="btn btn-w btn-primary"
-                onClick={onNavSolicitud}
-              >
-                Lista de Solicitudes
-              </button>
+          className="btn btn-w btn-primary"
+          onClick={onNavSolicitud}
+        >
+          Lista de Solicitudes pendientes
+        </button>
             </div>
             <div className="d-flex justify-content-center my-3">
               <button className="btn btn-w btn-primary" onClick={onNavCargaAca}>
                 Carga Académica
               </button>
             </div>
-            <div className="d-flex justify-content-center my-3">
-              <button className="btn btn-w btn-primary" onClick={onHistorial}>
-                Ver Historial Academicos
-              </button>
+          
             </div>
           </div>
         </div>
-      </div>
       <div className="my-5 d-flex flex-column align-items-center bg-primary "></div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">
         <img src="../src/Assets/img/footer-bg.png" alt="" />

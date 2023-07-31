@@ -31,19 +31,22 @@ export const ListaSolicitudes = ({ numCuenta }) => {
 
   const indiceUltimoRegistro = currentPage * registrosPorPagina;
   const indicePrimerRegistro = indiceUltimoRegistro - registrosPorPagina;
-  const registrosActuales = solicitudes.slice(
-    indicePrimerRegistro,
-    indiceUltimoRegistro
-  );
+
+   const registrosActuales = solicitudes.slice(indicePrimerRegistro, indiceUltimoRegistro);
 
   // Calcular el número total de páginas basado en la cantidad actual de registros
   const totalPaginas = Math.ceil(solicitudes.length / registrosPorPagina);
+
   const regresar = () => {
     window.history.back();
   };
 
+
+ 
   return (
     <>
+      <br />
+
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
           Atras
@@ -59,6 +62,10 @@ export const ListaSolicitudes = ({ numCuenta }) => {
                   <th scope="col">Tipo de solicitud</th>
                   <th scope="col">Estado</th>
                   <th scope="col">Justificación</th>
+
+
+                  <th scope="col">Observacion</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -73,6 +80,12 @@ export const ListaSolicitudes = ({ numCuenta }) => {
                     <td className="p-4" scope="row">
                       {solicitud.justificacion}
                     </td>
+
+
+                    <td className="p-4" scope="row">
+                      {solicitud.observacion}
+                    </td>
+
                   </tr>
                 ))}
               </tbody>
@@ -80,24 +93,26 @@ export const ListaSolicitudes = ({ numCuenta }) => {
 
             <nav>
               <ul className="pagination justify-content-center">
-                {Array.from(
-                  { length: totalPaginas },
-                  (_, index) => index + 1
-                ).map((pagina) => (
-                  <li
-                    key={pagina}
-                    className={`page-item ${
-                      pagina === currentPage ? "active" : ""
-                    }`}
-                  >
-                    <button
-                      className="page-link"
-                      onClick={() => handlePageChange(pagina)}
+
+               
+                {Array.from({ length: totalPaginas }, (_, index) => index + 1).map(
+                  (pagina) => (
+                    <li
+                      key={pagina}
+                      className={`page-item ${
+                        pagina === currentPage ? "active" : ""
+                      }`}
                     >
-                      {pagina}
-                    </button>
-                  </li>
-                ))}
+                      <button
+                        className="page-link"
+                        onClick={() => handlePageChange(pagina)}
+                      >
+                        {pagina}
+                      </button>
+                    </li>
+                  )
+                )}
+
               </ul>
             </nav>
           </div>
@@ -106,3 +121,4 @@ export const ListaSolicitudes = ({ numCuenta }) => {
     </>
   );
 };
+

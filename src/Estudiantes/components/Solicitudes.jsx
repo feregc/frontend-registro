@@ -18,6 +18,7 @@ export const Solicitudes = () => {
   const [centro, setCentro] = useState([]);
   const [data, setData] = useState([]);
   const [clases, setClases] = useState([]);
+  const [documento, setDocumento] = useState(null); 
 
 
   useEffect(() => {
@@ -133,32 +134,32 @@ export const Solicitudes = () => {
 
   const handleCrearSolicitud = () => {
     // Convertir cadena vacía a null si no se ha seleccionado ninguna opción
-    const idCarrera = opcionSeleccionada2 !== "" ? opcionSeleccionada2 : null;
-    const idCentro = opcionSeleccionada !== "" ? opcionSeleccionada : null;
-    const idClase = opcionSeleccionada3 !== "" ? opcionSeleccionada3 : null;
-    const nuevaSolicitud = {
-      tipo_solicitud: tipoSolicitud,
-      num_cuenta: num_cuenta,
-      justificacion: 
-       imgPerfilEstudiante.primer_nombre + " " + 
-       imgPerfilEstudiante.segundo_nombre + " " + 
-       imgPerfilEstudiante.primer_apellido + " " + 
-       imgPerfilEstudiante.segundo_apellido + " " + " numero de cuenta " + " " + 
-       imgPerfilEstudiante.num_cuenta + "  solicitud de " +
-        tipoSolicitud + " razon " + 
-        justificacion,
-      id_carrera: idCarrera,
-      id_centro: idCentro,
-      id_clase:idClase,
-    };
-   
+
+ const idCarrera = opcionSeleccionada2 ? parseInt(opcionSeleccionada2) : null;
+    const idCentro = opcionSeleccionada ? parseInt(opcionSeleccionada) : null;
+    const idClase = opcionSeleccionada3 ? parseInt(opcionSeleccionada3) : null;
+  
+    const formData = new FormData();
+    formData.append("tipo_solicitud", tipoSolicitud);
+    formData.append("num_cuenta", num_cuenta);
+    formData.append(
+      "justificacion",
+      `${imgPerfilEstudiante.primer_nombre}
+       ${imgPerfilEstudiante.segundo_nombre}
+        ${imgPerfilEstudiante.primer_apellido} 
+        ${imgPerfilEstudiante.segundo_apellido} 
+        número de cuenta ${imgPerfilEstudiante.num_cuenta} 
+        solicitud de ${tipoSolicitud} por motivo de  
+        ${justificacion}`
+    );
+    formData.append("id_carrera", idCarrera);
+    formData.append("id_centro", idCentro);
+    formData.append("id_clase", idClase);
+    formData.append("Documento", documento || "");
 
     fetch("http://localhost:8081/Crear_Solicitud", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(nuevaSolicitud),
+      body: formData,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -175,9 +176,17 @@ export const Solicitudes = () => {
   const handleCancelar = () => {
     window.history.back();
   };
+
   const regresar = () => {
     window.history.back();
   };
+
+  
+   const handleDocumentoChange = (event) => {
+    setDocumento(event.target.files[0]); // Tomar el primer archivo seleccionado
+  };
+
+
 
   return (
     <>
@@ -227,6 +236,13 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
+                      <input
+                        placeholder="Ingrese un PDF"
+                        className="rounded-3 form-control w-75"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleDocumentoChange}
+                      />
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
@@ -283,6 +299,17 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
+                      <div className="d-flex justify-content-center ">
+                      <label htmlFor="descripcion">PDF Respaldo</label><br />
+                      <br />
+                      <input
+                        placeholder="Ingrese un PDF"
+                        className="rounded-3 form-control w-75"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleDocumentoChange}
+                      />
+            </div>
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
@@ -319,6 +346,13 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
+                      <input
+                        placeholder="Ingrese un PDF"
+                        className="rounded-3 form-control w-75"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleDocumentoChange}
+                      />
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
@@ -374,6 +408,15 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
+
+                      <input
+                        placeholder="Ingrese un PDF"
+                        className="rounded-3 form-control w-75"
+                        type="file"
+                        accept="application/pdf"
+                        onChange={handleDocumentoChange}
+                      />
+
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"

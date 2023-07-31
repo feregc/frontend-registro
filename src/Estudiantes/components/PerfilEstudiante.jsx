@@ -113,9 +113,10 @@ export const PerfilEstudiante = () => {
               {imgPerfilEstudiante.primer_apellido}{" "}
               {imgPerfilEstudiante.segundo_apellido}{" "}
             </p>
-            <p>Carrera: {imgPerfilEstudiante.carrera}</p>
+            <p>Carrera: {imgPerfilEstudiante.nombre_carrera}</p>
             <p>Número de cuenta: {imgPerfilEstudiante.num_cuenta}</p>
             <p>Índice Global: {imgPerfilEstudiante.indice}</p>
+            <p>Centro: {imgPerfilEstudiante.nombre_centro}</p>
             <p>
               Correo Institucional: {imgPerfilEstudiante.correo_institucional}
             </p>
