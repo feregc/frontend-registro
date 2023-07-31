@@ -22,61 +22,75 @@ export const RolDocente = () => {
       setMostrarListaDeCarreras(false);
     }
   };
+  const regresar = () => {
+    window.history.back();
+  };
 
   return (
     <>
-      <div className="d-flex flex-column justify-content-center ">
-        <div className="d-flex flex-column justify-content-center ">
-          <div className="form">
-            <br />
-            <br />
-            <h2 htmlFor="lang">Centro: </h2>
-            <br />
-            <select
-              name="centros"
-              id="lang"
-              className="form-control2 w-75"
-              value={centroSeleccionado}
-              onChange={handleCentro}
-            >
-              <option value="x">Seleciona un centro</option>
-              <option value="1">CU</option>
-              <option value="2">UNAH-VS</option>
-              <option value="3">UNAH-CURC</option>
-              <option value="4">UNAH-CURLA</option>
-              <option value="5">UNAH-CURLP</option>
-              <option value="6">UNAH-CUROC</option>
-              <option value="7">UNAH-CURNO</option>
-              <option value="8">UNAH-TEC Danli</option>
-              <option value="9">UNAH-TEC AGUÁN</option>
-            </select>
-            <br />
+      <div className="container">
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atras
+        </button>
+        <div className="row">
+          <div className="my-3 d-flex justify-content-center">
+            <h2>Cambiar Rol de Docente</h2>
           </div>
         </div>
-        {mostrarListaDeCarreras && (
-          <div className="d-flex flex-column justify-content-center">
-            <div className="form">
-              <br />
-              <h3>Carrera:</h3>
-              <ListaDeCarreras
-                centro={centroSeleccionado}
-                opcion={opcionCarrera}
-              />
-              <br />
-            </div>
-
-            <div className="d-flex justify-content-center ">
-              <div className=" w-75">
-                {opcionDeCarrera && (
-                  <ListaDocentes
-                    carrera={opcionDeCarrera}
-                    centro={centroSeleccionado}
-                  />
-                )}
+        <div className="row my-3 ">
+          <div className="d-flex justify-content-center">
+            <div className="col-6">
+              <div className="my-3 d-flex justify-content-center ">
+                <h3 htmlFor="lang">Centro: </h3>
+              </div>
+              <div className="my-3 d-flex justify-content-center ">
+                <select
+                  name="centros"
+                  id="lang"
+                  className="form-control2 btn-w2"
+                  value={centroSeleccionado}
+                  onChange={handleCentro}
+                >
+                  <option value="x">Seleciona un centro</option>
+                  <option value="1">CU</option>
+                  <option value="2">UNAH-VS</option>
+                  <option value="3">UNAH-CURC</option>
+                  <option value="4">UNAH-CURLA</option>
+                  <option value="5">UNAH-CURLP</option>
+                  <option value="6">UNAH-CUROC</option>
+                  <option value="7">UNAH-CURNO</option>
+                  <option value="8">UNAH-TEC Danli</option>
+                  <option value="9">UNAH-TEC AGUÁN</option>
+                </select>
               </div>
             </div>
+            <div className="col-6">
+              {mostrarListaDeCarreras && (
+                <>
+                  <div className="my-3 d-flex justify-content-center">
+                    <h3>Carrera:</h3>
+                  </div>
+                  <div className="my-3 d-flex justify-content-center">
+                    <ListaDeCarreras
+                      centro={centroSeleccionado}
+                      opcion={opcionCarrera}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
           </div>
-        )}
+        </div>
+        <div className="d-flex justify-content-center ">
+          <div className="col">
+            {opcionDeCarrera && (
+              <ListaDocentes
+                carrera={opcionDeCarrera}
+                centro={centroSeleccionado}
+              />
+            )}
+          </div>
+        </div>
       </div>
     </>
   );
@@ -133,7 +147,7 @@ const ListaDeCarreras = ({ centro, opcion }) => {
       ) : (
         <select
           id="lang"
-          className="form-control2 w-75"
+          className="form-control2 btn-w2"
           onChange={handleCarrera}
         >
           <option value="">Seleccione una carrera</option>
@@ -224,83 +238,109 @@ const ListaDocentes = ({ carrera, centro }) => {
   };
 
   return (
-    <div className="d-flex flex-column justify-content-center">
-      <div className="d-flex flex-column justify-content-center">
-        {mostrarAdvertencia && (
-          <>
-            <br />
-            <p>
-              Solo puede existir un docente con el cargo de Jefe de departamento
-            </p>
-            <br />
-            <div className="d-flex flex-column justify-content-center align-items-center">
-              <button
-                className="btn btn-success btn-w form-control"
-                onClick={handleAceptar}
-              >
-                Aceptar
-              </button>
-            </div>
-            <br />
-          </>
-        )}
-        {carrera && !mostrarAdvertencia && (
-          <table className="table table-striped table-hover">
-            <thead>
-              <tr>
-                <th scope="col" className="">
-                  Docentes
-                </th>
-                <th scope="col" className="">
-                  Rol
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {docentes &&
-                docentes.length > 0 &&
-                docentes.map((dato) => (
-                  <tr key={dato.num_empleado}>
-                    <th scope="row">
-                      {dato.nombres} {dato.apellidos}
-                    </th>
-                    <td>
-                      <div>
-                        <select
-                          name="docentes"
-                          id="lang"
-                          className="form-control2"
-                          value={rolSeleccionado[dato.num_empleado]}
-                          onChange={(event) =>
-                            actualizarRol(event.target.value, dato.num_empleado)
-                          }
-                          disabled={
-                            dato.cargo === "Jefe de departamento" &&
-                            rolSeleccionado[dato.num_empleado] ===
-                              "Jefe de departamento"
-                          }
-                        >
-                          <option value={dato.cargo}>{dato.cargo}</option>
-                          {dato.cargo !== "Docente" && (
-                            <option value="Docente">Docente</option>
-                          )}
-                          {dato.cargo !== "Coordinador" && (
-                            <option value="Coordinador">Coordinador</option>
-                          )}
-                          {dato.cargo !== "Jefe de departamento" && (
-                            <option value="Jefe de departamento">
-                              Jefe de departamento
-                            </option>
-                          )}
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        )}
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="col"></div>
+        </div>
       </div>
-    </div>
+      <div className="d-flex flex-column justify-content-center">
+        <div className="d-flex flex-column justify-content-center">
+          {mostrarAdvertencia && (
+            <>
+              <br />
+              <p>
+                Solo puede existir un docente con el cargo de Jefe de
+                departamento
+              </p>
+              <br />
+              <div className="d-flex flex-column justify-content-center align-items-center">
+                <button
+                  className="btn btn-success btn-w form-control"
+                  onClick={handleAceptar}
+                >
+                  Aceptar
+                </button>
+              </div>
+              <br />
+            </>
+          )}
+          {carrera && !mostrarAdvertencia && (
+            <>
+              <div className="container">
+                <div className="row">
+                  <div className="d-flex justify-content-center">
+                    <div className="col">
+                      <table className="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col" className="">
+                              Docentes
+                            </th>
+                            <th scope="col" className="">
+                              Rol
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {docentes &&
+                            docentes.length > 0 &&
+                            docentes.map((dato) => (
+                              <tr key={dato.num_empleado}>
+                                <th scope="row">
+                                  {dato.nombres} {dato.apellidos}
+                                </th>
+                                <th scope="row">
+                                  <div>
+                                    <select
+                                      name="docentes"
+                                      id="lang"
+                                      className="form-control2 btn-w2"
+                                      value={rolSeleccionado[dato.num_empleado]}
+                                      onChange={(event) =>
+                                        actualizarRol(
+                                          event.target.value,
+                                          dato.num_empleado
+                                        )
+                                      }
+                                      disabled={
+                                        dato.cargo === "Jefe de departamento" &&
+                                        rolSeleccionado[dato.num_empleado] ===
+                                          "Jefe de departamento"
+                                      }
+                                    >
+                                      <option value={dato.cargo}>
+                                        {dato.cargo}
+                                      </option>
+                                      {dato.cargo !== "Docente" && (
+                                        <option value="Docente">Docente</option>
+                                      )}
+                                      {dato.cargo !== "Coordinador" && (
+                                        <option value="Coordinador">
+                                          Coordinador
+                                        </option>
+                                      )}
+                                      {dato.cargo !==
+                                        "Jefe de departamento" && (
+                                        <option value="Jefe de departamento">
+                                          Jefe de departamento
+                                        </option>
+                                      )}
+                                    </select>
+                                  </div>
+                                </th>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 };

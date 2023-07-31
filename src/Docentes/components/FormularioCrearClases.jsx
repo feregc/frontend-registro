@@ -123,10 +123,17 @@ const FormularioCrearClases = () => {
       });
   };
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit}>
         <div className="container">
+          <button className="btn btn-success mt-4" onClick={regresar}>
+            Atras
+          </button>
           <div className="row">
             <div className="col">
               <br />
@@ -136,115 +143,114 @@ const FormularioCrearClases = () => {
               </div>
               <br />
             </div>
-              
-              <div>
-                <div>
-                  <label htmlFor="clase">Seleccione la clase:</label>
-                  <select
-                    className="form-control my-2"
-                    id="clase"
-                    value={selectedClase}
-                    onChange={handleClaseChange}
+          </div>
+          <div className="row my-2">
+            <div className="col-6">
+              <label htmlFor="clase">Seleccione la clase:</label>
+              <select
+                className="form-control my-2"
+                id="clase"
+                value={selectedClase}
+                onChange={handleClaseChange}
+              >
+                <option value="">Opciones</option>
+                {clases.map((clase) => (
+                  <option key={clase.id_clase} value={clase.id_clase}>
+                    {clase.nombre_clase}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-6">
+              <label htmlFor="docente">Seleccione el docente:</label>
+              <select
+                className="form-control my-2"
+                id="docente"
+                value={selectedDocente}
+                onChange={handleDocenteChange}
+              >
+                <option value="">Opciones</option>
+                {docentes.map((docente) => (
+                  <option
+                    key={docente.num_empleado}
+                    value={docente.num_empleado}
                   >
-                    <option value="">Opciones</option>
-                    {clases.map((clase) => (
-                      <option key={clase.id_clase} value={clase.id_clase}>
-                        {clase.nombre_clase}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="docente">Seleccione el docente:</label>
-                  <select
-                    className="form-control my-2"
-                    id="docente"
-                    value={selectedDocente}
-                    onChange={handleDocenteChange}
+                    {docente.nombres} {docente.apellidos}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="row my-2">
+            <div className="col-6">
+              <label htmlFor="edificio">Seleccione el edificio:</label>
+              <select
+                className="form-control my-2"
+                id="edificio"
+                value={selectedEdificio}
+                onChange={handleEdificioChange}
+              >
+                <option value="">Opciones</option>
+                {edificios.map((edificio) => (
+                  <option
+                    key={edificio.id_edificio}
+                    value={edificio.id_edificio}
                   >
-                    <option value="">Opciones</option>
-                    {docentes.map((docente) => (
-                      <option
-                        key={docente.num_empleado}
-                        value={docente.num_empleado}
-                      >
-                        {docente.nombres} {docente.apellidos}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label htmlFor="edificio">Seleccione el edificio:</label>
-                  <select
-                    className="form-control my-2"
-                    id="edificio"
-                    value={selectedEdificio}
-                    onChange={handleEdificioChange}
-                  >
-                    <option value="">Opciones</option>
-                    {edificios.map((edificio) => (
-                      <option
-                        key={edificio.id_edificio}
-                        value={edificio.id_edificio}
-                      >
-                        {edificio.nombre}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="aulas">Aulas disponibles:</label>
-                  <select
-                    className="form-control my-2"
-                    id="aulas"
-                    value={selectedAula}
-                    onChange={handleAulaChange}
-                  >
-                    <option value="">Opciones</option>
-                    {aulas.map((aula) => (
-                      <option key={aula.id_aula} value={aula.id_aula}>
-                        {/* {aula.nombre} - {aula.num_aula} - Hi:{aula.horainicio} - Hf:{aula.horafin} */}
-                        {aula.num_aula} - Hi:{aula.horainicio} - Hf:
-                        {aula.horafin}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="dias">Seleccione los dias:</label>
-                  <select
-                    className="form-control my-2"
-                    id="dias"
-                    value={selectedDias}
-                    onChange={handleDiasChange}
-                  >
-                    <option value="">Opciones</option>
-                    <option value="LuMaMiJuVi">LuMaMiJuVi</option>
-                    <option value="LuMaMiJu">LuMaMiJu</option>
-                    <option value="LuMaMi">LuMaMi</option>
-                    {/* <option value="4">Sa</option> */}
-                  </select>
-                </div>
-                <div>
-                  <label>Cupos disponibles</label>
-                  <input
-                    className="form-control my-2"
-                    type="number"
-                    value={cuposDisponibles}
-                    onChange={handleCuposChange}
-                    placeholder="Ingrese el número de cupos disponibles"
-                  />
-                </div>
-              </div>
-              <br />
-              <div className="d-flex justify-content-center">
-                <button className="btn btn-primary" type="submit">
-                  Agregar seccion
-                </button>
-              </div>
-            
+                    {edificio.nombre}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-6">
+              <label htmlFor="aulas">Aulas disponibles:</label>
+              <select
+                className="form-control my-2"
+                id="aulas"
+                value={selectedAula}
+                onChange={handleAulaChange}
+              >
+                <option value="">Opciones</option>
+                {aulas.map((aula) => (
+                  <option key={aula.id_aula} value={aula.id_aula}>
+                    {/* {aula.nombre} - {aula.num_aula} - Hi:{aula.horainicio} - Hf:{aula.horafin} */}
+                    {aula.num_aula} - Hi:{aula.horainicio} - Hf:
+                    {aula.horafin}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="row my-2">
+            <div className="col-6">
+              <label htmlFor="dias">Seleccione los dias:</label>
+              <select
+                className="form-control my-2"
+                id="dias"
+                value={selectedDias}
+                onChange={handleDiasChange}
+              >
+                <option value="">Opciones</option>
+                <option value="LuMaMiJuVi">LuMaMiJuVi</option>
+                <option value="LuMaMiJu">LuMaMiJu</option>
+                <option value="LuMaMi">LuMaMi</option>
+                {/* <option value="4">Sa</option> */}
+              </select>
+            </div>
+            <div className="col-6">
+              <label>Cupos disponibles</label>
+              <input
+                className="form-control my-2"
+                type="number"
+                value={cuposDisponibles}
+                onChange={handleCuposChange}
+                placeholder="Ingrese el número de cupos disponibles"
+              />
+            </div>
+          </div>
+          <div className="my-4 d-flex justify-content-center">
+            <button className="btn btn-w btn-primary" type="submit">
+              Agregar seccion
+            </button>
           </div>
         </div>
       </form>

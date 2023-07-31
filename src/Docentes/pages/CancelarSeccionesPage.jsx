@@ -17,7 +17,6 @@ export const CancelarSeccionesPage = () => {
       });
   };
 
-
   const fetchClases = () => {
     if (docenteData.length > 0 && docenteData[0].carrera_id) {
       fetch(
@@ -26,7 +25,6 @@ export const CancelarSeccionesPage = () => {
         .then((response) => response.json())
         .then((data) => {
           setClases(data);
-         
         })
         .catch((error) => {
           console.error("Error al obtener las clases:", error);
@@ -40,7 +38,7 @@ export const CancelarSeccionesPage = () => {
       .then((data) => {
         setSecciones(data);
         setShowSecciones(true);
-        console.log(data)
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error al obtener las secciones:", error);
@@ -80,9 +78,16 @@ export const CancelarSeccionesPage = () => {
     fetchClases();
   }, [docenteData]);
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-center my-3">

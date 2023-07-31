@@ -38,7 +38,7 @@ export const LandingEstudiantePage = () => {
           <div className="d-flex justify-content-center">
             <div className="row-3 mx-2">
               <button
-                className="btn btn-w btn-primary"
+                className="btn btn-w btn-h btn-primary"
                 onClick={onNavPerfilEstudiante}
               >
                 Perfil
@@ -46,7 +46,7 @@ export const LandingEstudiantePage = () => {
             </div>
             <div className="row-3 mx-2">
               <button
-                className="btn btn-w btn-primary"
+                className="btn btn-w btn-h btn-primary"
                 onClick={onNavSolicitudEstudiante}
               >
                 Solicitudes
@@ -54,7 +54,7 @@ export const LandingEstudiantePage = () => {
             </div>
             <div className="row-3 mx-2">
               <button
-                className="btn btn-w btn-primary"
+                className="btn btn-w btn-h btn-primary"
                 onClick={onNavPagosEstudiante}
               >
                 Estado de cuenta
@@ -64,7 +64,7 @@ export const LandingEstudiantePage = () => {
           <div className="d-flex justify-content-center my-3">
             <div className="row-3 mx-2">
               <button
-                className="btn btn-w btn-primary"
+                className="btn btn-w btn-h btn-primary"
                 onClick={onNavMatricular}
               >
                 Matricula
@@ -72,7 +72,7 @@ export const LandingEstudiantePage = () => {
             </div>
             <div className="row-3 mx-2">
               <button
-                className="btn btn-w btn-primary"
+                className="btn btn-w btn-h btn-primary"
                 onClick={onNavClaseMatriculadas}
               >
                 Ver clases matriculas
@@ -80,7 +80,7 @@ export const LandingEstudiantePage = () => {
             </div>
             <div className="row-3 mx-2">
               <button
-                className="btn btn-w btn-primary"
+                className="btn btn-w btn-h btn-primary"
                 onClick={onNavCalificaciones}
               >
                 Ver calificaciones de periodo

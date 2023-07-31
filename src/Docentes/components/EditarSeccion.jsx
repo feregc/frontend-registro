@@ -58,10 +58,17 @@ export const EditarSeccion = () => {
     }
   };
 
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
       <div className="container">
-        <div className="row my-5">
+      <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
+        <div className="row my-3">
           <div className="my-3 d-flex justify-content-center">
             <h2>Editar Sección</h2>
           </div>
