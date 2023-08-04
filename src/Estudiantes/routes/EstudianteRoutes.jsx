@@ -14,7 +14,7 @@ import { EvaluarDocente } from "../components/EvaluarDocente";
 import { VerSolicitudesPage } from "../pages/VerSolicitudesPage";
 import {ClasesMatriculada} from "../components/ClasesMatriculada"
 import {VerPerfilDeDocente} from "../components/VerPerfilDeDocente"
-
+import {HistorialAcademico} from "../pages/HitorialAcademico"
 
 export const EstudianteRoutes = () => {
   return (
@@ -37,14 +37,13 @@ export const EstudianteRoutes = () => {
         <Route path="/SolicitudPage" element={<SolicitudPage />} />
         <Route path="/PagosPage" element={<PagosPage />} />
         <Route path="/VerSolicitudPage" element={<VerSolicitudesPage/>} />
-
         <Route path="/clases-matriculadas" element={<ClasesMatriculada />} />
         <Route path="/perfil-docente" element={<VerPerfilDeDocente />} />
-
         <Route path="/matricular" element={<LandingMatricula />} />
         <Route path="/matriculaClase" element={<MatriculaPage />} />
         <Route path="/cancelarClase" element={<CancelarPage />} />
-        matriculaClase
+        <Route path="/HistorialAcademico" element={<HistorialAcademico />} />
+     
       </Routes>
     </>
   );
