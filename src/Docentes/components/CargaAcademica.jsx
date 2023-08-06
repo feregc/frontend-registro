@@ -115,10 +115,32 @@ export const CargaAcademica = () => {
       "Aula",
     ];
 
+    // Agregar información antes de la tabla
+    const titulo = `\t\tCarga Académica, Año: ${opcionActual}, Periodo: ${opcionSeleccionada}`;
+
+    const docWidth = doc.internal.pageSize.getWidth();
+
+    const tituloWidth =
+      (doc.getStringUnitWidth(titulo) * doc.internal.getFontSize()) /
+      doc.internal.scaleFactor;
+    const tituloX = (docWidth - tituloWidth) / 2;
+    // Establecer tamaño de fuente y posición para el título
+    doc.setFontSize(12);
+    doc.setTextColor(0, 100, 148);
+    doc.text(titulo, tituloX, 15);
+
+    // Establecer posición para la tabla
+    const yPosition = 25;
+
     // Agregar la tabla al documento PDF
     doc.autoTable({
       head: [headers],
       body: tableData,
+      startY: yPosition,
+      styles:{
+        lineColor: [232, 241, 242],
+        lineWidth: 0.5,
+      }
     });
     doc.save("CargaAcademinca.pdf");
     console.log("si se imprime");
@@ -221,7 +243,7 @@ export const CargaAcademica = () => {
             <div className="d-flex my-3 justify-content-center">
               <table
                 id="cargaAcademicaId"
-                className="table table-striped table-hover table-bordered"
+                className="table table-striped table-bordered border-white"
               >
                 <thead>
                   <th scope="col">Sección</th>

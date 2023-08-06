@@ -1,8 +1,6 @@
-
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { convertirSoloAFecha } from '../helpers/convertirFecha';
-
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { convertirSoloAFecha } from "../helpers/convertirFecha";
 
 export const LandingMatricula = () => {
   const navigate = useNavigate();
@@ -17,37 +15,38 @@ export const LandingMatricula = () => {
   const [procesosDisponibles, setProcesosDisponibles] = useState([]);
 
   useEffect(() => {
-    const numCuentaLocalStorage = localStorage.getItem('id');
+    const numCuentaLocalStorage = localStorage.getItem("id");
 
     if (numCuentaLocalStorage) {
       fetch(`http://localhost:8081/estudiante/${numCuentaLocalStorage}`)
-        .then(response => {
+        .then((response) => {
           if (!response.ok) {
-            throw new Error('Error al obtener los datos del estudiante');
+            throw new Error("Error al obtener los datos del estudiante");
           }
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           setEstudiante(data);
         })
-        .catch(error => {
-          console.error('Error al obtener los datos del estudiante:', error);
+        .catch((error) => {
+          console.error("Error al obtener los datos del estudiante:", error);
         });
     }
   }, []);
 
-
   // Función para llamar al endpoint y guardar los datos en el estado
   const fetchProcesosDisponibles = async () => {
     try {
-      const response = await fetch('http://localhost:8081/proceso_disponibilidad');
+      const response = await fetch(
+        "http://localhost:8081/proceso_disponibilidad"
+      );
       if (!response.ok) {
-        throw new Error('Error al obtener los datos');
+        throw new Error("Error al obtener los datos");
       }
       const jsonData = await response.json();
       setProcesosDisponibles(jsonData);
     } catch (error) {
-      console.error('Error al obtener los datos:', error);
+      console.error("Error al obtener los datos:", error);
     }
   };
 
@@ -70,23 +69,41 @@ export const LandingMatricula = () => {
   } = procesosDisponibles.length > 0 ? procesosDisponibles[0] : {};
 
   const verificarMatricula = (global, fechaActual) => {
-    if (global >= indiceI && fechaActual === convertirSoloAFecha(fechainicioI)) {
+    if (
+      global >= indiceI &&
+      fechaActual === convertirSoloAFecha(fechainicioI)
+    ) {
       return true;
     }
 
-    if (global >= indiceII && global <= indiceI && fechaActual === convertirSoloAFecha(fechainicioII)) {
+    if (
+      global >= indiceII &&
+      global <= indiceI &&
+      fechaActual === convertirSoloAFecha(fechainicioII)
+    ) {
       return true;
     }
 
-    if (global >= indiceIII && global <= indiceII && fechaActual === convertirSoloAFecha(fechainicioIII)) {
+    if (
+      global >= indiceIII &&
+      global <= indiceII &&
+      fechaActual === convertirSoloAFecha(fechainicioIII)
+    ) {
       return true;
     }
 
-    if (global >= indiceIIII && global <= indiceIII && fechaActual === convertirSoloAFecha(fechainicioIIII)) {
+    if (
+      global >= indiceIIII &&
+      global <= indiceIII &&
+      fechaActual === convertirSoloAFecha(fechainicioIIII)
+    ) {
       return true;
     }
 
-    if (global >= indiceIIIII && fechaActual === convertirSoloAFecha(fechainicioIIIII)) {
+    if (
+      global >= indiceIIIII &&
+      fechaActual === convertirSoloAFecha(fechainicioIIIII)
+    ) {
       return true;
     }
 
@@ -95,6 +112,10 @@ export const LandingMatricula = () => {
 
   const fechaActual = new Date().toISOString().slice(0, 10);
   const esDiaDeMatricula = verificarMatricula(estudiante?.indice, fechaActual);
+
+  const regresar = () => {
+    history.back();
+  };
 
   return (
     <>
@@ -110,18 +131,27 @@ export const LandingMatricula = () => {
             Matricular clases
           </button>
           <br />
-          <button className="btn btn-w btn-primary" onClick={onNavCancelarClase}>
+          <button
+            className="btn btn-w btn-primary"
+            onClick={onNavCancelarClase}
+          >
             Cancelar clases
           </button>
         </div>
       ) : (
-        <div className="d-flex justify-content-center align-items-center flex-column">
-          <br />
-          <br />
-          <br />
-          <br />
-          <div className="alert alert-danger" role="alert">
-           Hoy no es su dia de matricula. Favor revisar el calendario de matricula
+        <div className="container">
+          <div className="row">
+            <div className="col-3">
+              <button className="btn btn-primary my-4 mb-5" onClick={regresar}>
+                Atrás
+              </button>
+            </div>
+          </div>
+          <div className="row d-flex justify-content-center">
+            <div className="alert alert-danger mt-5 d-flex justify-content-center" role="alert">
+              Hoy no es su dia de matricula. Favor revisar el calendario de
+              matricula
+            </div>
           </div>
         </div>
       )}
