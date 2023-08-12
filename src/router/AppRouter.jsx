@@ -10,6 +10,11 @@ import { DocenteRoutes } from "../Docentes/routes/DocenteRoutes";
 import { EstudianteRoutes } from "../Estudiantes/routes/EstudianteRoutes";
 import { RecuperacionEstudiantePage } from "../Estudiantes/pages/RecuperacionEstudiantePage";
 import { RestablecerPage } from "../Estudiantes/pages/RestablecerPage";
+import { PublicRoute } from "./PublicRoute";
+import { PrivateRoute } from "./PrivateRoute";
+import { AuthContext } from "../Estudiantes/chat/auth/AuthContext";
+import { useContext, useEffect } from "react";
+
 // import { RestablePassDocentePage } from "../Docentes/pages/RestablePassDocentePage";
 
 export const AppRouter = () => {
@@ -23,6 +28,8 @@ export const AppRouter = () => {
       !currentPath.startsWith("/estudiante")
     );
   };
+
+  
 
   return (
     <>
@@ -45,6 +52,18 @@ export const AppRouter = () => {
         <Route path="/administrador/*" element={<AdministradorRautes />} />
         <Route path="/docente/*" element={<DocenteRoutes />} />
         <Route path="/estudiante/*" element={<EstudianteRoutes />} />
+
+
+
+        {/* RUTAS DEL CHAT */}
+        {/* <Route
+          path="/estudiante/auth/*"
+          element={<PublicRoute isAuthenticated={auth.logged} />}
+        />
+        <Route
+          path="/estudiante/chat"
+          element={<PrivateRoute isAuthenticated={auth.logged} />}
+        /> */}
 
         <Route path="/" element={<Navigate to="/landing" />} />
       </Routes>

@@ -15,8 +15,23 @@ import { VerSolicitudesPage } from "../pages/VerSolicitudesPage";
 import {ClasesMatriculada} from "../components/ClasesMatriculada"
 import {VerPerfilDeDocente} from "../components/VerPerfilDeDocente"
 import {HistorialAcademico} from "../pages/HitorialAcademico"
+import { AuthContext } from "../chat/auth/AuthContext";
+import { useContext, useEffect } from "react";
+import { PublicRoute } from "../../router/PublicRoute";
+import { PrivateRoute } from "../../router/PrivateRoute";
+
 
 export const EstudianteRoutes = () => {
+
+  const { auth, verificaToken } = useContext(AuthContext);
+
+  useEffect(() => {
+      verificaToken();
+  }, [verificaToken]);
+
+  if (auth.checking) {
+      return <h1>Espere por favor</h1>;
+  }
   return (
     <>
       <NavbarEspecifico />
@@ -43,6 +58,15 @@ export const EstudianteRoutes = () => {
         <Route path="/matriculaClase" element={<MatriculaPage />} />
         <Route path="/cancelarClase" element={<CancelarPage />} />
         <Route path="/HistorialAcademico" element={<HistorialAcademico />} />
+
+        <Route
+          path="/auth/*"
+          element={<PublicRoute isAuthenticated={auth.logged} />}
+        />
+        <Route
+          path="/estudiante/chat"
+          element={<PrivateRoute isAuthenticated={auth.logged} />}
+        />
      
       </Routes>
     </>

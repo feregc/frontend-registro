@@ -6,9 +6,9 @@ import "../src/Assets/styles/styles.css"
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <RegistroApp />
     </BrowserRouter>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 )

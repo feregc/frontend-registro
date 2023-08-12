@@ -28,6 +28,12 @@ export const LandingEstudiantePage = () => {
   const onNavHistorialClases = () => {
     navigate("../HistorialAcademico");
   };
+
+  const onNavChat = () => {
+    navigate("../auth/loginChat");
+  };
+
+
   return (
     <>
       <div className="container">
@@ -95,6 +101,15 @@ export const LandingEstudiantePage = () => {
                 onClick={onNavHistorialClases}
               >
                 Historial Acacdemico
+              </button>
+              
+            </div>
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavChat}
+              >
+                Chat
               </button>
               
             </div>
