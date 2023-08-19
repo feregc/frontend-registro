@@ -21,6 +21,11 @@ export const LandingJefePage = () => {
     navigate("/docente/verSecciones");
   };
 
+  const onEstadisticas = () => {
+    navigate("/docente/estadisticas");
+  };
+
+
   return (
     <>
       <div className="container">
@@ -67,6 +72,14 @@ export const LandingJefePage = () => {
                 onClick={onVerSecciones}
               >
                 Ver secciones
+              </button>
+            </div>
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary mt-3 form-control"
+                onClick={onEstadisticas}
+              >
+                Estadisticas
               </button>
             </div>
           </div>
