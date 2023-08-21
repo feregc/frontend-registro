@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 
 import { AuthContext } from '../auth/AuthContext';
 import { ChatContext } from '../context/chat/ChatContext';
@@ -46,14 +46,14 @@ export const SendMessage = () => {
                 <div className="input_msg_write col-sm-9">
                     <input
                         type="text"
-                        className="write_msg"
+                        className="form-control"
                         placeholder="Mensaje..."
                         value={ mensaje }
                         onChange={ onChange }
                     />
                 </div>
                 <div className="col-sm-3 text-center">
-                    <button className="msg_send_btn mt-3" type="submit">
+                    <button className="btn btn-w btn-success rounded-5 my-2" type="submit">
                         enviar
                     </button>
                 </div>
