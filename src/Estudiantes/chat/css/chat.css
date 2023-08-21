@@ -1,15 +1,25 @@
 html, body {
-    height: 100vh;
+    height: fit-content;
     margin: 0;
 }
 
 img {
     max-width: 100%;
 }
+.nav-item{
+    color: #006494 !important;
+}
 
 .inbox_people {
     background: #f8f8f8 none repeat scroll 0 0;
     float: left;
+    overflow: hidden;
+    width: 40%;
+    border-right: 1px solid #c4c4c4;
+}
+.inbox_people2 {
+    background: #f8f8f8 none repeat scroll 0 0;
+    float: right;
     overflow: hidden;
     width: 40%;
     border-right: 1px solid #c4c4c4;
@@ -112,7 +122,7 @@ img {
 }
 
 .inbox_chat {
-    height: 100vh;
+    height: 75vh;
     overflow-y: scroll;
 }
 
@@ -134,8 +144,9 @@ img {
 
 .received_withd_msg p {
     background: #ebebeb none repeat scroll 0 0;
-    border-radius: 3px;
-    color: #646464;
+    border-radius: 30px;
+    border-color: #006494 !important;
+    color: #006494;
     font-size: 14px;
     margin: 0;
     padding: 5px 10px 5px 12px;
@@ -157,12 +168,12 @@ img {
     float: left;
     padding: 30px 15px 0 25px;
     width: 60%;
-    height: 100vh;
+    height: 75vh;
 }
 
 .sent_msg p {
-    background: #7674FE none repeat scroll 0 0;
-    border-radius: 3px;
+    background: #006494 none repeat scroll 0 0;
+    border-radius: 30px;
     font-size: 14px;
     margin: 0;
     color: #fff;

@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { horaMes } from '../helpers/horaMes'
 
 export const OutgoingMessage = ({ msg }) => {

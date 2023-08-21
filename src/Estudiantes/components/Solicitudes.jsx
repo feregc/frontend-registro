@@ -9,7 +9,7 @@ export const Solicitudes = () => {
   const location = useLocation();
   const { tipoSolicitud } = location.state;
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
-  const [opcionSeleccionadaNombre, setOpcionSeleccionadaNombre] = useState('');
+  const [opcionSeleccionadaNombre, setOpcionSeleccionadaNombre] = useState("");
   const [opcionSeleccionada2, setOpcionSeleccionada2] = useState("");
   const [opcionSeleccionada3, setOpcionSeleccionada3] = useState("");
   const [justificacion, setDescripcion] = useState("");
@@ -18,8 +18,7 @@ export const Solicitudes = () => {
   const [centro, setCentro] = useState([]);
   const [data, setData] = useState([]);
   const [clases, setClases] = useState([]);
-  const [documento, setDocumento] = useState(null); 
-
+  const [documento, setDocumento] = useState(null);
 
   useEffect(() => {
     // Función para obtener los datos del endpoint
@@ -68,10 +67,12 @@ export const Solicitudes = () => {
   useEffect(() => {
     const fetchEstudiante = async () => {
       try {
-        const response = await fetch(`http://localhost:8081/estudiante/${num_cuenta}`);
+        const response = await fetch(
+          `http://localhost:8081/estudiante/${num_cuenta}`
+        );
         const imgPerfil = await response.json();
         setImgPerfilEstudiante(imgPerfil);
-       
+
         if (imgPerfil.centro_id) {
           fetchCarreras(imgPerfil.centro_id);
         }
@@ -79,17 +80,19 @@ export const Solicitudes = () => {
         console.log("Error:", error);
       }
     };
-  
+
     const fetchCarreras = async (centroId) => {
       try {
-        const response = await fetch(`http://localhost:8081/carreras/${centroId}`);
+        const response = await fetch(
+          `http://localhost:8081/carreras/${centroId}`
+        );
         const carrerasData = await response.json();
         setCarreras(carrerasData);
       } catch (error) {
         console.log("Error:", error);
       }
     };
-  
+
     const fetchCentro = async () => {
       try {
         const response = await fetch(`http://localhost:8081/VerCentros`);
@@ -103,27 +106,24 @@ export const Solicitudes = () => {
     fetchEstudiante();
     fetchCentro();
   }, [num_cuenta]);
-  
-
-
-
-
 
   const handleOpcionChange = (event) => {
-    const opcionSeleccionadaNombre = event.target.options[event.target.selectedIndex].text;
+    const opcionSeleccionadaNombre =
+      event.target.options[event.target.selectedIndex].text;
     const selectedOptionValue = event.target.value;
     setOpcionSeleccionada(selectedOptionValue);
-  setopcionSeleccionadaNombre(opcionSeleccionadaNombre);
-    
+    setopcionSeleccionadaNombre(opcionSeleccionadaNombre);
   };
   const handleOpcion2Change = (event) => {
-    const selectedOption2Text = event.target.options[event.target.selectedIndex].text;
+    const selectedOption2Text =
+      event.target.options[event.target.selectedIndex].text;
     const selectedOption2Value = event.target.value;
     setOpcionSeleccionada2(selectedOption2Value);
     opcionSeleccionadaNombre(selectedOption2Text);
   };
   const handleOpcion3Change = (event) => {
-    const selectedOption3Text = event.target.options[event.target.selectedIndex].text;
+    const selectedOption3Text =
+      event.target.options[event.target.selectedIndex].text;
     const selectedOption3Value = event.target.value;
     setOpcionSeleccionada3(selectedOption3Value);
     opcionSeleccionadaNombre(selectedOption3Text);
@@ -135,10 +135,12 @@ export const Solicitudes = () => {
   const handleCrearSolicitud = () => {
     // Convertir cadena vacía a null si no se ha seleccionado ninguna opción
 
- const idCarrera = opcionSeleccionada2 ? parseInt(opcionSeleccionada2) : null;
+    const idCarrera = opcionSeleccionada2
+      ? parseInt(opcionSeleccionada2)
+      : null;
     const idCentro = opcionSeleccionada ? parseInt(opcionSeleccionada) : null;
     const idClase = opcionSeleccionada3 ? parseInt(opcionSeleccionada3) : null;
-  
+
     const formData = new FormData();
     formData.append("tipo_solicitud", tipoSolicitud);
     formData.append("num_cuenta", num_cuenta);
@@ -181,17 +183,14 @@ export const Solicitudes = () => {
     window.history.back();
   };
 
-  
-   const handleDocumentoChange = (event) => {
+  const handleDocumentoChange = (event) => {
     setDocumento(event.target.files[0]); // Tomar el primer archivo seleccionado
   };
-
-
 
   return (
     <>
       <div className="container">
-      <button className="btn btn-success mt-4" onClick={regresar}>
+        <button className="btn btn-success mt-4" onClick={regresar}>
           Atras
         </button>
         <div className="row">
@@ -209,21 +208,19 @@ export const Solicitudes = () => {
                         <label htmlFor="opcion">Seleccione un centro:</label>
                       </div>
                       <div className="col-6">
-                      <select
-                        id="opcion"
-                        className="form-control"
-                        value={opcionSeleccionada}
-                        onChange={handleOpcionChange}
-                      >
-                        <option value="">-- Centro --</option>
-                        {centro.map((centro) => (
-                          <option key={centro.id} value={centro.id}>
-                            {centro.nombre}
-                          </option>
-                        ))}
-                      </select>
- 
-
+                        <select
+                          id="opcion"
+                          className="form-control"
+                          value={opcionSeleccionada}
+                          onChange={handleOpcionChange}
+                        >
+                          <option value="">-- Centro --</option>
+                          {centro.map((centro) => (
+                            <option key={centro.id} value={centro.id}>
+                              {centro.nombre}
+                            </option>
+                          ))}
+                        </select>
                       </div>
                       <div className="col-6 my-3">
                         <label htmlFor="descripcion">Justificación:</label>
@@ -236,13 +233,18 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
-                      <input
-                        placeholder="Ingrese un PDF"
-                        className="rounded-3 form-control w-75"
-                        type="file"
-                        accept="application/pdf"
-                        onChange={handleDocumentoChange}
-                      />
+                      <div className="col-6 my-3">
+                        <label htmlFor="descripcion">PDF Respaldo</label>
+                      </div>
+                      <div className="col-6 my-3">
+                        <input
+                          placeholder="Ingrese un PDF"
+                          className="rounded-3 form-control"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={handleDocumentoChange}
+                        />
+                      </div>
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
@@ -299,17 +301,18 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
-                      <div className="d-flex justify-content-center ">
-                      <label htmlFor="descripcion">PDF Respaldo</label><br />
-                      <br />
-                      <input
-                        placeholder="Ingrese un PDF"
-                        className="rounded-3 form-control w-75"
-                        type="file"
-                        accept="application/pdf"
-                        onChange={handleDocumentoChange}
-                      />
-            </div>
+                      <div className="col-6 my-3">
+                        <label htmlFor="descripcion">PDF Respaldo</label>
+                      </div>
+                      <div className="col-6 my-3">
+                        <input
+                          placeholder="Ingrese un PDF"
+                          className="rounded-3 form-control"
+                          type="file"
+                          accept="application/pdf"
+                          onChange={handleDocumentoChange}
+                        />
+                      </div>
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
@@ -346,13 +349,19 @@ export const Solicitudes = () => {
                           onChange={handleDescripcionChange}
                         />
                       </div>
-                      <input
-                        placeholder="Ingrese un PDF"
-                        className="rounded-3 form-control w-75"
-                        type="file"
-                        accept="application/pdf"
-                        onChange={handleDocumentoChange}
-                      />
+                      <div className="col-6 my-3">
+                        <label htmlFor="descripcion">PDF Respaldo</label>
+                      </div>
+                      <div className="col-6 my-3">
+                        <input
+                          placeholder="Ingrese un PDF"
+                          className="rounded-3 form-control "
+                          type="file"
+                          accept="application/pdf"
+                          onChange={handleDocumentoChange}
+                        />
+                      </div>
+
                       <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
@@ -374,7 +383,7 @@ export const Solicitudes = () => {
                 </>
               )}
 
-               {tipoSolicitud === "Cancelación Excepcional" && (
+              {tipoSolicitud === "Cancelación Excepcional" && (
                 <>
                   <div className="row my-2">
                     <div className="col-6">
@@ -383,59 +392,63 @@ export const Solicitudes = () => {
                       </label>
                     </div>
                     <div className="col-6">
-                        <select
-                          id="opcion2"
-                          className="form-control"
-                          value={opcionSeleccionada3}
-                          onChange={handleOpcion3Change}
-                        >
-                          <option value="">-- clases --</option>
-                          {clases.map((clases) => (
-                            <option key={clases.id} value={clases.id_clase}>
-                              {clases.nombre}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                      <div className="col-6 my-3">
-                        <label htmlFor="descripcion">Justificación:</label>
-                      </div>
-                      <div className="col-6 my-3">
-                        <textarea
-                          id="justificacion"
-                          className="form-control "
-                          value={justificacion}
-                          onChange={handleDescripcionChange}
-                        />
-                      </div>
-
+                      <select
+                        id="opcion2"
+                        className="form-control"
+                        value={opcionSeleccionada3}
+                        onChange={handleOpcion3Change}
+                      >
+                        <option value="">-- clases --</option>
+                        {clases.map((clases) => (
+                          <option key={clases.id} value={clases.id_clase}>
+                            {clases.nombre}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="col-6 my-3">
+                      <label htmlFor="descripcion">Justificación:</label>
+                    </div>
+                    <div className="col-6 my-3">
+                      <textarea
+                        id="justificacion"
+                        className="form-control "
+                        value={justificacion}
+                        onChange={handleDescripcionChange}
+                      />
+                    </div>
+                    <div className="col-6 my-3">
+                      <label htmlFor="descripcion">PDF Respaldo</label>
+                    </div>
+                    <div className="col-6 my-3">
                       <input
                         placeholder="Ingrese un PDF"
-                        className="rounded-3 form-control w-75"
+                        className="rounded-3 form-control"
                         type="file"
                         accept="application/pdf"
                         onChange={handleDocumentoChange}
                       />
+                    </div>
 
-                      <div className="col-6 d-flex justify-content-center my-3">
-                        <button
-                          className="btn btn-success btn-w"
-                          onClick={handleCrearSolicitud}
-                        >
-                          Crear Solicitud
-                        </button>
-                      </div>
-                      <div className="col-6 d-flex justify-content-center my-3">
-                        <button
-                          className="btn btn-success btn-w"
-                          onClick={handleCancelar}
-                        >
-                          Cancelar
-                        </button>
-                      </div>
+                    <div className="col-6 d-flex justify-content-center my-3">
+                      <button
+                        className="btn btn-success btn-w"
+                        onClick={handleCrearSolicitud}
+                      >
+                        Crear Solicitud
+                      </button>
+                    </div>
+                    <div className="col-6 d-flex justify-content-center my-3">
+                      <button
+                        className="btn btn-success btn-w"
+                        onClick={handleCancelar}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
                   </div>
                 </>
-              )} 
+              )}
             </div>
           </div>
         </div>

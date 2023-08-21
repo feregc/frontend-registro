@@ -4,7 +4,7 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
   const [solicitudes, setSolicitudes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const num_empleado = localStorage.getItem("id");
-  const registrosPorPagina = 5; 
+  const registrosPorPagina = 5;
 
   useEffect(() => {
     obtenerSolicitudes();
@@ -14,7 +14,7 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
           `http://localhost:8081/Solicitudes_Coordinador?num_empleado=${num_empleado}`
         );
         const data = await response.json();
-        setSolicitudes(data.reverse()); 
+        setSolicitudes(data.reverse());
         console.log("Solicitudes obtenidas:", data);
       } catch (error) {
         console.error(
@@ -31,7 +31,10 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
 
   const indiceUltimoRegistro = currentPage * registrosPorPagina;
   const indicePrimerRegistro = indiceUltimoRegistro - registrosPorPagina;
-  const registrosActuales = solicitudes.slice(indicePrimerRegistro, indiceUltimoRegistro);
+  const registrosActuales = solicitudes.slice(
+    indicePrimerRegistro,
+    indiceUltimoRegistro
+  );
 
   // Calcular el número total de páginas basado en la cantidad actual de registros
   const totalPaginas = Math.ceil(solicitudes.length / registrosPorPagina);
@@ -59,12 +62,19 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
     window.location.reload();
   };
   const handleVisualizarArchivo = (urlDocumento) => {
-    window.open(urlDocumento, '_blank');
+    window.open(urlDocumento, "_blank");
   };
+
+  const regresar = () => {
+    window.history.back();
+  };
+
   return (
     <>
-      <br /><br />
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-center my-3">
@@ -77,7 +87,7 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
                   <th scope="col">Estado</th>
                   <th scope="col">Justificación</th>
                   <th scope="col">Carrera o Centro a Cambiar</th>
-                  <th scope="col">Observacion</th>
+                  <th scope="col">Observación</th>
                   <th scope="col">Documento</th>
                 </tr>
               </thead>
@@ -99,11 +109,18 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
                     </td>
                     <td className="p-4" scope="row">
                       {solicitud.observacion}
-                     
                     </td>
                     <td className="p-4" scope="row">
-                  
-                    <button onClick={() => handleVisualizarArchivo(`http://localhost:8081/${solicitud.documento}`)}>Visualizar Archivo</button>
+                      <button
+                        className="btn btn-success btn-w"
+                        onClick={() =>
+                          handleVisualizarArchivo(
+                            `http://localhost:8081/${solicitud.documento}`
+                          )
+                        }
+                      >
+                        Visualizar Archivo
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -112,23 +129,24 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
 
             <nav>
               <ul className="pagination justify-content-center">
-                {Array.from({ length: totalPaginas }, (_, index) => index + 1).map(
-                  (pagina) => (
-                    <li
-                      key={pagina}
-                      className={`page-item ${
-                        pagina === currentPage ? "active" : ""
-                      }`}
+                {Array.from(
+                  { length: totalPaginas },
+                  (_, index) => index + 1
+                ).map((pagina) => (
+                  <li
+                    key={pagina}
+                    className={`page-item ${
+                      pagina === currentPage ? "active" : ""
+                    }`}
+                  >
+                    <button
+                      className="page-link"
+                      onClick={() => handlePageChange(pagina)}
                     >
-                      <button
-                        className="page-link"
-                        onClick={() => handlePageChange(pagina)}
-                      >
-                        {pagina}
-                      </button>
-                    </li>
-                  )
-                )}
+                      {pagina}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </nav>
           </div>
@@ -137,6 +155,3 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
     </>
   );
 };
-
-
-
