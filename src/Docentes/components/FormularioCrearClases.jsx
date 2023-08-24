@@ -12,6 +12,9 @@ const FormularioCrearClases = () => {
   const [cuposDisponibles, setCuposDisponibles] = useState("");
   const [docente, setDocente] = useState([]);
   const [centro, setCentro] = useState([]);
+  const [selectedYear, setSelectedYear] = useState(null);
+  const [selectedPeriodo, setSelectedPeriodo] = useState("");
+
 
   useEffect(() => {
     const id = localStorage.getItem("id");
@@ -70,6 +73,15 @@ const FormularioCrearClases = () => {
 
   // const memoizedDocente = useMemo(() => docente, [docente]);
 
+  const handleYearChange = (year) => {
+    const currentYear = new Date().getFullYear();
+    const selectedYear = year.getFullYear();
+
+    if (selectedYear >= currentYear) {
+      setSelectedYear(year);
+    }
+  };
+
   const handleClaseChange = (event) => {
     setSelectedClase(event.target.value);
   };
@@ -94,6 +106,10 @@ const FormularioCrearClases = () => {
     setCuposDisponibles(event.target.value);
   };
 
+  const handlePeriodoChange = (e) => {
+    setSelectedPeriodo(e.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = {
@@ -103,6 +119,8 @@ const FormularioCrearClases = () => {
       dias: selectedDias,
       cupos: cuposDisponibles,
       id_edificio: parseInt(selectedEdificio),
+      anio: selectedYear.toISOString().slice(0, 19).replace("T", " "),
+      periodo: selectedPeriodo,
     };
 
     console.log(formData);
@@ -247,6 +265,46 @@ const FormularioCrearClases = () => {
               />
             </div>
           </div>
+          {/* Desde aqui */}
+          <div className="row my-2">
+            <div className="col-3">
+              <label>Año:</label>
+            </div>
+            <div className="col-9">
+              <DatePicker
+                className="f-w form-control"
+                selected={selectedYear}
+                dateFormat="yyyy"
+                showYearPicker
+                showMonthDropdown={false}
+                scrollableYearDropdown
+                onChange={handleYearChange}
+                locale="es"
+              />
+            </div>
+
+          </div>
+          {/* fila2 */}
+          <div className="row my-2">
+            <div className="col-3">
+              <label htmlFor="periodo">Seleccione el periodo:</label>
+            </div>
+            <div className="col-9">
+              <select
+                className="f-w form-control"
+                id="periodo"
+                value={selectedPeriodo}
+                onChange={handlePeriodoChange}
+              >
+                <option value="">Opciones</option>
+                <option value="I-PAC">I-PAC</option>
+                <option value="II-PAC">II-PAC</option>
+                <option value="III-PAC">III-PAC</option>
+              </select>
+            </div>
+          </div>
+          {/* Hasta aqui */}
+
           <div className="my-4 d-flex justify-content-center">
             <button className="btn btn-w btn-primary" type="submit">
               Agregar seccion
