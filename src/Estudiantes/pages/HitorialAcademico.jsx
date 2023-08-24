@@ -64,47 +64,81 @@ export const HistorialAcademico = () => {
           ],
         },
         {
-          columns: [
-            // Primera columna para datos de estudiante
-            {
-              width: "50%",
-              text: [
+          table: {
+            widths: ["50%", "50%"],
+            body: [
+              [
                 {
-                  text: `Cuenta: ${perfilEstudiante.num_cuenta}\n`,
-                  margin: [0, 0, 0, 5],
+                  table: {
+                    widths: ["auto"],
+                    body: [
+                      [
+                        {
+                          text: `Cuenta: ${perfilEstudiante.num_cuenta}`,
+                          style: "cellText",
+                        },
+                      ],
+                      [
+                        {
+                          text: `Nombre: ${perfilEstudiante.primer_nombre.toUpperCase()} ${perfilEstudiante.segundo_nombre.toUpperCase()}`,
+                          style: "cellText",
+                        },
+                      ],
+                      [
+                        {
+                          text: `Apellido: ${perfilEstudiante.primer_apellido.toUpperCase()} ${perfilEstudiante.segundo_apellido.toUpperCase()}`,
+                          style: "cellText",
+                        },
+                      ],
+                    ],
+                  },
+                  layout: {
+                    fillColor: "#E0E0E0", // Color de fondo gris
+                    hLineWidth: () => 0, // Eliminar bordes horizontales
+                    vLineWidth: () => 0, // Eliminar bordes verticales
+                  },
                 },
                 {
-                  text: `Nombre: ${perfilEstudiante.primer_nombre.toUpperCase()} ${" "} ${perfilEstudiante.segundo_nombre.toUpperCase()}\n`,
-                  margin: [0, 0, 0, 5],
-                },
-                {
-                  text: `Apellido: ${perfilEstudiante.primer_apellido.toUpperCase()} ${" "} ${perfilEstudiante.segundo_apellido.toUpperCase()}\n`,
-                  margin: [0, 0, 0, 5],
+                  table: {
+                    widths: ["auto"],
+                    body: [
+                      [
+                        {
+                          text: `Carrera: ${perfilEstudiante.nombre_carrera.toUpperCase()}`,
+                          style: "cellText",
+                        },
+                      ],
+                      [
+                        {
+                          text: `Centro: ${perfilEstudiante.nombre_centro}`,
+                          style: "cellText",
+                        },
+                      ],
+                      [
+                        {
+                          text: `Índice: ${perfilEstudiante.nota}`,
+                          style: "cellText",
+                        },
+                      ],
+                    ],
+                  },
+                  layout: {
+                    fillColor: "#E0E0E0", // Color de fondo gris
+                    hLineWidth: () => 0, // Eliminar bordes horizontales
+                    vLineWidth: () => 0, // Eliminar bordes verticales
+                  },
                 },
               ],
-            },
-            // Segunda columna para datos de estudiante
-            {
-              width: "50%",
-              text: [
-                {
-                  text: `Carrera: ${perfilEstudiante.nombre_carrera.toUpperCase()}\n`,
-                  margin: [0, 0, 0, 5],
-                },
-                {
-                  text: `Centro: ${perfilEstudiante.nombre_centro}\n`,
-                  margin: [0, 0, 0, 5],
-                },
-                {
-                  text: `Índice: ${perfilEstudiante.nota}\n`,
-                  margin: [0, 0, 0, 20],
-                }, //Editar por el indice
-              ],
-            },
-          ],
+            ],
+          },
+          fillColor: "#E0E0E0", // Color de fondo gris para toda la tabla
+          layout: "noBorders", // Eliminar bordes de la tabla principal
+          hLineWidth: () => 0, // Eliminar bordes horizontales de la tabla principal
+          vLineWidth: () => 0, // Eliminar bordes verticales de la tabla principal
         },
         // Información de las clases
         {
+          fillColor: "#E0E0E0",
           text: `${perfilEstudiante.nombre_carrera.toUpperCase()}`,
           style: "subheader",
           alignment: "center",
@@ -190,9 +224,9 @@ export const HistorialAcademico = () => {
     obtenerHistorial();
   }, []);
 
-  const regresar = () =>{
-    history.back()
-  }
+  const regresar = () => {
+    history.back();
+  };
 
   const totalPaginas = Math.ceil(dataClase.length / itemsPaginas);
   return (
@@ -200,10 +234,7 @@ export const HistorialAcademico = () => {
       <div className="container">
         <div className="row">
           <div className="col-3">
-            <button
-              className="btn btn-primary my-4"
-              onClick={regresar}
-            >
+            <button className="btn btn-primary my-4" onClick={regresar}>
               Atrás
             </button>
           </div>
@@ -234,16 +265,21 @@ export const HistorialAcademico = () => {
                     <h4 className="d-flex justify-content-center text-black">
                       Universidad Nacional Autónoma de honduras
                     </h4>
-                    <h6 className="d-flex justify-content-center text-black">Dirección de Ingresos Permanencia y Promoción</h6>
-                    <h6 className="d-flex justify-content-center text-black">Historial Academico</h6>
+                    <h6 className="d-flex justify-content-center text-black">
+                      Dirección de Ingresos Permanencia y Promoción
+                    </h6>
+                    <h6 className="d-flex justify-content-center text-black">
+                      Historial Academico
+                    </h6>
                   </div>
                 </div>
               </div>
-              <hr />
               <div className="container">
-                <div className="row my-4">
+                <div className="row my-4 p-2 border border-2 rounded-4">
                   <div className="col-6">
-                    <p className="text-black fw-bold">Cuenta: {perfilEstudiante.num_cuenta}</p>
+                    <p className="text-black fw-bold">
+                      Cuenta: {perfilEstudiante.num_cuenta}
+                    </p>
                     <p className="text-black fw-bold">
                       Nombre: {perfilEstudiante.primer_nombre}{" "}
                       {perfilEstudiante.segundo_nombre}
@@ -254,9 +290,15 @@ export const HistorialAcademico = () => {
                     </p>
                   </div>
                   <div className="col-6">
-                    <p className="text-black fw-bold">Carrera: {perfilEstudiante.nombre_carrera}</p>
-                    <p className="text-black fw-bold">Centro: {perfilEstudiante.centro}</p>
-                    <p className="text-black fw-bold">Indice: {perfilEstudiante.nota}</p>
+                    <p className="text-black fw-bold">
+                      Carrera: {perfilEstudiante.nombre_carrera}
+                    </p>
+                    <p className="text-black fw-bold">
+                      Centro: {perfilEstudiante.centro}
+                    </p>
+                    <p className="text-black fw-bold">
+                      Indice: {perfilEstudiante.nota}
+                    </p>
                   </div>
                 </div>
               </div>
