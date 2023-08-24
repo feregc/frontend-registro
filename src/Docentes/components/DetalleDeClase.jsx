@@ -102,7 +102,7 @@ export const DetalleClase = () => {
         const mes = fechaActual.getMonth() + 1;
         const anio = fechaActual.getFullYear();
         const fechaEntrada = `${anio}-${mes}-${dia}`;
-        // const fechaEntrada = "2023-07-18";
+        // const fechaEntrada = "2023-08-25";
         if (
           verificarFecha(fechaInicio, fechaFin, fechaEntrada) &&
           datosDeFecha[0].disponibilidad === 1
@@ -119,6 +119,7 @@ export const DetalleClase = () => {
     habilitarSubidaDeNotas();
   }, [datosDeFecha]);
 
+  console.log(datosDeFecha)
   const regresar = () => {
     navigate("../home");
   };
@@ -161,7 +162,7 @@ export const DetalleClase = () => {
             <div className="col-6 my-3 d-flex justify-content-center">
               {/* disabled={fechaSubirNota} */}
               <button
-                disabled={false}
+                disabled={fechaSubirNota}
                 onClick={irAsubirNota}
                 className="btn btn-w2 btn-success m-1"
               >

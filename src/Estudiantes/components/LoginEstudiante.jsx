@@ -27,6 +27,7 @@ export const LoginEstudiante = () => {
           localStorage.setItem("token", token);
           localStorage.setItem("login", login);
           localStorage.setItem("id", usuario[0].num_cuenta);
+          localStorage.setItem("centro_id", usuario[0].centro_id);
           console.log({ login, usuario, token });
           alert("Inicio sesion exitoso");
           navigate("/estudiante/home");

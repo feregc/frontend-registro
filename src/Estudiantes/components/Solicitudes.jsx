@@ -4,6 +4,8 @@ import { convertirFecha } from "../helpers/convertirFecha";
 import { useEffect } from "react";
 
 const num_cuenta = localStorage.getItem("id");
+const centro_id= localStorage.getItem("centro_id");
+
 
 export const Solicitudes = () => {
   const location = useLocation();
@@ -80,32 +82,38 @@ export const Solicitudes = () => {
         console.log("Error:", error);
       }
     };
-
-    const fetchCarreras = async (centroId) => {
-      try {
-        const response = await fetch(
-          `http://localhost:8081/carreras/${centroId}`
-        );
-        const carrerasData = await response.json();
-        setCarreras(carrerasData);
-      } catch (error) {
-        console.log("Error:", error);
-      }
-    };
-
-    const fetchCentro = async () => {
-      try {
-        const response = await fetch(`http://localhost:8081/VerCentros`);
-        const centrosData = await response.json();
-        setCentro(centrosData);
-      } catch (error) {
-        console.log("Error:", error);
-      }
-    };
-    fetchCarreras();
     fetchEstudiante();
-    fetchCentro();
+   
   }, [num_cuenta]);
+
+useEffect(()=>{    const fetchCentro = async () => {
+  try {
+    const response = await fetch(`http://localhost:8081/VerCentros`);
+    const centrosData = await response.json();
+    setCentro(centrosData);
+  } catch (error) {
+    console.log("Error:", error);
+  }
+  fetchCentro();
+};},[centro])
+
+useEffect(()=>{
+  const fetchCarreras = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/carreras/${centro_id}`
+      );
+      const carrerasData = await response.json();
+      setCarreras(carrerasData);
+      console.log(carrerasData)
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+  fetchCarreras();
+},[imgPerfilEstudiante.centro_id])
+
+
 
   const handleOpcionChange = (event) => {
     const opcionSeleccionadaNombre =
