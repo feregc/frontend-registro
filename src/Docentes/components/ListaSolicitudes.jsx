@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
+import Modal from 'react-modal';
 import styles from "../../Assets/styles/modal.css";
+
 
 export const ListaSolicitudes = ({ numEmpleado }) => {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -100,7 +101,28 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
   const regresar = () => {
     window.history.back();
   };
-
+  const styles = {
+    modal: {
+      content: {
+        width: '600px',  // Ajusta el ancho del modal
+        maxHeight: '70vh', // Ajusta la altura máxima del modal
+        margin: 'auto',
+        borderRadius: '20px', // Añade esquinas redondeadas al modal
+        boxShadow: '4px 4px 20px rgba(0, 0, 0, 0.2)', 
+        border: '2px solid #5DADE2'
+      },
+    },
+    modalButtons: {
+      display: 'flex',
+      flexDirection: 'column', 
+      alignItems: 'flex-end', 
+    },
+    btnMargin: {
+      marginTop: '100px', 
+      marginRight: '10px', 
+    },
+  };
+  
   return (
     <>
       <div className="container">
@@ -255,45 +277,52 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
 
       {/* Modal de Confirmación */}
       <div id="modal-container">
-        <Modal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          ariaHideApp={false}
-          style={styles.modal}
-        >
-          <h3 className="modal-title">
-            ¿Desea Aceptar o Rechazar esta solicitud?
-          </h3>
-          <div className="modal-body">
-            <div className="form-group">
-              <label htmlFor="observacion">Observación:</label>
-              <textarea
-                id="observacion"
-                className="form-control"
-                value={observacion}
-                onChange={(e) => setObservacion(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="modal-footer">
-            <button
-              className="btn btn-success"
-              onClick={() => updateSolicitud(solicitudId, "Aprobada")}
-            >
-              Aceptar
-            </button>
-            <button
-              className="btn btn-danger"
-              onClick={() => updateSolicitud(solicitudId, "Rechazada")}
-            >
-              Rechazar
-            </button>
-            <button className="btn btn-secondary" onClick={closeModal}>
-              Cancelar
-            </button>
-          </div>
-        </Modal>
+  <Modal
+    isOpen={isModalOpen}
+    onRequestClose={closeModal}
+    ariaHideApp={false}
+    style={styles.modal}
+  >
+    <h4 className="modal-title">
+      <center>¿Desea Aceptar o Rechazar esta solicitud?</center>
+    </h4>
+    <br />
+
+    <div className="modal-body">
+      <div className="form-group">
+      <center> <label htmlFor="observacion"><h5>Observación:</h5></label></center>
+        <textarea
+          id="observacion"
+          className="form-control"
+          value={observacion}
+          onChange={(e) => setObservacion(e.target.value)}
+        />
       </div>
+    </div>
+    <br />
+    <div className="modal-footer">
+      <div className="modal-buttons">
+        <button
+          className="btn btn-success"
+          onClick={() => updateSolicitud(solicitudId, "Aprobada")}
+        >
+          Aceptar
+        </button>
+        <button
+          className="btn btn-danger"
+          onClick={() => updateSolicitud(solicitudId, "Rechazada")}
+        >
+          Rechazar
+        </button>
+      </div>
+      <button className="btn btn-secondary" onClick={closeModal}>
+        Cancelar
+      </button>
+    </div>
+  </Modal>
+</div>
+
+
     </>
   );
 };

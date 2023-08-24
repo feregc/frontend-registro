@@ -1,5 +1,5 @@
 import "../../Assets/styles/styles-landing/Landin-styles.css";
-import 'animate.css';
+//import 'animate.css';
 
 export const LandingPage = () => {
   return (
