@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useFetchs } from "../Helpers/useFetchs";
+import "../../Assets/styles/styles-docentes/Docente-home.css";
 
 const FormularioCrearClases = () => {
   const [selectedDias, setSelectedDias] = useState("");
@@ -14,7 +15,6 @@ const FormularioCrearClases = () => {
   const [centro, setCentro] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedPeriodo, setSelectedPeriodo] = useState("");
-
 
   useEffect(() => {
     const id = localStorage.getItem("id");
@@ -267,31 +267,25 @@ const FormularioCrearClases = () => {
           </div>
           {/* Desde aqui */}
           <div className="row my-2">
-            <div className="col-3">
+            <div className="col-6">
               <label>Año:</label>
+              <div className="col">
+                <DatePicker
+                  className="my-2 form-control fc-w"
+                  selected={selectedYear}
+                  dateFormat="yyyy"
+                  showYearPicker
+                  showMonthDropdown={false}
+                  scrollableYearDropdown
+                  onChange={handleYearChange}
+                  locale="es"
+                />
+              </div>
             </div>
-            <div className="col-9">
-              <DatePicker
-                className="f-w form-control"
-                selected={selectedYear}
-                dateFormat="yyyy"
-                showYearPicker
-                showMonthDropdown={false}
-                scrollableYearDropdown
-                onChange={handleYearChange}
-                locale="es"
-              />
-            </div>
-
-          </div>
-          {/* fila2 */}
-          <div className="row my-2">
-            <div className="col-3">
+            <div className="col-6">
               <label htmlFor="periodo">Seleccione el periodo:</label>
-            </div>
-            <div className="col-9">
               <select
-                className="f-w form-control"
+                className="my-2 form-control"
                 id="periodo"
                 value={selectedPeriodo}
                 onChange={handlePeriodoChange}
@@ -303,7 +297,6 @@ const FormularioCrearClases = () => {
               </select>
             </div>
           </div>
-          {/* Hasta aqui */}
 
           <div className="my-4 d-flex justify-content-center">
             <button className="btn btn-w btn-primary" type="submit">
