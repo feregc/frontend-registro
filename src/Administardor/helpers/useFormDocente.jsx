@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +6,8 @@ export const useFormDocente = (initialForm = {}, onValidation) => {
   const [formState, setFormState] = useState(initialForm);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+
+
   const navigate = useNavigate();
 
   //handleChange
@@ -21,6 +23,8 @@ export const useFormDocente = (initialForm = {}, onValidation) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const err = onValidation(formState);
+
+
     if (err === null) {
       setErrors({});
       axios
@@ -42,6 +46,7 @@ export const useFormDocente = (initialForm = {}, onValidation) => {
   const onResetForm = () => {
     setFormState(initialForm);
   };
+
 
   return {
     ...formState,

@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useFetchs } from "../Helpers/useFetchs";
 import "../../Assets/styles/styles-docentes/Docente-home.css";
+import { useNavigate } from "react-router-dom";
 
 const FormularioCrearClases = () => {
   const [selectedDias, setSelectedDias] = useState("");
@@ -15,6 +16,7 @@ const FormularioCrearClases = () => {
   const [centro, setCentro] = useState([]);
   const [selectedYear, setSelectedYear] = useState(null);
   const [selectedPeriodo, setSelectedPeriodo] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const id = localStorage.getItem("id");
@@ -135,6 +137,7 @@ const FormularioCrearClases = () => {
       .then((response) => response.json())
       .then((data) => {
         alert("Sección creada con éxito");
+        navigate('/docente/home');
       })
       .catch((error) => {
         console.error("Error al crear la sección:", error);

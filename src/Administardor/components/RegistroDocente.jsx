@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import { validation } from "./LoginValidation"
 import axios from "axios";
 import { validacionRegisto } from "../helpers/ValidacionRegistro";
@@ -14,8 +14,8 @@ export const RegistroDocete = () => {
     email: "",
     password: "",
     password2: "",
-    foto: "",
     centro: "",
+    carrera: ""
   };
 
   const onValidation = (formState) => {
@@ -81,6 +81,28 @@ export const RegistroDocete = () => {
   const regresar = () => {
     window.history.back();
   };
+
+
+  const [carreras, setCarreras] = useState(null);
+
+  useEffect(() => {
+    const fetchCarrera = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:8081/carreras/${formState.centro}`
+        );
+        const jsonData = await response.json();
+        setCarreras(jsonData);
+        console.log(jsonData)
+        // setCargaDeCarreras(false);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+    fetchCarrera();
+  }, [formState.centro]);
+
+  // console.log(formState)
 
   return (
     <>
@@ -208,23 +230,8 @@ export const RegistroDocete = () => {
                   )}
                 </div>
               </div>
-              <div className="mb-3">
-                <label htmlFor="foto">
-                  <strong>Foto</strong>
-                </label>
-                <input
-                  type="file"
-                  id="formFileMultiple"
-                  disabled
-                  placeholder="Suba una foto"
-                  className="rounded-3 form-control"
-                  value={formState.foto}
-                  name="foto"
-                  onChange={handleChange}
-                />
-              </div>
               <div>
-                <label htmlFor="foto">
+                <label htmlFor="centro">
                   <strong>Asignar Centro</strong>
                 </label>
                 <select
@@ -233,18 +240,38 @@ export const RegistroDocete = () => {
                   onChange={handleChange}
                   className="form-control2"
                 >
-                  <option value="">Seleccione una opción</option>
-                  <option value="UNAH-CU">UNAH - Ciudad Universitaria</option>
-                  <option value="UNAH-VS">UNAH - Valle de Sula</option>
-                  <option value="UNAH-CURC">UNAH-CURC</option>
-                  <option value="UNAH-CURLA">UNAH-CURLA</option>
-                  <option value="UNAH-CURLP">UNAH-CURLP</option>
-                  <option value="UNAH-CUROC">UNAH-CUROC</option>
-                  <option value="UNAH-CURNO">UNAH-CURNO</option>
-                  <option value="UNAH-TEC Danli">UNAH-TEC Danli</option>
-                  <option value="UNAH-TEC AGUÁN">UNAH-TEC AGUÁN</option>
+                  <option value="x">Seleciona un centro</option>
+                  <option value="1">CU</option>
+                  <option value="2">UNAH-VS</option>
+                  <option value="3">UNAH-CURC</option>
+                  <option value="4">UNAH-CURLA</option>
+                  <option value="5">UNAH-CURLP</option>
+                  <option value="6">UNAH-CUROC</option>
+                  <option value="7">UNAH-CURNO</option>
+                  <option value="8">UNAH-TEC Danli</option>
+                  <option value="9">UNAH-TEC AGUÁN</option>
                 </select>
               </div>
+
+              <div>
+                <label htmlFor="carrera">
+                  <strong>Asignar Carrera</strong>
+                </label>
+                <select
+                  value={formState.carrera}
+                  name="carrera"
+                  className="form-control2"
+                  onChange={handleChange}
+                >
+                  <option value="">Seleccione una carrera</option>
+                  {carreras?.map((carrera, index) => (
+                    <option key={index} value={carrera.id}>
+                      {carrera.nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
               <div className="my-3 d-flex justify-content-center">
                 <button
                   type="submit"
