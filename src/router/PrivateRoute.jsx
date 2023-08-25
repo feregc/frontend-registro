@@ -39,7 +39,7 @@ import { ChatPage } from "../Estudiantes/pages/ChatPage";
 
  
 export const PrivateRoute = ({ isAuthenticated }) => {
-  return isAuthenticated ? <ChatPage /> : <Navigate to="estudiante/auth/loginChat" />;
+  return isAuthenticated ? <ChatPage /> : <Navigate to="/log/estudiante" />;
 };
 
 
