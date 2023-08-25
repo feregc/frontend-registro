@@ -1,42 +1,68 @@
-import React, { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { validacionRegisto } from "../../Administardor/helpers/ValidacionRegistro";
 import "../../Assets/styles/styles-forms/Forms-styles.css";
 import "../../Assets/styles/styles-landing/Footer-styles.css";
+import { AuthContext } from "../chat/auth/AuthContext";
 
 export const LoginEstudiante = () => {
   const navigate = useNavigate();
+  const { login: loginToSocketBackend } = useContext(AuthContext);
 
   const [values, setValues] = useState({
     email: "",
     password: "",
+    rememberme: false,
   });
+
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    if (email) {
+      setValues((form) => ({
+        ...form,
+        email,
+        rememberme: true,
+      }));
+    }
+  }, []);
+
+  const toggleCheck = () => {
+    console.log("??");
+    setForm({
+      ...form,
+      rememberme: !form.rememberme,
+    });
+  };
 
   // const [error, setError] = useState({});
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => { // Agrega la palabra clave async aquí
     event.preventDefault();
     // setError(validacionRegisto(values));
     const { email, password } = values;
-    axios
-      .post("http://localhost:8081/login/estudiante", { email, password })
-      .then((res) => {
-        const { login, usuario, token } = res.data;
-        if (login) {
-          localStorage.setItem("token", token);
-          localStorage.setItem("login", login);
-          localStorage.setItem("id", usuario[0].num_cuenta);
-          localStorage.setItem("centro_id", usuario[0].centro_id);
-          console.log({ login, usuario, token });
-          alert("Inicio sesion exitoso");
-          navigate("/estudiante/home");
-        } else {
-          console.log({ login, usuario });
-          alert("El usuario no existe");
-        }
-      })
-      .catch((err) => console.log(err));
+    try {
+      const res = await axios.post("http://localhost:8081/login/estudiante", { email, password });
+      const { login, usuario, token } = res.data;
+
+      if (login) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("login", login);
+        localStorage.setItem("id", usuario[0].num_cuenta);
+        console.log({ login, usuario, token });
+        alert("Inicio sesión exitoso");
+
+        // Aquí se asume que `login` es una función asincrónica del otro componente
+        await loginToSocketBackend(email, password); // Esperar a la función login
+        console.log('Socketssss');
+        navigate("/estudiante/home");
+      } else {
+        console.log({ login, usuario });
+        alert("El usuario no existe");
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleInput = (event) => {

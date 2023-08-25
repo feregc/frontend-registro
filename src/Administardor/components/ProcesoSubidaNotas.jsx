@@ -143,6 +143,8 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
                   <option value="I-PAC">I-PAC</option>
                   <option value="II-PAC">II-PAC</option>
                   <option value="III-PAC">III-PAC</option>
+                  <option value="I-SEMESTRE">I-SEMESTRE</option>
+                  <option value=" II-SEMESTRE">II-SEMESTRE</option>
                 </select>
               </div>
             </div>
