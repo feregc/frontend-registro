@@ -86,16 +86,21 @@ export const Solicitudes = () => {
    
   }, [num_cuenta]);
 
-useEffect(()=>{    const fetchCentro = async () => {
-  try {
-    const response = await fetch(`http://localhost:8081/VerCentros`);
-    const centrosData = await response.json();
-    setCentro(centrosData);
-  } catch (error) {
-    console.log("Error:", error);
-  }
-  fetchCentro();
-};},[centro])
+  useEffect(() => {
+    const fetchCentros = async () => {
+      try {
+        const response = await fetch(`http://localhost:8081/VerCentros`);
+        const centrosData = await response.json();
+        setCentro(centrosData);
+        console.log(centrosData);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+  
+    fetchCentros(); // Llamada a fetchCentros fuera de la definición de la función
+  }, []);
+  
 
 useEffect(()=>{
   const fetchCarreras = async () => {
@@ -151,7 +156,7 @@ useEffect(()=>{
 
     const formData = new FormData();
     formData.append("tipo_solicitud", tipoSolicitud);
-    formData.append("num_cuenta", num_cuenta);
+    formData.append("num_cuenta",imgPerfilEstudiante.num_cuenta);
     formData.append(
       "justificacion",
       `${imgPerfilEstudiante.primer_nombre}

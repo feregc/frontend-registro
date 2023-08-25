@@ -298,7 +298,7 @@ export const HistorialAcademico = () => {
                       Dirección de Ingresos Permanencia y Promoción
                     </h6>
                     <h6 className="d-flex justify-content-center text-black">
-                      Historial Academico
+                      Historial Académico
                     </h6>
                   </div>
                 </div>

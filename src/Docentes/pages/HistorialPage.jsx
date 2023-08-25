@@ -80,7 +80,7 @@ export const HistorialPage = () => {
   
                   <div className="container">
                     <div className="row my-4 p-2 border border-2 rounded-4">
-                      <center><h2>Historial academico</h2></center>
+                      <center><h2>Historial académico</h2></center>
                       <div className="col-6">
                         <p className="text-black fw-bold">
                           Cuenta: {perfilEstudiante.num_cuenta}
