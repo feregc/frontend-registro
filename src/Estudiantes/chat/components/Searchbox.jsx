@@ -22,6 +22,9 @@ export const Searchbox = () => {
       return <FriendRequestsScreen />;
     }
   };
+  const regresar = () => {
+    window.history.back();
+  };
 
   return (
     <>
@@ -34,9 +37,13 @@ export const Searchbox = () => {
               </div>
             </div>
             <div className="col">
-              <button className="btn btn-danger mx-1" onClick={logout}>
-                Salir
+              {/* Cambiar al color azul de todas las pantallas */}
+              <button className="btn btn-success mt-4" onClick={regresar}>
+                Atras
               </button>
+              {/* <button className="btn btn-danger mx-1" onClick={logout}>
+                Atras
+              </button> */}
             </div>
           </div>
         </div>
@@ -55,9 +62,8 @@ export const Searchbox = () => {
             </li>
             <li className="nav-item">
               <h5
-                className={`nav-link ${
-                  activeTab === "solicitudes" ? "active" : ""
-                }`}
+                className={`nav-link ${activeTab === "solicitudes" ? "active" : ""
+                  }`}
                 onClick={handleShow}
               >
                 Solicitudes

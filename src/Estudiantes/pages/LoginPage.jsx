@@ -24,6 +24,7 @@ export const LoginPage = () => {
     }
   }, []);
 
+  //solo para cambiar los imput
   const onChange = ({ target }) => {
     const { name, value } = target;
     setForm({
@@ -40,6 +41,7 @@ export const LoginPage = () => {
     });
   };
 
+  //Aqui ejecuta el inicio de sesion en el sockets
   const onSubmit = async (ev) => {
     ev.preventDefault();
 
@@ -55,6 +57,7 @@ export const LoginPage = () => {
     }
   };
 
+  //Esto solo verifica que este lleno los campos
   const todoOk = () => {
     return form.email.length > 0 && form.password.length > 0 ? true : false;
   };

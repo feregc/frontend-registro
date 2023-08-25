@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import "../../Assets/styles/styles-landing/Navbar-styles.css";
+import { AuthContext } from "../../Estudiantes/chat/auth/AuthContext";
+import { useContext } from "react";
 
 export const NavbarEspecifico = () => {
+  const { auth, logout } = useContext(AuthContext);
   return (
     <>
       <header className="navbar navbar-expand-lg bd-navbar sticky-top">
@@ -39,7 +42,7 @@ export const NavbarEspecifico = () => {
           <div className="navbar-collapse collapse w-100 order-3 dual-collapse2 d-flex justify-content-end">
             <ul className="navbar-nav ml-auto">
               <NavLink className="nav-item nav-link" to="/">
-                <button className="btn btn-primary">Cerrar Sesión</button>
+                <button className="btn btn-primary" onClick={logout}>Cerrar Sesión</button>
               </NavLink>
             </ul>
           </div>

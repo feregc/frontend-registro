@@ -35,6 +35,7 @@ import '../Estudiantes/chat/css/login-register.css';
 // import '../css/login-register.css';
 import { LoginPage } from '../Estudiantes/pages/LoginPage';
 import { RegisterPage } from '../Estudiantes/pages/RegisterPage';
+import { LoginEstudiantePage } from '../Estudiantes/pages/LoginEstudiantePage';
 
 export const AuthRouter = () => {
     return (
@@ -42,7 +43,7 @@ export const AuthRouter = () => {
             <div className="container-login100">
                 <div className="wrap-login100 p-t-50 p-b-90">
                     <Routes>
-                        <Route path="loginChat" element={<LoginPage />} />
+                        <Route path="loginChat" element={<LoginEstudiantePage />} />
                         <Route path="registerChat" element={<RegisterPage />} />
                         {/* <Route path="/" element={<Navigate to="loginChat" />} /> */}
                     </Routes>
