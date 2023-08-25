@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 export const EvaluacionPage = () => {
   const [verCarga, setVerCarga] = useState([]);
-  const {num_empleado } = useParams();
   const [docente, setDocente] = useState({});
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
-  const [opcionActual, setOpcionActual] = useState(""); // Nueva variable de estado para el año actual
+  const [opcionActual, setOpcionActual] = useState("");
   const [opciones, setOpciones] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 1;
+
+  const { num_empleado } = useParams();
 
   const handleYearChange = (event) => {
     const selectedYear = event.target.value;
     setOpcionActual(selectedYear);
-    console.log("Año seleccionado:", selectedYear);
   };
 
   const handleOpcionChange = (event) => {
     const selectedOptionValue = event.target.value;
     setOpcionSeleccionada(selectedOptionValue);
-    console.log("Periodo:", selectedOptionValue);
   };
 
   useEffect(() => {
@@ -28,12 +30,7 @@ export const EvaluacionPage = () => {
 
     const generateYearOptions = () => {
       const currentYear = getCurrentYear();
-      const years = [
-        currentYear,
-        currentYear - 1,
-        currentYear - 2,
-        currentYear - 3,
-      ];
+      const years = [currentYear, currentYear - 1, currentYear - 2];
       const options = years.map((year) => (
         <option key={year} value={year}>
           {year}
@@ -49,18 +46,12 @@ export const EvaluacionPage = () => {
     obtenerDocente();
     async function obtenerDocente() {
       try {
-        const response = await fetch(
-          `http://localhost:8081/docente/${num_empleado}`
-        );
+        const response = await fetch(`http://localhost:8081/docente/${num_empleado}`);
         const jsonData = await response.json();
-        const docenteData = jsonData[0]; // Accedemos al primer objeto del arreglo
+        const docenteData = jsonData[0];
         setDocente(docenteData);
-        console.log("docente ", docenteData);
       } catch (error) {
-        console.error(
-          "Error al obtener las solicitudes del coordinador:",
-          error
-        );
+        console.error("Error al obtener el docente:", error);
       }
     }
   }, [num_empleado]);
@@ -72,36 +63,56 @@ export const EvaluacionPage = () => {
   }, [docente, opcionActual, opcionSeleccionada]);
 
   async function obtenerCarga(carreraId, centroId) {
-    console.log(carreraId, centroId, opcionActual, opcionSeleccionada);
     try {
       const response = await fetch(
-     
         `http://localhost:8081/Evaluaciones/${num_empleado}/${opcionActual}/${opcionSeleccionada}`
       );
       const jsonData = await response.json();
       setVerCarga(jsonData);
-      console.log("carga ", jsonData);
     } catch (error) {
-      console.log("Error:", error);
+      console.error("Error al obtener la carga académica:", error);
     }
   }
 
-  
+  const handleSearchChange = (event) => {
+    setSearchText(event.target.value);
+    setCurrentPage(1);
+  };
+
+  const filteredItems = verCarga.filter((seccion) =>
+    seccion.nombre_clase.toLowerCase().includes(searchText.toLowerCase())
+  );
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredItems.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const regresar = () => {
+    history.back();
+  };
 
   return (
     <>
       <div className="container">
         <div className="row">
-          <div className="col ">
+          <div className="col">
             <br />
+            <div className="col-3">
+              <button className="btn btn-primary my-4" onClick={regresar}>
+                Atrás
+              </button>
+            </div>
             <div className="d-flex my-3 justify-content-center">
               <h3>Evaluaciones Docente {docente.nombres} {docente.apellidos}</h3>
             </div>
 
             <div className="row">
+              
               <div className="col-3 d-flex my-3 justify-content-start">
                 <select
-                  className="form-control btn-w3"
+                  className="form-control"
                   name=""
                   id="opcion"
                   value={opcionSeleccionada}
@@ -115,7 +126,7 @@ export const EvaluacionPage = () => {
               </div>
               <div className="col-3 d-flex my-3 justify-content-start">
                 <select
-                  className="form-control btn-w3"
+                  className="form-control"
                   name=""
                   id="opcion"
                   value={opcionActual}
@@ -125,44 +136,116 @@ export const EvaluacionPage = () => {
                   {opciones}
                 </select>
               </div>
-              
+              <div className="col-3 d-flex my-3 justify-content-start">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Buscar por nombre de clase"
+                  value={searchText}
+                  onChange={handleSearchChange}
+                />
+              </div>
             </div>
 
-            <div className="d-flex my-3 justify-content-center">
-              <table
-                id="cargaAcademicaId"
-                className="table table-striped table-hover table-bordered"
-              >
-                <thead>
-                  <th scope="col">Asignatura</th>
-                  <th scope="col">comentarioI</th>
-                  <th scope="col">comentarioII</th>
-                  <th scope="col">comentarioIII</th>
-                  <th scope="col">comentarioIIII</th>
-                  <th scope="col">comentarioIIIII</th>
-                  <th scope="col">comentarioIIIIII</th>
-                 
-                </thead>
-                <tbody>
-                  {verCarga.map((seccion) => (
-                    <tr key={seccion.id_seccion}>
-                      <td>{seccion.nombre_clase} </td>
-                      <td>{seccion.comentarioI} </td>
-                      <td>{seccion.comentarioII} </td>
-                      <td>{seccion.comentarioIII} </td>
-                      <td>{seccion.comentarioIIII} </td>
-                      <td>{seccion.comentarioIIIII} </td>
-                      <td>{seccion.comentarioIIIIII} </td>
-                     
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="col">
+            <div className="container">
+  <div className="row">
+    <div className="col">
+      {currentItems.map((seccion, index) => (
+        <div key={index}>
+          <h4>Registro {index + 1}</h4>
+          <table className="table table-striped table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col" style={{ maxWidth: "80px" }}>
+                  Categoría
+                </th>
+                <th scope="col">Evaluaciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{ maxWidth: "80px" }}>Asignatura</td>
+                <td>{seccion.nombre_clase}</td>
+              </tr>
+              <tr>
+                <td style={{ maxWidth: "80px" }}>Capacidad de comunicación</td>
+                <td>{seccion.comentarioI}</td>
+              </tr>
+              <tr>
+                <td style={{ maxWidth: "80px" }}>
+                  Organización y estructura de la clase
+                </td>
+                <td>{seccion.comentarioII}</td>
+              </tr>
+              <tr>
+                <td style={{ maxWidth: "80px" }}>
+                  Habilidad fomentar la participación
+                </td>
+                <td>{seccion.comentarioIII}</td>
+              </tr>
+              <tr>
+                <td style={{ maxWidth: "80px" }}>
+                  Capacidad para motivar y mantener el interés
+                </td>
+                <td>{seccion.comentarioIIII}</td>
+              </tr>
+              <tr>
+                <td style={{ maxWidth: "80px" }}>Capacidad para explicar</td>
+                <td>{seccion.comentarioIIIII}</td>
+              </tr>
+              <tr>
+                <td style={{ maxWidth: "80px" }}>
+                  Aspectos en los que puede mejorar el docente
+                </td>
+                <td>{seccion.comentarioIIIIII}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+
+              <div className="d-flex justify-content-center">
+                <Pagination
+                  itemsPerPage={itemsPerPage}
+                  totalItems={filteredItems.length}
+                  currentPage={currentPage}
+                  paginate={paginate}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </>
   );
+};
 
+const Pagination = ({ itemsPerPage, totalItems, currentPage, paginate }) => {
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <nav>
+      <ul className="pagination">
+        {pageNumbers.map((number) => (
+          <li key={number} className="page-item">
+            <button
+              onClick={() => paginate(number)}
+              className={`page-link ${number === currentPage ? "active" : ""}`}
+            >
+              {number}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
 };
