@@ -232,12 +232,12 @@ export const CargaEstudiantes = () => {
     <>
       <div className="container">
         <button className="btn btn-success my-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="col my-5">
           <div className="row">
             <div className="my-3 d-flex justify-content-center">
-              <h2>Carga de Estudiantes</h2>
+              <h2>Carga Archivo de Estudiantes</h2>
             </div>
             <div className="my-3 d-flex justify-content-center">
               <p>Seleccione el archivo CSV con los datos de los estudiantes</p>
@@ -258,7 +258,7 @@ export const CargaEstudiantes = () => {
                       onClick={handleSubmit}
                       disabled={uploaded}
                     >
-                      Subir Estudiantes
+                      Cargar Datos
                     </button>
                     <br />
                     <p>{msg?.message}</p>

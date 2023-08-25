@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import "../../Assets/styles/styles-admin/Admin-home.css";
 
@@ -21,7 +20,7 @@ export const LandingAdministradorPage = () => {
   const onNavProcesoSubidaNotas = () => {
     navigate("/administrador/procesoSubidaNotas");
   };
-  
+
   return (
     <>
       <div className="d-flex flex-column align-items-center justify-content-center">
@@ -35,7 +34,7 @@ export const LandingAdministradorPage = () => {
               className="btn btn-w btn-h btn-primary m-1"
               onClick={onNavRegistroDocente}
             >
-              Registrar docentes
+              Registra Docentes
             </button>
           </div>
           <div>
@@ -43,29 +42,33 @@ export const LandingAdministradorPage = () => {
               className="btn btn-w btn-h btn-primary m-1"
               onClick={onNavRegistroEstudiante}
             >
-              Registrar Estudiantes
+              Cargar Estudiantes
             </button>
           </div>
           <div>
-            <button className="btn btn-w btn-h btn-primary m-1" onClick={onNavRolDocente}>
-              
-              Seleccionar rol del docente
+            <button
+              className="btn btn-w btn-h btn-primary m-1"
+              onClick={onNavRolDocente}
+            >
+              Cambiar Rol del Docente
             </button>
           </div>
           <div>
-            <button className="btn btn-w btn-h btn-primary m-1" onClick={onNavProcesoMatricula}>
-              
-              Crear proceso de matricula
+            <button
+              className="btn btn-w btn-h btn-primary m-1"
+              onClick={onNavProcesoMatricula}
+            >
+              Crea Proceso de Matrícula
             </button>
           </div>
-
           <div>
-            <button className="btn btn-w btn-h btn-primary m-1" onClick={onNavProcesoSubidaNotas}>
-              
-              Crear proceso de subida de notas
+            <button
+              className="btn btn-w btn-h btn-primary m-1"
+              onClick={onNavProcesoSubidaNotas}
+            >
+              Crea Proceso de Subir de Notas
             </button>
           </div>
-
         </div>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">

@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import "../../Assets/styles/styles-admin/Admin-asignar-rol.css";
+import { DocenteCard } from "../../Docentes/components/DocenteCard";
+
 
 export const RolDocente = () => {
   const [centroSeleccionado, setCentroSeleccionado] = useState(0);
   const [opcionDeCarrera, setOpcionDeCarrera] = useState("");
   const [mostrarListaDeCarreras, setMostrarListaDeCarreras] = useState(false);
+  const [docentesSeleccionado, setDocentesSeleccionado] = useState([]);
+  const [correoDocente, setCorreoDocente] = useState("");
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
 
   const handleCentro = (event) => {
     setCentroSeleccionado(event.target.value);
@@ -22,6 +27,22 @@ export const RolDocente = () => {
       setMostrarListaDeCarreras(false);
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:8081/docenteCorreo/${correoDocente}`
+      );
+      const data = await response.json();
+
+      setDocentesSeleccionado(data);
+      setFormularioEnviado(true);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
   const regresar = () => {
     window.history.back();
   };
@@ -30,7 +51,7 @@ export const RolDocente = () => {
     <>
       <div className="container">
         <button className="btn btn-success my-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="my-3 d-flex justify-content-center">
@@ -41,7 +62,7 @@ export const RolDocente = () => {
           <div className="d-flex justify-content-center">
             <div className="col-6">
               <div className="my-3 d-flex justify-content-center ">
-                <h3 htmlFor="lang">Centro: </h3>
+                <h3 htmlFor="lang">Seleccione un Centro: </h3>
               </div>
               <div className="my-3 d-flex justify-content-center ">
                 <select
@@ -68,7 +89,7 @@ export const RolDocente = () => {
               {mostrarListaDeCarreras && (
                 <>
                   <div className="my-3 d-flex justify-content-center">
-                    <h3>Carrera:</h3>
+                    <h3>Seleccione una Carrera:</h3>
                   </div>
                   <div className="my-3 d-flex justify-content-center">
                     <ListaDeCarreras
@@ -83,6 +104,10 @@ export const RolDocente = () => {
         </div>
         <div className="d-flex justify-content-center ">
           <div className="col">
+          <div className="row">
+          
+        </div>
+            <h3 className="d-flex justify-content-center my-3">Seleccione un rol para un docente</h3>
             {opcionDeCarrera && (
               <ListaDocentes
                 carrera={opcionDeCarrera}
@@ -239,11 +264,6 @@ const ListaDocentes = ({ carrera, centro }) => {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col"></div>
-        </div>
-      </div>
       <div className="d-flex flex-column justify-content-center">
         <div className="d-flex flex-column justify-content-center">
           {mostrarAdvertencia && (
