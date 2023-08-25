@@ -7,7 +7,7 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 export const HistorialAcademico = () => {
   const num_cuenta = localStorage.getItem("id");
   const [paginas, setPaginas] = useState(1);
-  const itemsPaginas = 11;
+  const itemsPaginas = 8;
 
   const [perfilEstudiante, setPerfilEstudiante] = useState([]);
   const [dataClase, setdataClase] = useState([]);
@@ -26,6 +26,16 @@ export const HistorialAcademico = () => {
     for (let i = 0; i < dataClase.length; i += registrosPorPagina) {
       gruposDeRegistros.push(dataClase.slice(i, i + registrosPorPagina));
     }
+
+    const classesByYear = {}; // Objeto para almacenar las asignaturas por año
+
+    dataClase.forEach((clase) => {
+      const year = clase.anio;
+      if (!classesByYear[year]) {
+        classesByYear[year] = []; // Crea un nuevo arreglo para el año si no existe
+      }
+      classesByYear[year].push(clase); // Agrega la asignatura al arreglo correspondiente al año
+    });
 
     const docDefinition = {
       content: [
@@ -63,6 +73,7 @@ export const HistorialAcademico = () => {
             },
           ],
         },
+        { text: "\n" },
         {
           table: {
             widths: ["50%", "50%"],
@@ -136,6 +147,7 @@ export const HistorialAcademico = () => {
           hLineWidth: () => 0, // Eliminar bordes horizontales de la tabla principal
           vLineWidth: () => 0, // Eliminar bordes verticales de la tabla principal
         },
+        { text: "\n" },
         // Información de las clases
         {
           fillColor: "#E0E0E0",
@@ -144,36 +156,53 @@ export const HistorialAcademico = () => {
           alignment: "center",
           margin: [5, 10, 5, 0],
         },
-
-        {
-          table: {
-            headerRows: 1,
-            widths: ["auto", "*", "auto", "auto", "auto", "auto"],
-            body: [
-              ["CODIGO", "ASIGNATURA", "UV", "PERIODO", "NOTA", "OBS"],
-              ...dataClase.map((clase) => [
-                clase.codigo,
-                clase.nombre,
-                5,
-                clase.periodo + " " + clase.anio,
-                clase.nota,
-                clase.nota > 65 ? "APR" : "RPB",
-              ]),
-            ],
+        ...Object.keys(classesByYear).map((year) => [
+          { text: "\n" },
+          {
+            text: `------------------------------------------------ ${year} ------------------------------------------------`, // Mostrar el año
+            style: "subheader",
+            alignment: "center",
+            margin: [5, 10, 5, 0],
           },
-          layout: "lightHorizontalLines",
-          tableLayouts: {
-            exampleLayout: {
-              hLineWidth: function (i, node) {
-                return i === 0 || i === node.table.body.length ? 1 : 0;
-              },
-              vLineWidth: function (i) {
-                return 0;
+          { text: "\n" },
+          {
+            table: {
+              headerRows: 1,
+              widths: ["auto", "*", "auto", "auto", "auto", "auto"],
+              body: [
+                ["CÓDIGO", "ASIGNATURA", "UV", "PERIODO", "NOTA", "OBS"],
+                ...classesByYear[year]
+                .sort((a, b) => a.periodo.localeCompare(b.periodo))
+                .map((clase) => [
+                  clase.codigo,
+                  clase.nombre,
+                  5,
+                  clase.periodo,
+                  clase.nota,
+                  clase.nota > 65 ? "APR" : "RPB",
+                ]),
+              ],
+            },
+            layout: "lightHorizontalLines",
+            tableLayouts: {
+              exampleLayout: {
+                hLineWidth: function (i, node) {
+                  return i === 0 || i === node.table.body.length ? 1 : 0;
+                },
+                vLineWidth: function (i) {
+                  return 0;
+                },
               },
             },
+            style: "exampleLayout",
           },
-          style: "exampleLayout",
-        },
+          {
+            text: `Total Aprobadas: ${classesByYear[year].filter((clase) => clase.nota > 65).length}`,
+            margin: [5, 10, 5, 0],
+            alignment: "left",
+          },
+          
+        ]),
       ],
       styles: {
         header: {
@@ -263,7 +292,7 @@ export const HistorialAcademico = () => {
                   </div>
                   <div className="col-11">
                     <h4 className="d-flex justify-content-center text-black">
-                      Universidad Nacional Autónoma de honduras
+                      Universidad Nacional Autónoma de Honduras
                     </h4>
                     <h6 className="d-flex justify-content-center text-black">
                       Dirección de Ingresos Permanencia y Promoción
@@ -294,10 +323,10 @@ export const HistorialAcademico = () => {
                       Carrera: {perfilEstudiante.nombre_carrera}
                     </p>
                     <p className="text-black fw-bold">
-                      Centro: {perfilEstudiante.centro}
+                      Centro: {perfilEstudiante.nombre_centro}
                     </p>
                     <p className="text-black fw-bold">
-                      Indice: {perfilEstudiante.nota}
+                      Índice: {perfilEstudiante.nota}
                     </p>
                   </div>
                 </div>
@@ -305,28 +334,66 @@ export const HistorialAcademico = () => {
               <table className="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">CODIGO</th>
-                    <th scope="col">ASIGNATURA</th>
-                    <th scope="col">UV</th>
-                    <th scope="col">PERIODO</th>
-                    <th scope="col">NOTA</th>
-                    <th scope="col">OBS</th>
+                    <th scope="col" className="text-center">
+                      CÓDIGO
+                    </th>
+                    <th scope="col" className="text-center">
+                      ASIGNATURA
+                    </th>
+                    <th scope="col" className="text-center">
+                      UV
+                    </th>
+                    <th scope="col" className="text-center">
+                      PERIODO
+                    </th>
+                    <th scope="col" className="text-center">
+                      AÑO
+                    </th>
+                    <th scope="col" className="text-center">
+                      NOTA
+                    </th>
+                    <th scope="col" className="text-center">
+                      OBS
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {dataClase
                     .slice((paginas - 1) * itemsPaginas, paginas * itemsPaginas)
+                    .sort((a, b) => {
+                      if (a.anio === b.anio) {
+                        return a.periodo - b.periodo;
+                      }
+                      return a.anio - b.anio;
+                    })
                     .map((clase, index) => (
                       <tr key={index}>
-                        <th scope="row">{clase.codigo}</th>
-                        <th scope="row">{clase.nombre}</th>
-                        <th scope="row">5</th>
-                        <th scope="row">{clase.periodo + " " + clase.anio}</th>
-                        <th scope="row">{clase.nota}</th>
+                        <th scope="row" className="text-center">
+                          {clase.codigo}
+                        </th>
+                        <th scope="row" className="text-center">
+                          {clase.nombre}
+                        </th>
+                        <th scope="row" className="text-center">
+                          5
+                        </th>
+                        <th scope="row" className="text-center">
+                          {clase.periodo}
+                        </th>
+                        <th scope="row" className="text-center">
+                          {clase.anio}
+                        </th>
+                        <th scope="row" className="text-center">
+                          {clase.nota}
+                        </th>
                         {clase.nota > 65 ? (
-                          <th scope="row">APR</th>
+                          <th scope="row" className="text-center">
+                            APR
+                          </th>
                         ) : (
-                          <th scope="row">RPB</th>
+                          <th scope="row" className="text-center">
+                            RPB
+                          </th>
                         )}
                       </tr>
                     ))}

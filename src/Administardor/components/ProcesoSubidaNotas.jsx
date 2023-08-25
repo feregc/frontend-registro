@@ -101,7 +101,7 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
     <>
       <br />
       <button className="btn btn-success my-4" onClick={regresar}>
-        Atras
+        Atrás
       </button>
       <br />
       <form className="form" onSubmit={handleSubmit}>
@@ -109,7 +109,7 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
           <div className="row my-2">
             <div className="col">
               <br />
-              <h3>Formulario para proceso subida de notas</h3>
+              <h3>Formulario para Proceso de Ingreso de Notas</h3>
               <br />
             </div>
             <div className="row my-2">

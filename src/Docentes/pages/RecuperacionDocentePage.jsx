@@ -46,21 +46,18 @@ export const RecuperacionDocentePage = () => {
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="col">
             <form onSubmit={handleSubmit}>
               <div className="my-3 d-flex justify-content-center bg-primary">
-                <h3 className="my-3">Docentes disponibles</h3>
-              </div>
-              <div className="my-3 d-flex justify-content-center bg-primary">
-                <label htmlFor="">Ingrese el correo del docente a buscar</label>
+                <h3 className="my-3">Buscar Docentes</h3>
               </div>
               <div className="my-3 d-flex justify-content-center bg-primary">
                 <input
                   type="text"
-                  className="form-control w-50"
+                  className="my-3 form-control w-50"
                   placeholder="Ingrese el correo del docente"
                   value={correoDocente}
                   onChange={(e) => setCorreoDocente(e.target.value)}

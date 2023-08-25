@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "../../Assets/styles/styles-admin/Admin-asignar-rol.css";
 import { DocenteCard } from "../../Docentes/components/DocenteCard";
 
-
 export const RolDocente = () => {
   const [centroSeleccionado, setCentroSeleccionado] = useState(0);
   const [opcionDeCarrera, setOpcionDeCarrera] = useState("");
@@ -104,10 +103,8 @@ export const RolDocente = () => {
         </div>
         <div className="d-flex justify-content-center ">
           <div className="col">
-          <div className="row">
-          
-        </div>
-            <h3 className="d-flex justify-content-center my-3">Seleccione un rol para un docente</h3>
+            <div className="row"></div>
+
             {opcionDeCarrera && (
               <ListaDocentes
                 carrera={opcionDeCarrera}
@@ -193,11 +190,14 @@ const ListaDocentes = ({ carrera, centro }) => {
   const [mostrarAdvertencia, setMostrarAdvertencia] = useState(false);
   const [realizarActualizacion, setRealizarActualizacion] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [docentesPerPage] = useState(5); // Number of docentes per page
+  const [docentesPerPage] = useState(4); // Number of docentes per page
 
   const indexOfLastDocente = currentPage * docentesPerPage;
   const indexOfFirstDocente = indexOfLastDocente - docentesPerPage;
-  const currentDocentes = docentes.slice(indexOfFirstDocente, indexOfLastDocente);
+  const currentDocentes = docentes.slice(
+    indexOfFirstDocente,
+    indexOfLastDocente
+  );
 
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(docentes.length / docentesPerPage); i++) {
@@ -301,6 +301,9 @@ const ListaDocentes = ({ carrera, centro }) => {
                 <div className="row">
                   <div className="d-flex justify-content-center">
                     <div className="col">
+                      <h3 className="d-flex justify-content-center my-3">
+                        Seleccione un rol para un docente
+                      </h3>
                       <table className="table table-striped table-hover">
                         <thead>
                           <tr>
@@ -313,73 +316,79 @@ const ListaDocentes = ({ carrera, centro }) => {
                           </tr>
                         </thead>
                         <tbody>
-  {currentDocentes.map((dato) => (
-    <tr key={dato.num_empleado}>
-      <th scope="row">
-        {dato.nombres} {dato.apellidos}
-      </th>
-      <th scope="row">
-        <div>
-          <select
-            name="docentes"
-            id="lang"
-            className="form-control2 btn-w2"
-            value={rolSeleccionado[dato.num_empleado]}
-            onChange={(event) =>
-              actualizarRol(event.target.value, dato.num_empleado)
-            }
-            disabled={
-              dato.cargo === "Jefe de departamento" &&
-              rolSeleccionado[dato.num_empleado] === "Jefe de departamento"
-            }
-          >
-            <option value={dato.cargo}>{dato.cargo}</option>
-            {dato.cargo !== "Docente" && (
-              <option value="Docente">Docente</option>
-            )}
-            {dato.cargo !== "Coordinador" && (
-              <option value="Coordinador">Coordinador</option>
-            )}
-            {dato.cargo !== "Jefe de departamento" && (
-              <option value="Jefe de departamento">
-                Jefe de departamento
-              </option>
-            )}
-          </select>
-        </div>
-      </th>
-    </tr>
-  ))}
-</tbody>
-<tfoot>
-  <tr>
-    <td colSpan="2">
-      <div className="d-flex justify-content-between">
-        <div>
-          <nav>
-            <ul className="pagination">
-              {pageNumbers.map((number) => (
-                <li key={number} className="page-item">
-                  <button
-                    className="page-link"
-                    onClick={() => setCurrentPage(number)}
-                  >
-                    {number}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-        <div>
-          
-        </div>
-      </div>
-    </td>
-  </tr>
-</tfoot>
-
-
+                          {currentDocentes.map((dato) => (
+                            <tr key={dato.num_empleado}>
+                              <th scope="row">
+                                {dato.nombres} {dato.apellidos}
+                              </th>
+                              <th scope="row">
+                                <div>
+                                  <select
+                                    name="docentes"
+                                    id="lang"
+                                    className="form-control2 btn-w2"
+                                    value={rolSeleccionado[dato.num_empleado]}
+                                    onChange={(event) =>
+                                      actualizarRol(
+                                        event.target.value,
+                                        dato.num_empleado
+                                      )
+                                    }
+                                    disabled={
+                                      dato.cargo === "Jefe de departamento" &&
+                                      rolSeleccionado[dato.num_empleado] ===
+                                        "Jefe de departamento"
+                                    }
+                                  >
+                                    <option value={dato.cargo}>
+                                      {dato.cargo}
+                                    </option>
+                                    {dato.cargo !== "Docente" && (
+                                      <option value="Docente">Docente</option>
+                                    )}
+                                    {dato.cargo !== "Coordinador" && (
+                                      <option value="Coordinador">
+                                        Coordinador
+                                      </option>
+                                    )}
+                                    {dato.cargo !== "Jefe de departamento" && (
+                                      <option value="Jefe de departamento">
+                                        Jefe de departamento
+                                      </option>
+                                    )}
+                                  </select>
+                                </div>
+                              </th>
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr>
+                            <td colSpan="2">
+                              <div className="d-flex justify-content-between">
+                                <div>
+                                  <nav>
+                                    <ul className="pagination">
+                                      {pageNumbers.map((number) => (
+                                        <li key={number} className="page-item">
+                                          <button
+                                            className="page-link"
+                                            onClick={() =>
+                                              setCurrentPage(number)
+                                            }
+                                          >
+                                            {number}
+                                          </button>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </nav>
+                                </div>
+                                <div></div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tfoot>
                       </table>
                     </div>
                   </div>

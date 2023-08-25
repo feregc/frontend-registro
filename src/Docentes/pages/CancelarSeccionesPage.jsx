@@ -86,7 +86,7 @@ export const CancelarSeccionesPage = () => {
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="col">
@@ -100,15 +100,15 @@ export const CancelarSeccionesPage = () => {
             <table className="table table-hover table-stripted">
               <thead>
                 <tr>
-                  <th scope="col">Nombre de la Clase</th>
-                  <th scope="col">Ver</th>
+                  <th scope="col" className="text-center">Nombre de la Clase</th>
+                  <th scope="col" className="text-center">Acción</th>
                 </tr>
               </thead>
               <tbody>
                 {clases.map((clase) => (
                   <tr key={clase.id_clase}>
                     <td scope="row">{clase.nombre}</td>
-                    <td scope="row">
+                    <td scope="row" className="d-flex justify-content-center">
                       <button
                         className="btn btn-success btn-w"
                         onClick={() => mostrarSecciones(clase.id_clase)}
@@ -126,13 +126,13 @@ export const CancelarSeccionesPage = () => {
               <table className="table table-hover table-stripted">
                 <thead>
                   <tr>
-                    <th scope="col">Sección</th>
-                    <th scope="col">Nombres</th>
-                    <th scope="col">Edificio</th>
-                    <th scope="col">Aula</th>
-                    <th scope="col">Hi</th>
-                    <th scope="col">Hf</th>
-                    <th scope="col">Eliminar</th>
+                    <th scope="col" className="text-center">Sección</th>
+                    <th scope="col" className="text-center">Nombres</th>
+                    <th scope="col" className="text-center">Edificio</th>
+                    <th scope="col" className="text-center">Aula</th>
+                    <th scope="col" className="text-center">Hi</th>
+                    <th scope="col" className="text-center">Hf</th>
+                    <th scope="col" className="text-center">Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -146,9 +146,9 @@ export const CancelarSeccionesPage = () => {
                       <td scope="row">{seccion.num_aula}</td>
                       <td scope="row">{seccion.horainicio}</td>
                       <td scope="row">{seccion.horafin}</td>
-                      <td scope="row">
+                      <td scope="row" className="d-flex justify-content-center">
                         <button
-                          className="btn btn-success btn-w"
+                          className="btn btn-success w-100"
                           onClick={() => eliminarSeccion(seccion.id_seccion)}
                         >
                           Eliminar

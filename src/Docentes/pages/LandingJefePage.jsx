@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { LandingDocente } from "../components/LandingDocente";
+import { Link } from "react-router-dom";
 
 export const LandingJefePage = () => {
   const navigate = useNavigate();
@@ -25,16 +27,27 @@ export const LandingJefePage = () => {
     navigate("/docente/estadisticas");
   };
 
-
   return (
     <>
       <div className="container">
         <div className="row my-5 ">
-          <div className="my-3 d-flex justify-content-center">
+          <div className="col my-3 d-flex justify-content-center">
             <h2>Bienvenido Jefe de Departamento</h2>
           </div>
-          <div className="my-3 d-flex justify-content-center">
-            <div className="row-3 mx-2">
+          <div className="row my-3">
+            <div className="d-flex justify-content-center my-2">
+              <Link to="../perfil">
+                <button className="btn btn-w btn-h btn-primary">Perfil</button>
+              </Link>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col d-flex justify-content-center my-3">
+              <h3>Acciones</h3>
+            </div>
+          </div>
+          <div className="row my-3 ">
+            <div className="col d-flex justify-content-center mx-2">
               <button
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onReinicioClave}
@@ -42,7 +55,7 @@ export const LandingJefePage = () => {
                 Reiniciar Clave de Docente
               </button>
             </div>
-            <div className="row-3 mx-2">
+            <div className="col d-flex justify-content-center mx-2">
               <button
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onHistorial}
@@ -50,7 +63,7 @@ export const LandingJefePage = () => {
                 Ver Historial Academicos
               </button>
             </div>
-            <div className="row-3 mx-2">
+            <div className="col d-flex justify-content-center mx-2">
               <button
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onCrearSeccion}
@@ -58,7 +71,9 @@ export const LandingJefePage = () => {
                 Registrar Sección
               </button>
             </div>
-            <div className="row-3 mx-2">
+          </div>
+          <div className="row my-3">
+            <div className="col d-flex justify-content-center mx-2">
               <button
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onCancelarSecciones}
@@ -66,7 +81,7 @@ export const LandingJefePage = () => {
                 Cancelar Secciones
               </button>
             </div>
-            <div className="row-3 mx-2">
+            <div className="col d-flex justify-content-center mx-2">
               <button
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onVerSecciones}
@@ -74,13 +89,18 @@ export const LandingJefePage = () => {
                 Ver secciones
               </button>
             </div>
-            <div className="row-3 mx-2">
+            <div className="col d-flex justify-content-center mx-2">
               <button
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onEstadisticas}
               >
                 Estadisticas
               </button>
+            </div>
+          </div>
+          <div className="row my-3">
+            <div className="col d-flex justify-content-center mx-2">
+              <LandingDocente />
             </div>
           </div>
         </div>

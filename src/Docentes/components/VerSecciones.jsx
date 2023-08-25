@@ -54,7 +54,7 @@ export const VerSecciones = () => {
     <>
       <div className="container">
       <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row my-3">
           <div className="my-3 d-flex justify-content-center">
@@ -65,15 +65,15 @@ export const VerSecciones = () => {
             <table className="table table-hover table-stripted">
               <thead>
                 <tr>
-                  <th scope="col">Nombre de la Clase</th>
-                  <th scope="col">Ver</th>
+                  <th scope="col" className="text-center">Nombre de la Clase</th>
+                  <th scope="col" className="text-center">Acción</th>
                 </tr>
               </thead>
               <tbody>
                 {clases.map((clase) => (
                   <tr key={clase.id_clase}>
-                    <td scope="row">{clase.nombre}</td>
-                    <td scope="row">
+                    <td scope="row" className="text-center">{clase.nombre}</td>
+                    <td scope="row" className="d-flex justify-content-center">
                       <button
                         className="btn btn-success btn-w"
                         onClick={() => mostrarSecciones(clase)}

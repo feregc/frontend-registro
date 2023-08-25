@@ -23,51 +23,67 @@ export const LandingAdministradorPage = () => {
 
   return (
     <>
-      <div className="d-flex flex-column align-items-center justify-content-center">
-        <br />
-        <br />
-        <h2>Bienvenido Administrador</h2>
-        <br />
-        <div className="btn-group d-flex align-items-center justify-content-center">
-          <div>
-            <button
-              className="btn btn-w btn-h btn-primary m-1"
-              onClick={onNavRegistroDocente}
-            >
-              Registra Docentes
-            </button>
+      <div className="container">
+        <br /><br /><br /><br />
+        <div className="row ">
+          <div className="col d-flex justify-content-center my-5">
+            <h2>Bienvenido Administrador</h2>
           </div>
-          <div>
-            <button
-              className="btn btn-w btn-h btn-primary m-1"
-              onClick={onNavRegistroEstudiante}
-            >
-              Cargar Estudiantes
-            </button>
+        </div>
+        <div className="row ">
+          <div className="col d-flex justify-content-center">
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m-1"
+                onClick={onNavRegistroDocente}
+              >
+                Registra Docentes
+              </button>
+            </div>
           </div>
-          <div>
-            <button
-              className="btn btn-w btn-h btn-primary m-1"
-              onClick={onNavRolDocente}
-            >
-              Cambiar Rol del Docente
-            </button>
+          <div className="col d-flex justify-content-center">
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m-1"
+                onClick={onNavRegistroEstudiante}
+              >
+                Cargar Estudiantes
+              </button>
+            </div>
           </div>
-          <div>
-            <button
-              className="btn btn-w btn-h btn-primary m-1"
-              onClick={onNavProcesoMatricula}
-            >
-              Crea Proceso de Matrícula
-            </button>
+        </div>
+        <div className="row my-4">
+          <div className="col d-flex justify-content-center">
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m-1"
+                onClick={onNavRolDocente}
+              >
+                Cambiar Rol del Docente
+              </button>
+            </div>
           </div>
-          <div>
-            <button
-              className="btn btn-w btn-h btn-primary m-1"
-              onClick={onNavProcesoSubidaNotas}
-            >
-              Crea Proceso de Subir de Notas
-            </button>
+          <div className="col d-flex justify-content-center">
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m-1"
+                onClick={onNavProcesoMatricula}
+              >
+                Crea Proceso de Matrícula
+              </button>
+            </div>
+          </div>
+          <div className="row my-4">
+            <div className="col d-flex justify-content-center">
+              <div>
+                <button
+                  className="btn btn-w btn-h btn-primary m-1"
+                  onClick={onNavProcesoSubidaNotas}
+                >
+                  Crea Proceso de Subir de Notas
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

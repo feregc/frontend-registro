@@ -8,7 +8,7 @@ export const LandingDocentePage = () => {
         <h3>Bienvenido Docente</h3>
         <br />
         <Link to="../perfil">
-          <button className="btn btn-w btn-primary">Perfil</button>
+          <button className="btn btn-w btn-h btn-primary">Perfil</button>
         </Link>
       </div>
       <div className="footer z-n1 position-absolute bottom-0 start-50 translate-middle-x">
