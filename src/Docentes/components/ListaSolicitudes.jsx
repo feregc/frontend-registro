@@ -7,7 +7,7 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
   const [solicitudes, setSolicitudes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const num_empleado = localStorage.getItem("id");
-  const registrosPorPagina = 5;
+  const registrosPorPagina = 3;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [observacion, setObservacion] = useState("");
   const [solicitudId, setSolicitudId] = useState(null);
@@ -127,12 +127,12 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
     <>
       <div className="container">
         <button className="btn btn-success my-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-center mb-3">
-              <h3>Historial de Solicitudes Pendientes</h3>
+              <h3>Solicitudes Pendientes</h3>
             </div>
             <table className="table table-striped table-hover">
               <thead>
@@ -141,6 +141,9 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
                   <th scope="col">Estado</th>
                   <th scope="col">Justificación</th>
                   <th scope="col">Carrera, Centro o Clase</th>
+                  {/* <th scope="col">{registrosActuales.map((solicitud) => (
+                    <label key={solicitud.id}>{solicitud.tipo_solicitud}</label>
+                  ))}</th> */}
                   <th scope="col">Documento</th>
                   <th scope="col">Acciones</th>
                 </tr>

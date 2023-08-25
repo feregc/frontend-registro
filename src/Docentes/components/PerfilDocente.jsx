@@ -71,61 +71,67 @@ export const PerfilDocente = () => {
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
-        <h3 className="mt-5">Información General</h3>
-        <br />
         {/* Contenedor */}
-        <div className=" row d-flex align-items-center">
-          <div
-            id="carouselExample"
-            className="img-size d-flex align-items-center col-4"
-          >
-            {imagen && imagen.length > 0 ? (
-              <div className="">
-                <img
-                  src={imagen[0].url}
-                  className="img-size2  img-thumbnail"
-                  alt="..."
-                />
+        <div className="row">
+          <h3 className="mt-5">Información General</h3>
+          <div className=" col d-flex align-items-center">
+            <div className="row">
+              <div
+                id="carouselExample"
+                className="img-size d-flex align-items-center col-4"
+              >
+                {imagen && imagen.length > 0 ? (
+                  <div className="">
+                    <img
+                      src={imagen[0].url}
+                      className="img-size2  img-thumbnail"
+                      alt="..."
+                    />
+                  </div>
+                ) : (
+                  <FontAwesomeIcon
+                    className="img-size2 img-thumbnail"
+                    style={{ color: "#006494" }}
+                    icon={faUser}
+                  />
+                )}
               </div>
-            ) : (
-              <FontAwesomeIcon
-                className="img-size2 img-thumbnail"
-                style={{ color: "#006494" }}
-                icon={faUser}
-              />
+            </div>
+
+            {/* Datos generales */}
+            {info.length > 0 && (
+              <div className="card1 p-5 col d-flex flex-column align-items-start justify-content-center">
+                <p>Nombre: {info[0].nombres}</p>
+                <p> Apellido: {info[0].apellidos}</p>
+                <p>Correo Institucional {info[0].correo}</p>
+                <p> Identidad: {info[0].identidad}</p>
+                <p> Cargo: {info[0].cargo}</p>
+                <p> Carrera: {info[0].carrera}</p>
+              </div>
             )}
           </div>
-          {/* Datos generales */}
-          {info.length > 0 && (
-            <div className="card1 p-5 col d-flex flex-column align-items-start justify-content-center">
-              <p>Nombre: {info[0].nombres}</p>
-              <p> Apellido: {info[0].apellidos}</p>
-              <p>Correo Institucional {info[0].correo}</p>
-              <p> Identidad: {info[0].identidad}</p>
-              <p> Cargo: {info[0].cargo}</p>
-              <p> Carrera: {info[0].carrera}</p>
+          <div className="col d-flex justify-content-end">
+            <div className="card2 border-3">
+              <h3 className="mt-3"> Video de Presentación</h3>
+              <br />
+              {verVideo.length > 0 ? (
+                <video
+                  className="vid"
+                  src={verVideo[0].url}
+                  type="video/mp4"
+                  controls
+                ></video>
+              ) : (
+                <div className=" card">
+                  <p className="">Sube un video precentandote a tus alumnos</p>
+                </div>
+              )}
             </div>
-          )}
+          </div>
         </div>
-        {/* Descripción del docente */}
-        <div className="card2 border-3">
-          <h3 className="mt-3"> Video de presentación</h3>
-          <br />
-          {verVideo.length > 0 ? (
-            <video
-              className="vid"
-              src={verVideo[0].url}
-              type="video/mp4"
-              controls
-            ></video>
-          ) : (
-            <div className=" card">
-              <p className="">Sube un video precentandote a tus alumnos</p>
-            </div>
-          )}
-        </div>
+        
         <div className="mt-5 d-flex flex-colum justify-content-center">
           <Link to="../editar-perfil">
             <button className="btn p-3 btn-primary mt-1 mb-5 ">

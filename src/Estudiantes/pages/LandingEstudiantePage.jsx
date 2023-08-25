@@ -33,12 +33,11 @@ export const LandingEstudiantePage = () => {
     navigate("../auth/loginChat");
   };
 
-
   return (
     <>
       <div className="container">
         <div className="row my-2">
-          <div className="my-3 d-flex justify-content-center">
+          <div className="my-5 d-flex justify-content-center">
             <h3>Bienvenido Estudiante</h3>
           </div>
         </div>
@@ -60,6 +59,8 @@ export const LandingEstudiantePage = () => {
                 Solicitudes
               </button>
             </div>
+          </div>
+          <div className="d-flex justify-content-center my-3">
             <div className="row-3 mx-2">
               <button
                 className="btn btn-w btn-h btn-primary"
@@ -68,8 +69,6 @@ export const LandingEstudiantePage = () => {
                 Estado de cuenta
               </button>
             </div>
-          </div>
-          <div className="d-flex justify-content-center my-3">
             <div className="row-3 mx-2">
               <button
                 className="btn btn-w btn-h btn-primary"
@@ -78,6 +77,8 @@ export const LandingEstudiantePage = () => {
                 Matricula
               </button>
             </div>
+          </div>
+          <div className="d-flex justify-content-center my-3">
             <div className="row-3 mx-2">
               <button
                 className="btn btn-w btn-h btn-primary"
@@ -91,10 +92,11 @@ export const LandingEstudiantePage = () => {
                 className="btn btn-w btn-h btn-primary"
                 onClick={onNavCalificaciones}
               >
-                Ver calificaciones de periodo
+                Ver Calificaciones de Periodo
               </button>
-              
             </div>
+          </div>
+          <div className="d-flex justify-content-center my-3">
             <div className="row-3 mx-2">
               <button
                 className="btn btn-w btn-h btn-primary"
@@ -102,7 +104,6 @@ export const LandingEstudiantePage = () => {
               >
                 Historial Acacdemico
               </button>
-              
             </div>
             <div className="row-3 mx-2">
               <button
@@ -111,7 +112,6 @@ export const LandingEstudiantePage = () => {
               >
                 Chat
               </button>
-              
             </div>
           </div>
         </div>

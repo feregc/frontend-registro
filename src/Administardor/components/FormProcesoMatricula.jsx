@@ -185,7 +185,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
       <form onSubmit={handleSubmit}>
         <div className="container">
         <button className="btn btn-success my-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
           <div className="row my-2">
             <div className="col">

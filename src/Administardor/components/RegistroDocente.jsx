@@ -108,12 +108,12 @@ export const RegistroDocete = () => {
     <>
       <div className="container">
         <button className="btn btn-success my-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="rowd-flex justify-content-center align-items-center">
           <div className="form">
             <br />
-            <h2>Registro de Docentes</h2>
+            <h2>Formulario de Registro de Docentes</h2>
             <br />
             <form onSubmit={handleSubmit}>
               <div className="container">

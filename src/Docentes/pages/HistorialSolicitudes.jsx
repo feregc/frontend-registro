@@ -4,7 +4,7 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
   const [solicitudes, setSolicitudes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const num_empleado = localStorage.getItem("id");
-  const registrosPorPagina = 5;
+  const registrosPorPagina = 3;
 
   useEffect(() => {
     obtenerSolicitudes();
@@ -73,7 +73,7 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="col">
@@ -86,6 +86,9 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
                   <th scope="col">Tipo de solicitud</th>
                   <th scope="col">Estado</th>
                   <th scope="col">Justificación</th>
+                  {/* <th scope="col">{registrosActuales.map((solicitud) => (
+                    <label key={solicitud.id}>{solicitud.tipo_solicitud}</label>
+                  ))}</th> */}
                   <th scope="col">Carrera o Centro a Cambiar</th>
                   <th scope="col">Observación</th>
                   <th scope="col">Documento</th>

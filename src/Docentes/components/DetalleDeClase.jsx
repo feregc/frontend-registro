@@ -129,7 +129,7 @@ export const DetalleClase = () => {
       <div className="container">
         {/* Boton para regresar a la paguina anterior */}
         <button className="btn btn-success my-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="col">
           <div className="row">
@@ -156,7 +156,7 @@ export const DetalleClase = () => {
                 className="btn btn-w2 btn-success m-1"
                 onClick={exportarAExcel}
               >
-                Descargar lista de estudiantes
+                Descargar Lista xlsx
               </button>
             </div>
             <div className="col-6 my-3 d-flex justify-content-center">
@@ -172,10 +172,10 @@ export const DetalleClase = () => {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
-                  <th scope="col">Número de Cuenta</th>
-                  <th scope="col">Correo Institucional</th>
+                  <th scope="col" className="text-center">Nombre</th>
+                  <th scope="col" className="text-center">Apellido</th>
+                  <th scope="col" className="text-center">Número de Cuenta</th>
+                  <th scope="col" className="text-center">Correo Institucional</th>
                 </tr>
               </thead>
               <tbody>

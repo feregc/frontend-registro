@@ -24,23 +24,28 @@ export const LandingDocente = () => {
   return (
     <>
       <div className="container">
-        <div className="d-flex justify-content-center my-3">
-          <h4>Clases Asignadas</h4>
+        <div className="row">
+          <div className="col d-flex justify-content-center my-3">
+            <h3 className="my-3">Clases Asignadas</h3>
+          </div>
         </div>
-        <div className="d-flex justify-content-center align-items-center">
-          <div className="row">
-          <div className="col ">
+        <div className="row">
+          <div className="col d-flex justify-content-center align-items-center">
             {clases &&
               clases.length > 0 &&
               clases.map((dato, index) => (
                 <Link to={`../detalle-de-clase/${dato.id_clase}`} key={index}>
-                  <button className="btn btn-w mx-2 btn-success">{dato.nombre_clase}</button>
+                  <div className="row">
+                    <div className="col-6">
+                      <button className="btn btn-w btn-h mx-2 btn-success">
+                        {dato.nombre_clase}
+                      </button>
+                    </div>
+                  </div>
                 </Link>
               ))}
           </div>
         </div>
-        </div>
-        
       </div>
     </>
   );

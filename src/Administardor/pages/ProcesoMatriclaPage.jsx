@@ -30,13 +30,7 @@ export const ProcesoMatriclaPage = () => {
           <div className="col-4 my-3">
             <br />
             <br /><h3 >Matrículas Anteriores</h3>
-            {/* {data.map((dat) => (
-              <CardProcMatricula
-                key={dat.id}
-                procesos={dat}
-                // onBorrar={handleBorrarProceso}
-              />
-            ))} */}
+  
             {data.slice(-5).reverse().map((dat) => (
               <CardProcMatricula
                 key={dat.id}

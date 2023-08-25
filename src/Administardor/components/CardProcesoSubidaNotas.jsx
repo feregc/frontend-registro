@@ -68,35 +68,44 @@ export const CardProcesoSubidaNotas = ({ onBorrar, procesos }) => {
 
   return (
     <>
-      <div className="card mb-2">
-        <div className="card-body">
-          <p>
-            Periodo: {periodo} {aaa}
-          </p>
-          <p>Fecha inicio: {fechaInicioI}</p>
-          <p>Fecha fin: {fechaInicioII}</p>
+      <div className="col">
+        <div className="card mb-2">
+          <div className="card-body">
+            <p>
+              Periodo: {periodo} {aaa}
+            </p>
+            <p>Fecha inicio: {fechaInicioI}</p>
+            <p>Fecha fin: {fechaInicioII}</p>
 
-          {disponibilidad === 0 ? (
-            <>
-              <div className="alert alert-warning" role="alert">
-                Proceso Desactivado
-              </div>
-              <button className="btn btn-w btn-primary" onClick={handleActivar}>
-                Activar
-              </button>
-            </>
-          ) : (
-            <>
-              <div className="alert alert-success" role="alert">
-                Proceso Activado
-              </div>
-              <button className="btn btn-w btn-primary" onClick={handleDesactivar}>
-                Desactivar
-              </button>
-            </>
-          )}
+            {disponibilidad === 0 ? (
+              <>
+                <div className="alert alert-warning" role="alert">
+                  Proceso Desactivado
+                </div>
+                <button
+                  className="btn btn-w btn-primary"
+                  onClick={handleActivar}
+                >
+                  Activar
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="alert alert-success" role="alert">
+                  Proceso Activado
+                </div>
+                <button
+                  className="btn btn-w btn-primary"
+                  onClick={handleDesactivar}
+                >
+                  Desactivar
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
+      <div className="row"></div>
     </>
   );
 };
