@@ -45,11 +45,9 @@ export const MatriculaClases = () => {
           const seccionesData = await responseSecciones.json();
           setSecciones(seccionesData);
         } else {
-          // Mostrar alerta: Clase ya matriculada
           alert("Esta clase ya está matriculada.");
         }
       } else {
-        // Mostrar alerta: Faltan requisitos
         alert("No cumples con los requisitos para esta clase.");
       }
     } catch (error) {
@@ -59,19 +57,41 @@ export const MatriculaClases = () => {
 
   
   const handleSeccionClick = async (seccion) => {
-    const horarioValido = await verificarHorario(seccion.id_seccion);
-    if (!horarioValido) {
-      alert("Conflicto de horario. Ya tienes una clase en este horario.");
+    // Verificar si la clase ya está en la matrícula
+    const claseEnMatricula = await verificarClaseEnMatricula(seccion.id_clase);
+  
+    if (claseEnMatricula) {
+      alert("Ya estás matriculado en esta clase.");
     } else {
-      const matriculaExitosa = await matricularEstudianteEnSeccion(seccion.id_seccion);
-      if (matriculaExitosa) {
-        alert("Error al realizar la matrícula. Por favor, inténtalo de nuevo.");
+      // Verificar horario
+      const horarioValido = await verificarHorario(seccion.id_seccion);
+  
+      if (!horarioValido) {
+        alert("Conflicto de horario. Ya tienes una clase en este horario.");
       } else {
-        alert("Matrícula exitosa en la sección " + seccion.id_seccion);
+        // Matricular al estudiante
+        const matriculaExitosa = await matricularEstudianteEnSeccion(seccion.id_seccion);
+  
+        if (matriculaExitosa) {
+          alert("Matrícula exitosa en la sección " + seccion.id_seccion);
+        } else {
+          alert("Error al realizar la matrícula. Por favor, inténtalo de nuevo.");
+        }
       }
     }
   };
   
+  const verificarClaseEnMatricula = async (idClase) => {
+    try {
+      const response = await fetch(`http://localhost:8081/verifica-clase?id_clase=${idClase}&num_cuenta=${num_cuenta}`);
+      const verificaResponse = await response.json();
+      return verificaResponse.tiene_matricula; // Supongamos que la respuesta es {"tiene_matricula": false}
+    } catch (error) {
+      console.error('Error al verificar la clase en la matrícula:', error);
+      return false;
+    }
+  };
+
   const verificarHorario = async (idSeccion) => {
     try {
       const response = await fetch(`http://localhost:8081/verificar-horario?id_seccion=${idSeccion}&num_cuenta=${num_cuenta}`);
@@ -118,6 +138,7 @@ export const MatriculaClases = () => {
           </button>
         ))}
       </div>
+      <br />
       <div className="col-3 mx-2">
         {clases.map(clase => (
           <button
@@ -130,6 +151,7 @@ export const MatriculaClases = () => {
           </button>
         ))}
       </div>
+      <br />
       <div className="col-3 mx-2">
   {secciones.map(seccion => (
     <button
@@ -138,7 +160,12 @@ export const MatriculaClases = () => {
       style={{ margin: '10px' }}
       onClick={() => handleSeccionClick(seccion)}
     >
-      {seccion.id_seccion}
+      <div>ID de Sección: {seccion.id_seccion}</div>
+      <div>Nombre de Empleado: {seccion.nombres_docente} {seccion.apellidos_docente}</div>
+      <div>Hora de Inicio: {seccion.horainicio}</div>
+      <div>Hora Final: {seccion.horafin}</div>
+      <div>Días: {seccion.dias}</div>
+      <div>Cupos Disponibles: {seccion.cupos}</div>
     </button>
   ))}
 </div>
