@@ -46,7 +46,9 @@ export const EvaluacionPage = () => {
     obtenerDocente();
     async function obtenerDocente() {
       try {
-        const response = await fetch(`http://localhost:8081/docente/${num_empleado}`);
+        const response = await fetch(
+          `http://localhost:8081/docente/${num_empleado}`
+        );
         const jsonData = await response.json();
         const docenteData = jsonData[0];
         setDocente(docenteData);
@@ -105,12 +107,13 @@ export const EvaluacionPage = () => {
               </button>
             </div>
             <div className="d-flex my-3 justify-content-center">
-              <h3>Evaluaciones Docente {docente.nombres} {docente.apellidos}</h3>
+              <h3>
+                Evaluaciones docente de: {docente.nombres} {docente.apellidos}
+              </h3>
             </div>
 
-            <div className="row">
-              
-              <div className="col-3 d-flex my-3 justify-content-start">
+            <div className="row justify-content-center">
+              <div className="col-3 d-flex my-3 justify-content-center">
                 <select
                   className="form-control"
                   name=""
@@ -124,7 +127,7 @@ export const EvaluacionPage = () => {
                   <option value="III-PAC">III PAC</option>
                 </select>
               </div>
-              <div className="col-3 d-flex my-3 justify-content-start">
+              <div className="col-3 d-flex my-3 justify-content-center">
                 <select
                   className="form-control"
                   name=""
@@ -136,11 +139,11 @@ export const EvaluacionPage = () => {
                   {opciones}
                 </select>
               </div>
-              <div className="col-3 d-flex my-3 justify-content-start">
+              <div className="col-3 d-flex my-3 justify-content-center">
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Buscar por nombre de clase"
+                  placeholder="Filtra por la clase"
                   value={searchText}
                   onChange={handleSearchChange}
                 />
@@ -148,66 +151,66 @@ export const EvaluacionPage = () => {
             </div>
 
             <div className="col">
-            <div className="container">
-  <div className="row">
-    <div className="col">
-      {currentItems.map((seccion, index) => (
-        <div key={index}>
-          <h4>Registro {index + 1}</h4>
-          <table className="table table-striped table-hover table-bordered">
-            <thead>
-              <tr>
-                <th scope="col" style={{ maxWidth: "80px" }}>
-                  Categoría
-                </th>
-                <th scope="col">Evaluaciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ maxWidth: "80px" }}>Asignatura</td>
-                <td>{seccion.nombre_clase}</td>
-              </tr>
-              <tr>
-                <td style={{ maxWidth: "80px" }}>Capacidad de comunicación</td>
-                <td>{seccion.comentarioI}</td>
-              </tr>
-              <tr>
-                <td style={{ maxWidth: "80px" }}>
-                  Organización y estructura de la clase
-                </td>
-                <td>{seccion.comentarioII}</td>
-              </tr>
-              <tr>
-                <td style={{ maxWidth: "80px" }}>
-                  Habilidad fomentar la participación
-                </td>
-                <td>{seccion.comentarioIII}</td>
-              </tr>
-              <tr>
-                <td style={{ maxWidth: "80px" }}>
-                  Capacidad para motivar y mantener el interés
-                </td>
-                <td>{seccion.comentarioIIII}</td>
-              </tr>
-              <tr>
-                <td style={{ maxWidth: "80px" }}>Capacidad para explicar</td>
-                <td>{seccion.comentarioIIIII}</td>
-              </tr>
-              <tr>
-                <td style={{ maxWidth: "80px" }}>
-                  Aspectos en los que puede mejorar el docente
-                </td>
-                <td>{seccion.comentarioIIIIII}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
-
+              <div className="container">
+                <div className="row">
+                  <div className="col">
+                    {currentItems.map((seccion, index) => (
+                      <div key={index}>
+                        <h5 className="text-center my-3">Evaluación: No. {index + 1}</h5>
+                        <h5 className="text-center my-3">Asignatura: {seccion.nombre_clase}</h5>
+                        <table className="table table-striped table-hover table-bordered my-4">
+                          <thead>
+                            <tr>
+                              <th scope="col" className="text-center">
+                                Categoría
+                              </th>
+                              <th scope="col" className="text-center">Observaciones</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td scope="row">
+                                Capacidad de comunicación
+                              </td>
+                              <td>{seccion.comentarioI}</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">
+                                Organización y estructura de la clase
+                              </td>
+                              <td>{seccion.comentarioII}</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">
+                                Habilidad fomentar la participación
+                              </td>
+                              <td>{seccion.comentarioIII}</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">
+                                Capacidad para motivar y mantener el interés
+                              </td>
+                              <td>{seccion.comentarioIIII}</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">
+                                Capacidad para explicar
+                              </td>
+                              <td>{seccion.comentarioIIIII}</td>
+                            </tr>
+                            <tr>
+                              <td scope="row">
+                                Aspectos en los que puede mejorar el docente
+                              </td>
+                              <td>{seccion.comentarioIIIIII}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
 
               <div className="d-flex justify-content-center">
                 <Pagination

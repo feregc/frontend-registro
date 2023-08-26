@@ -7,18 +7,18 @@ export const HistorialPage = () => {
   const [formularioEnviado, setFormularioEnviado] = useState(false);
   const [perfilEstudiante, setPerfilEstudiante] = useState([]);
   const [paginas, setPaginas] = useState(1);
-  const itemsPaginas = 10;
-  
+  const itemsPaginas = 3;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const responseEstudiante = await fetch(
         `http://localhost:8081/estudiante/${numCuenta}`
       );
       const imgPerfil = await responseEstudiante.json();
       setPerfilEstudiante(imgPerfil);
-  
+
       const responseHistorial = await fetch(
         `http://localhost:8081/historialEstudiante/${numCuenta}`
       );
@@ -43,27 +43,30 @@ export const HistorialPage = () => {
         <div className="row">
           <div className="col">
             <form onSubmit={handleSubmit}>
-              <div className="my-3 d-flex justify-content-center bg-primary">
-                <h2 className="my-3">Buscar Estudiante</h2>
+              <div className="row">
+                <div className="my-3 d-flex justify-content-center bg-primary">
+                  <h2 className="my-3">Buscar Estudiante</h2>
+                </div>
               </div>
-              <div className="my-3 d-flex justify-content-center bg-primary">
-                <label htmlFor="">
-                  Ingrese el número de cuenta del alumno a buscar
-                </label>
-              </div>
-              <div className="my-3 d-flex justify-content-center bg-primary">
-                <input
-                  type="text"
-                  className="form-control w-50"
-                  placeholder="Ingrese el número de cuenta"
-                  value={numCuenta}
-                  onChange={(e) => setNumCuenta(e.target.value)}
-                />
-              </div>
-              <div className="my-3 d-flex justify-content-center">
-                <button className="btn btn-w btn-primary" type="submit">
-                  Buscar
-                </button>
+              <div className="row">
+                <div className="col-9">
+                  <div className="my-3 d-flex justify-content-center bg-primary">
+                    <input
+                      type="text"
+                      className="form-control w-50"
+                      placeholder="Ingrese el número de cuenta"
+                      value={numCuenta}
+                      onChange={(e) => setNumCuenta(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <div className="col">
+                  <div className="my-3 d-flex justify-content-start">
+                    <button className="btn btn-w btn-primary" type="submit">
+                      Buscar
+                    </button>
+                  </div>
+                </div>
               </div>
             </form>
           </div>
@@ -71,16 +74,16 @@ export const HistorialPage = () => {
       </div>
 
       {formularioEnviado && (
-        <div className="container">
-          {Array.isArray(estudianteSeleccionado) && estudianteSeleccionado.length > 0 ? (
+        <div className="container my-3">
+          {Array.isArray(estudianteSeleccionado) &&
+          estudianteSeleccionado.length > 0 ? (
             <div className="row">
               <div className="col">
                 <div id="pdfContainer">
                   {/* Información del estudiante */}
-  
+                  <h2 className="text-center">Historial Académico</h2>
                   <div className="container">
                     <div className="row my-4 p-2 border border-2 rounded-4">
-                      <center><h2>Historial académico</h2></center>
                       <div className="col-6">
                         <p className="text-black fw-bold">
                           Cuenta: {perfilEstudiante.num_cuenta}
@@ -109,33 +112,50 @@ export const HistorialPage = () => {
                   </div>
                   {/* Tabla de historial académico */}
                   <table className="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">Código</th>
-                  <th scope="col">Nombre de la Clase</th>
-                  <th scope="col">Año</th>
-                  <th scope="col">Período</th>
-                  <th scope="col">Nota</th>
-                </tr>
-              </thead>
-              <tbody>
-                {estudianteSeleccionado.map((clase, index) => (
-                  <tr key={index}>
-                    <td scope="row">{clase.codigo}</td>
-                    <td scope="row">{clase.nombre_clase}</td>
-                    <td scope="row">
-                      {convertirFechaAño(clase.anio)}
-                    </td>
-                    <td scope="row">{clase.periodo}</td>
-                    <td scope="row">{clase.nota}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <nav aria-label="Page navigation example">
+                    <thead>
+                      <tr>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nombre de la Clase</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Período</th>
+                        <th scope="col">Nota</th>
+                        <th scope="col">Obs</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {estudianteSeleccionado
+                        .slice(
+                          (paginas - 1) * itemsPaginas,
+                          paginas * itemsPaginas
+                        )
+                        .map((clase, index) => (
+                          <tr key={index}>
+                            <td scope="row">{clase.codigo}</td>
+                            <td scope="row">{clase.nombre_clase}</td>
+                            <td scope="row">{convertirFechaAño(clase.anio)}</td>
+                            <td scope="row">{clase.periodo}</td>
+                            <td scope="row">{clase.nota}</td>
+                            <td scope="row">
+                              {clase.nota > 65 ? (
+                                <th scope="row" className="text-center">
+                                  APR
+                                </th>
+                              ) : (
+                                <th scope="row" className="text-center">
+                                  RPB
+                                </th>
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                    </tbody>
+                  </table>
+                  <nav aria-label="Page navigation example">
                     <ul className="pagination justify-content-center">
                       <li
-                        className={`page-item ${paginas === 1 ? "disabled" : ""}`}
+                        className={`page-item ${
+                          paginas === 1 ? "disabled" : ""
+                        }`}
                       >
                         <button
                           className="page-link"
@@ -145,33 +165,49 @@ export const HistorialPage = () => {
                           Anterior
                         </button>
                       </li>
-                      {Array.from({ length: Math.ceil(estudianteSeleccionado.length / itemsPaginas) }, (_, i) => (
-                        <li
-                          key={i}
-                          className={`page-item ${
-                            paginas === i + 1 ? "active" : ""
-                          }`}
-                          onClick={() => setPaginas(i + 1)}
-                        >
-                          <span className="page-link">{i + 1}</span>
-                        </li>
-                      ))}
+                      {Array.from(
+                        {
+                          length: Math.ceil(
+                            estudianteSeleccionado.length / itemsPaginas
+                          ),
+                        },
+                        (_, i) => (
+                          <li
+                            key={i}
+                            className={`page-item ${
+                              paginas === i + 1 ? "active" : ""
+                            }`}
+                            onClick={() => setPaginas(i + 1)}
+                          >
+                            <span className="page-link">{i + 1}</span>
+                          </li>
+                        )
+                      )}
                       <li
                         className={`page-item ${
-                          paginas === Math.ceil(estudianteSeleccionado.length / itemsPaginas) ? "disabled" : ""
+                          paginas ===
+                          Math.ceil(
+                            estudianteSeleccionado.length / itemsPaginas
+                          )
+                            ? "disabled"
+                            : ""
                         }`}
                       >
                         <button
                           className="page-link"
                           onClick={() => setPaginas(paginas + 1)}
-                          disabled={paginas === Math.ceil(estudianteSeleccionado.length / itemsPaginas)}
+                          disabled={
+                            paginas ===
+                            Math.ceil(
+                              estudianteSeleccionado.length / itemsPaginas
+                            )
+                          }
                         >
                           Siguiente
                         </button>
                       </li>
                     </ul>
                   </nav>
-
                 </div>
               </div>
             </div>

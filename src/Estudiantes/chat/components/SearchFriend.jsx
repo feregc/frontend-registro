@@ -65,10 +65,7 @@ export const SearchFriend = () => {
             </div>
           </div>
           <div className="col">
-            <button
-              className="btn btn-primary  mx-1"
-              onClick={handleSearch}
-            >
+            <button className="btn btn-primary " onClick={handleSearch}>
               Buscar
             </button>
           </div>
@@ -76,24 +73,27 @@ export const SearchFriend = () => {
       </div>
 
       <div>
-        <h5>Resultados de la búsqueda:</h5>
-        <ul>
+        <h5 className="my-4">Resultados de la búsqueda:</h5>
+        <div className="row">
           {searchResults.map((user) => (
-            <li key={user.uid}>
-              <h5>
-                {user.nombre} <br />
-                {user.email}
-              </h5>
-              <button
-                name="aceptar "
-                className="btn btn-primary btn-w mx-1"
-                onClick={() => sendFriendRequest(user.email)}
-              >
-                Agregar
-              </button>
-            </li>
+            <div key={user.uid}>
+              <div className="row">
+                <div className="col text my-3 mx-4">
+                  {user.nombre}
+                </div>
+                <div className="col my-3">
+                  <button
+                    name="aceptar "
+                    className="btn btn-primary btn-w1 mx-4"
+                    onClick={() => sendFriendRequest(user.email)}
+                  >
+                    Agregar
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     </>
   );
