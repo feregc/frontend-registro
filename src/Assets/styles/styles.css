@@ -10,10 +10,25 @@ body {
   background-color: transparent !important;
 }
 
-h1,h2,h3,h4,h5,h6{
+h1,h2,h3,h4,h5,h6,label, li,ul{
   color: #006494;
 }
 
+.nav-link{
+  color: #006494 !important;
+  font-size: large !important;
+}
+
+.text{
+  color: #006494 !important;
+  font-size: large !important;
+  font-weight: 500;
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	align-content: center;
+}
 
 .logo-unah{
   width: 4.70833rem;

@@ -1,9 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../auth/AuthContext";
+import { ChatContext } from "../context/chat/ChatContext";
 
 export const FriendRequestsScreen = () => {
   const [friendRequests, setFriendRequests] = useState([]);
   const { auth } = useContext(AuthContext);
+  const { chatState, dispatch } = useContext(ChatContext);
 
   useEffect(() => {
     loadFriendRequests();
@@ -81,26 +83,31 @@ export const FriendRequestsScreen = () => {
     <>
       <div id="friendRequests">
         <div className="headind_srch">
-          <h5>Solicitudes de Amistad Recibidas</h5>
-          <ul>
+          <h5 className="my-3">Solicitudes de Amistad Recibidas</h5>
+          <div className="container">
             {friendRequests.map((request) => (
-              <li key={request._id} style={{ marginBottom: "20px" }}>
-                De: {request.remitente.nombre} <br />
-                <button
-                  className="btn btn-primary mx-1"
-                  onClick={() => acceptFriendRequest(request._id)}
-                >
-                  Aceptar
-                </button>
-                <button
-                  onClick={() => rejectFriendRequest(request._id)}
-                  className="btn btn-danger mx-1"
-                >
-                  Rechazar
-                </button>
-              </li>
+              <div key={request._id} className="row">
+                <div className="col-8 text">{request.remitente.nombre}</div>
+                <div className="col-2">
+                  <button
+                    className="btn btn-primary mx-1"
+                    onClick={() => acceptFriendRequest(request._id)}
+                  >
+                    Aceptar
+                  </button>
+                </div>
+                <div className="col-2">
+                  <button
+                    onClick={() => rejectFriendRequest(request._id)}
+                    className="btn btn-danger mx-1"
+                  >
+                    Rechazar
+                  </button>
+                </div>
+                <label> </label> <br />
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </>

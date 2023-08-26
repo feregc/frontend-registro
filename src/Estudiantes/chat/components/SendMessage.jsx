@@ -54,7 +54,7 @@ export const SendMessage = () => {
                 </div>
                 <div className="col-sm-3 text-center">
                     <button className="btn btn-w btn-success rounded-5 my-2" type="submit">
-                        enviar
+                        Enviar
                     </button>
                 </div>
             </div>

@@ -24,7 +24,7 @@ export const Searchbox = () => {
   };
   const regresar = () => {
     window.history.back();
-  }; 
+  };
 
   return (
     <>
@@ -32,15 +32,16 @@ export const Searchbox = () => {
         <div className="container">
           <div className="row">
             <div className="col">
-              <div className="my-2 w-100">
-                <h5>{auth.name}</h5>
+              <div className="my-2">
+                <h4>{auth.name}</h4>
               </div>
             </div>
-            <div className="col">
-              {/* Cambiar al color azul de todas las pantallas */}
-              <button className="btn btn-success mt-4" onClick={regresar}>
-                Atras
-              </button>
+            <div className="col d-flex justify-content-end">
+              <div className="my-2">
+                <button className="btn btn-success" onClick={regresar}>
+                  Atrás
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -48,27 +49,27 @@ export const Searchbox = () => {
         <div className="my-3">
           <ul className="nav nav-underline">
             <li className="nav-item">
-              <h5
+              <h3
                 className={`nav-link ${activeTab === "buscar" ? "active" : ""}`}
                 aria-current="page"
                 href="#"
                 onClick={() => setActiveTab("buscar")}
               >
                 Buscar
-              </h5>
+              </h3>
             </li>
             <li className="nav-item">
-              <h5
-                className={`nav-link ${activeTab === "solicitudes" ? "active" : ""
-              }`}
+              <h3
+                className={`nav-link ${
+                  activeTab === "solicitudes" ? "active" : ""
+                }`}
                 onClick={handleShow}
               >
                 Solicitudes
-              </h5>
+              </h3>
             </li>
           </ul>
         </div>
-
         {renderContent()}
       </div>
     </>

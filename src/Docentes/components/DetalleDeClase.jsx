@@ -156,7 +156,7 @@ export const DetalleClase = () => {
                 className="btn btn-w2 btn-success m-1"
                 onClick={exportarAExcel}
               >
-                Descargar Lista xlsx
+                Descargar Lista
               </button>
             </div>
             <div className="col-6 my-3 d-flex justify-content-center">

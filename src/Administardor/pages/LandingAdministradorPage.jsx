@@ -24,7 +24,10 @@ export const LandingAdministradorPage = () => {
   return (
     <>
       <div className="container">
-        <br /><br /><br /><br />
+        <br />
+        <br />
+        <br />
+        <br />
         <div className="row ">
           <div className="col d-flex justify-content-center my-5">
             <h2>Bienvenido Administrador</h2>
@@ -57,6 +60,18 @@ export const LandingAdministradorPage = () => {
             <div>
               <button
                 className="btn btn-w btn-h btn-primary m-1"
+                onClick={onNavProcesoSubidaNotas}
+              >
+                Crea Proceso de Subir de Notas
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="row my-4">
+          <div className="col d-flex justify-content-center">
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m-1"
                 onClick={onNavRolDocente}
               >
                 Cambiar Rol del Docente
@@ -71,18 +86,6 @@ export const LandingAdministradorPage = () => {
               >
                 Crea Proceso de Matrícula
               </button>
-            </div>
-          </div>
-          <div className="row my-4">
-            <div className="col d-flex justify-content-center">
-              <div>
-                <button
-                  className="btn btn-w btn-h btn-primary m-1"
-                  onClick={onNavProcesoSubidaNotas}
-                >
-                  Crea Proceso de Subir de Notas
-                </button>
-              </div>
             </div>
           </div>
         </div>

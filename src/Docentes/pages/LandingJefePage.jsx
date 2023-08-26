@@ -86,7 +86,7 @@ export const LandingJefePage = () => {
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onVerSecciones}
               >
-                Ver secciones
+                Ver Secciones
               </button>
             </div>
             <div className="col d-flex justify-content-center mx-2">
@@ -94,7 +94,7 @@ export const LandingJefePage = () => {
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onEstadisticas}
               >
-                Estadisticas
+                Estadísticas
               </button>
             </div>
           </div>

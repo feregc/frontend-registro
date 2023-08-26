@@ -14,8 +14,8 @@ export const Estadisticas = () => {
   return (
     <>
       <div className="container">
-        <button className="btn btn-success my-3" onClick={regresar}>
-          Atras
+        <button className="btn btn-success my-4" onClick={regresar}>
+          Atrás
         </button>
         <div className="row">
           <div className="col">
