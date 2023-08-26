@@ -52,7 +52,7 @@ export const LandingJefePage = () => {
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onReinicioClave}
               >
-                Reiniciar Clave de Docente
+                Acciones Docente
               </button>
             </div>
             <div className="col d-flex justify-content-center mx-2">

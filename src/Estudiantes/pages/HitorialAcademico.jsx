@@ -127,14 +127,14 @@ export const HistorialAcademico = () => {
                       ],
                       [
                         {
-                          text: `Índice: ${perfilEstudiante.nota}`,
+                          text: `Índice: ${perfilEstudiante.indice}`,
                           style: "cellText",
                         },
                       ],
                     ],
                   },
                   layout: {
-                    fillColor: "#E0E0E0", // Color de fondo gris
+                    fillColor: "#d1d1d1", // Color de fondo gris
                     hLineWidth: () => 0, // Eliminar bordes horizontales
                     vLineWidth: () => 0, // Eliminar bordes verticales
                   },
@@ -142,7 +142,7 @@ export const HistorialAcademico = () => {
               ],
             ],
           },
-          fillColor: "#E0E0E0", // Color de fondo gris para toda la tabla
+          fillColor: "#d1d1d1", // Color de fondo gris para toda la tabla
           layout: "noBorders", // Eliminar bordes de la tabla principal
           hLineWidth: () => 0, // Eliminar bordes horizontales de la tabla principal
           vLineWidth: () => 0, // Eliminar bordes verticales de la tabla principal
@@ -150,7 +150,7 @@ export const HistorialAcademico = () => {
         { text: "\n" },
         // Información de las clases
         {
-          fillColor: "#E0E0E0",
+          fillColor: "#d1d1d1",
           text: `${perfilEstudiante.nombre_carrera.toUpperCase()}`,
           style: "subheader",
           alignment: "center",
@@ -234,7 +234,7 @@ export const HistorialAcademico = () => {
       } catch (error) {
         console.log("Error:", error);
       }
-    };
+    }; 
     fetchEstudiante();
   }, []);
 
@@ -298,7 +298,7 @@ export const HistorialAcademico = () => {
                       Dirección de Ingresos Permanencia y Promoción
                     </h6>
                     <h6 className="d-flex justify-content-center text-black">
-                      Historial Academico
+                      Historial Académico
                     </h6>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ export const HistorialAcademico = () => {
                       Centro: {perfilEstudiante.nombre_centro}
                     </p>
                     <p className="text-black fw-bold">
-                      Índice: {perfilEstudiante.nota}
+                      Índice: {perfilEstudiante.indice}
                     </p>
                   </div>
                 </div>

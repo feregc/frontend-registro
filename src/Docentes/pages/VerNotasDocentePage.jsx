@@ -8,6 +8,11 @@ export const VerNotasDocentePage = () => {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
   const [clases, setClases] = useState([]);
   const [alumno, setAlumno] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Number of items to display per page
+  const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentAlumno = alumno.slice(indexOfFirstItem, indexOfLastItem);
 
 
   const handleOpcionChange = (event) => {
@@ -68,12 +73,21 @@ export const VerNotasDocentePage = () => {
 
     Promise.all([fetchClases(), fetchAlumno()]);
   }, [num_empleado, opcionSeleccionada]);
+  const regresar = () => {
+    history.back();
+  };
 
   return (
     <>
       <div className="container">
         <div className="row">
+          
           <div className="col ">
+          <div className="col-3">
+            <button className="btn btn-primary my-4" onClick={regresar}>
+              Atrás
+            </button>
+          </div>
             <br />
             <div className="d-flex my-3 justify-content-center">
               <h3>Calificaciones Ingesadas por {docente.nombres} {docente.apellidos}</h3>
@@ -89,7 +103,7 @@ export const VerNotasDocentePage = () => {
               onChange={handleOpcionChange}
             >
               <option value="">-- Clases --</option>
-              {clases.map((clase) => ( // Cambiado el nombre de la variable para evitar conflictos
+              {clases.map((clase) => ( 
                 <option key={clase.id_clase} value={clase.id_clase}>
                   {clase.nombre_clase + " seccion "  + clase.dias}
                 </option>
@@ -108,7 +122,7 @@ export const VerNotasDocentePage = () => {
               >
                 <thead>
                 <tr>
-                  <th scope="col">Imagen</th>
+                  
                   <th scope="col">Nombre</th>
                   <th scope="col">Apellido</th>
                   <th scope="col">Nota</th>
@@ -116,19 +130,45 @@ export const VerNotasDocentePage = () => {
                 </tr>
               </thead>
                 <tbody>
-                {alumno.map((alumnoData, index) => (
+                {currentAlumno.map((alumnoData, index) => (
             <tr key={index}>
-              {/* Puedes mostrar la imagen aquí */}
-              <td>Imagen</td>
+            
+             
               <td>{`${alumnoData.primer_nombre} ${alumnoData.segundo_nombre}`}</td>
               <td>{`${alumnoData.primer_apellido} ${alumnoData.segundo_apellido}`}</td>
               <td>{alumnoData.nota}</td>
-              <td></td>
+              <td>{alumnoData.nota > 65 ? (
+                          <th scope="row" className="text-center">
+                            APR
+                          </th>
+                        ) : (
+                          <th scope="row" className="text-center">
+                            RPB
+                          </th>
+                        )}</td>
             </tr>
           ))}
                 </tbody>
               </table>
+              
             </div>
+            <div className="d-flex justify-content-center">
+  <ul className="pagination">
+    {Array(Math.ceil(alumno.length / itemsPerPage))
+      .fill()
+      .map((_, index) => (
+        <li key={index} className="page-item">
+          <button
+            className="page-link"
+            onClick={() => setCurrentPage(index + 1)}
+          >
+            {index + 1}
+          </button>
+        </li>
+      ))}
+  </ul>
+</div>
+
           </div>
         </div>
       </div>

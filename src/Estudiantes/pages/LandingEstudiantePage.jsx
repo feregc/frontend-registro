@@ -84,7 +84,7 @@ export const LandingEstudiantePage = () => {
                 className="btn btn-w btn-h btn-primary"
                 onClick={onNavClaseMatriculadas}
               >
-                Ver clases matriculas
+                Ver clases matriculadas
               </button>
             </div>
             <div className="row-3 mx-2">
@@ -92,7 +92,7 @@ export const LandingEstudiantePage = () => {
                 className="btn btn-w btn-h btn-primary"
                 onClick={onNavCalificaciones}
               >
-                Ver Calificaciones de Periodo
+                Ver Calificaciones de Período
               </button>
             </div>
           </div>
@@ -102,7 +102,7 @@ export const LandingEstudiantePage = () => {
                 className="btn btn-w btn-h btn-primary"
                 onClick={onNavHistorialClases}
               >
-                Historial Acacdemico
+                Historial Académico
               </button>
             </div>
             <div className="row-3 mx-2">
