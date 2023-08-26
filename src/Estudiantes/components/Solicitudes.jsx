@@ -49,7 +49,8 @@ export const Solicitudes = () => {
       const obtenerClases = async () => {
         try {
           const response = await fetch(
-            `http://localhost:8081/clases-matriculadas/${num_cuenta}/${fecha}/${periodo}`
+            `http://localhost:8081/clases-matriculadas/${num_cuenta}/${fecha}/${data[0]?.periodo}`
+           
           );
           if (!response.ok) {
             throw new Error("Error al obtener las clases");
@@ -100,7 +101,7 @@ export const Solicitudes = () => {
   
     fetchCentros(); // Llamada a fetchCentros fuera de la definición de la función
   }, []);
-  
+   
 
 useEffect(()=>{
   const fetchCarreras = async () => {
