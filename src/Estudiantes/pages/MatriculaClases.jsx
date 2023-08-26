@@ -73,9 +73,10 @@ export const MatriculaClases = () => {
         const matriculaExitosa = await matricularEstudianteEnSeccion(seccion.id_seccion);
   
         if (matriculaExitosa) {
-          alert("Matrícula exitosa en la sección " + seccion.id_seccion);
-        } else {
           alert("Error al realizar la matrícula. Por favor, inténtalo de nuevo.");
+        } else {
+          
+          alert("Matrícula exitosa en la sección " + seccion.id_seccion);
         }
       }
     }
