@@ -1,112 +1,147 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const MatriculaClases = () => {
-  const [departamentos, setDepartamentos] = useState([
-    { id: 1, nombre: 'Matemáticas' },
-    { id: 2, nombre: 'Ciencias' },
-    { id: 3, nombre: 'Historia' },
-  ]);
+  const [departamentos, setDepartamentos] = useState([]);
   const [clases, setClases] = useState([]);
   const [secciones, setSecciones] = useState([]);
+  const num_cuenta = localStorage.getItem("id"); // Obtener el valor de num_cuenta desde localStorage
 
-  const clasesPorDepartamento = {
-    1: [
-      { id: 1, nombre: 'Álgebra' },
-      { id: 2, nombre: 'Cálculo' },
-    ],
-    2: [
-      { id: 3, nombre: 'Biología' },
-      { id: 4, nombre: 'Química' },
-    ],
-    3: [
-      { id: 5, nombre: 'Antigua' },
-      { id: 6, nombre: 'Moderna' },
-    ],
+  useEffect(() => {
+    // Obtener departamentos cuando el componente se monta
+    fetch('http://localhost:8081/obtenerDeptos')
+      .then(response => response.json())
+      .then(data => {
+        setDepartamentos(data);
+      })
+      .catch(error => {
+        console.error('Error al obtener los departamentos:', error);
+      });
+  }, []);
+
+  const handleDepartamentoClick = (id_carrera) => {
+    fetch(`http://localhost:8081/clasesFaltantes?id_carrera=${id_carrera}&id_estudiante=${num_cuenta}`)
+      .then(response => response.json())
+      .then(data => {
+        setClases(data);
+        setSecciones([]); // Limpiar las secciones al cambiar de clases
+      })
+      .catch(error => {
+        console.error('Error al obtener las clases faltantes:', error);
+      });
   };
 
-  const seccionesPorClase = {
-    1: [
-      { id: 1, nombre: 'A' },
-      { id: 2, nombre: 'B' },
-    ],
-    2: [
-      { id: 3, nombre: 'A' },
-      { id: 4, nombre: 'B' },
-    ],
-    3: [
-      { id: 5, nombre: 'A' },
-      { id: 6, nombre: 'B' },
-    ],
-    4: [
-      { id: 7, nombre: 'A' },
-      { id: 8, nombre: 'B' },
-    ],
-    5: [
-      { id: 9, nombre: 'A' },
-      { id: 10, nombre: 'B' },
-    ],
-    6: [
-      { id: 11, nombre: 'A' },
-      { id: 12, nombre: 'B' },
-    ],
+  const handleClaseClick = async (claseId) => {
+    try {
+      const response = await fetch(`http://localhost:8081/verificar-requisitos?id_clase=${claseId}&num_cuenta=${num_cuenta}`);
+      const requisitosResponse = await response.json();
+      
+      if (requisitosResponse.resultado === "El estudiante cumple con los requisitos para la clase solicitada") {
+        const responseMatriculada = await fetch(`http://localhost:8081/verifica-clase?id_clase=${claseId}&num_cuenta=${num_cuenta}`);
+        const matriculaResponse = await responseMatriculada.json();
+  
+        if (!matriculaResponse.tiene_matricula) {
+          const responseSecciones = await fetch(`http://localhost:8081/secciones-por-clase?id_clase=${claseId}`);
+          const seccionesData = await responseSecciones.json();
+          setSecciones(seccionesData);
+        } else {
+          // Mostrar alerta: Clase ya matriculada
+          alert("Esta clase ya está matriculada.");
+        }
+      } else {
+        // Mostrar alerta: Faltan requisitos
+        alert("No cumples con los requisitos para esta clase.");
+      }
+    } catch (error) {
+      console.error('Error al verificar requisitos y obtener secciones:', error);
+    }
+  };
+
+  
+  const handleSeccionClick = async (seccion) => {
+    const horarioValido = await verificarHorario(seccion.id_seccion);
+    if (!horarioValido) {
+      alert("Conflicto de horario. Ya tienes una clase en este horario.");
+    } else {
+      const matriculaExitosa = await matricularEstudianteEnSeccion(seccion.id_seccion);
+      if (matriculaExitosa) {
+        alert("Error al realizar la matrícula. Por favor, inténtalo de nuevo.");
+      } else {
+        alert("Matrícula exitosa en la sección " + seccion.id_seccion);
+      }
+    }
   };
   
-  const navigate = useNavigate();
-
-  const handleDepartamentoClick = (departamentoId) => {
-    const clasesDelDepartamento = clasesPorDepartamento[departamentoId];
-    setClases(clasesDelDepartamento);
-    setSecciones([]);
+  const verificarHorario = async (idSeccion) => {
+    try {
+      const response = await fetch(`http://localhost:8081/verificar-horario?id_seccion=${idSeccion}&num_cuenta=${num_cuenta}`);
+      const horarioResponse = await response.json();
+      
+      if (horarioResponse.resultado === "El estudiante ya está matriculado en otra clase a la misma hora") {
+        alert("Conflicto de horario. Ya tienes una clase en este horario.");
+        return false;
+      }
+      
+      return true; 
+    } catch (error) {
+      console.error('Error al verificar el horario:', error);
+      return false;
+    }
   };
-
-  const handleClaseClick = (claseId) => {
-    const seccionesDeClase = seccionesPorClase[claseId];
-    setSecciones(seccionesDeClase);
+  
+  const matricularEstudianteEnSeccion = async (idSeccion) => {
+    try {
+      const response = await fetch(`http://localhost:8081/insertMatricula?id_seccion=${idSeccion}&num_cuenta=${num_cuenta}`, {
+        method: 'POST', 
+      });
+      const matriculaResponse = await response.json();
+      return matriculaResponse.resultado === "Matrícula exitosa"; 
+    } catch (error) {
+      console.error('Error al matricular al estudiante:', error);
+      return false;
+    }
   };
-
+  
+  
   return (
     <div className="d-flex justify-content-center">
-  <div className="col-3 mx-2">
-    <br />
-    {departamentos.map(departamento => (
-      <button
-        key={departamento.id}
-        className="btn btn-w btn-h btn-primary"
-        style={{ margin: '10px' }}
-        onClick={() => handleDepartamentoClick(departamento.id)}
-      >
-        {departamento.nombre}
-      </button>
-    ))}
-  </div>
-  <div className="col-3 mx-2">
-    {clases.map(clase => (
-      <button
-        key={clase.id}
-        className="btn btn-w btn-h btn-primary"
-        style={{ margin: '10px' }}
-        onClick={() => handleClaseClick(clase.id)}
-      >
-        {clase.nombre}
-      </button>
-    ))}
-  </div>
-  <div className="col-3 mx-2">
-    {secciones.map(seccion => (
-      <button
-        key={seccion.id}
-        className="btn btn-w btn-h btn-primary"
-        style={{ margin: '10px' }}
-        onClick={() => {
-          // Aquí podrías realizar alguna acción relacionada con la sección seleccionada
-        }}
-      >
-        {seccion.nombre}
-      </button>
-    ))}
-  </div>
+      <div className="col-3 mx-2">
+        <br />
+        {departamentos.map(departamento => (
+          <button
+            key={departamento.id_carrera}
+            className="btn btn-w btn-h btn-primary"
+            style={{ margin: '10px' }}
+            onClick={() => handleDepartamentoClick(departamento.id_carrera)}
+          >
+            {departamento.nombre_carrera}
+          </button>
+        ))}
+      </div>
+      <div className="col-3 mx-2">
+        {clases.map(clase => (
+          <button
+            key={clase.id_clase}
+            className="btn btn-w btn-h btn-primary"
+            style={{ margin: '10px' }}
+            onClick={() => handleClaseClick(clase.id_clase)}
+          >
+            {clase.nombre}
+          </button>
+        ))}
+      </div>
+      <div className="col-3 mx-2">
+  {secciones.map(seccion => (
+    <button
+      key={seccion.id_seccion}
+      className="btn btn-w btn-h btn-primary"
+      style={{ margin: '10px' }}
+      onClick={() => handleSeccionClick(seccion)}
+    >
+      {seccion.id_seccion}
+    </button>
+  ))}
 </div>
-
+    </div>
   );
 };
