@@ -19,7 +19,7 @@ import { AuthContext } from "../chat/auth/AuthContext";
 import { useContext, useEffect } from "react";
 import { PublicRoute } from "../../router/PublicRoute";
 import { PrivateRoute } from "../../router/PrivateRoute";
-
+import {MatriculaClases} from "../pages/MatriculaClases";
 
 export const EstudianteRoutes = () => {
 
@@ -52,7 +52,7 @@ export const EstudianteRoutes = () => {
         <Route path="/matriculaClase" element={<MatriculaPage />} />
         <Route path="/cancelarClase" element={<CancelarPage />} />
         <Route path="/HistorialAcademico" element={<HistorialAcademico />} />
-
+        <Route path="/Prueba" element={<MatriculaClases/>} />
         <Route
           path="/auth/*"
           element={<PublicRoute isAuthenticated={auth.logged} />}
