@@ -28,6 +28,9 @@ export const LandingEstudiantePage = () => {
   const onNavHistorialClases = () => {
     navigate("../HistorialAcademico");
   };
+  const onNavPrueva = () => {
+    navigate("../Prueba");
+  };
 
   const onNavChat = () => {
     navigate("../auth/loginChat");
@@ -85,6 +88,14 @@ export const LandingEstudiantePage = () => {
                 onClick={onNavClaseMatriculadas}
               >
                 Ver clases matriculadas
+              </button>
+            </div>
+            <div className="row-3 mx-2">
+              <button
+                className="btn btn-w btn-h btn-primary"
+                onClick={onNavPrueva}
+              >
+                prueba matricula
               </button>
             </div>
             <div className="row-3 mx-2">
