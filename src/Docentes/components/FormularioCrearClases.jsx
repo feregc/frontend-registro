@@ -30,6 +30,7 @@ const FormularioCrearClases = () => {
     centro[0]?.nombre_centro
   );
 
+
   useEffect(() => {
     const fetchProcesoCarga = async () => {
       try {
@@ -63,6 +64,7 @@ const FormularioCrearClases = () => {
 
     fetchDocente();
   }, []);
+
 
   useEffect(() => {
     const id = localStorage.getItem("id");
@@ -211,7 +213,12 @@ const FormularioCrearClases = () => {
     return `${anio}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
   };
 
-  // console.log(validarUV())
+  const buscarDocentePorId = (docentesArray, idDocente) => {
+    return docentesArray.find((docente_) => docente_.num_empleado === parseInt(idDocente));
+  };
+
+
+
   const Guardar = () => {
     const horaInicio = parseInt(horaInicial, 10);
     const minutosInicio = parseInt(minutosInicial, 10);
@@ -231,6 +238,10 @@ const FormularioCrearClases = () => {
     const fechaFormateada = formatearFecha(anioPeriodo[0]?.anio);
 
     const diasC = checkboxValues.join("");
+    const temp = buscarClasePorId(clases, selectedClase);
+    const unidadesValorativas = temp?.unidades_valo;
+    const unidadesDocente = buscarDocentePorId(docentes,selectedDocente)
+    console.log(unidadesDocente)
     const formData = {
       id_clase: parseInt(selectedClase),
       num_empleado: parseInt(selectedDocente),
@@ -242,14 +253,64 @@ const FormularioCrearClases = () => {
       horafin: `${horaFinal}:${minutosFinal}`,
       anio: fechaFormateada,
       periodo: anioPeriodo[0]?.periodo,
+      unidades_valo: unidadesValorativas,
     };
 
     console.log(formData);
+
     if (validarDatos(formData)) {
       if (checkboxValues.length == 1) {
         if (!docenteLibre.hasData) {
-          const UV = clases.find((clase) => clase.id_clase === selectedClase);
-          if (validarHorasUnidades(formData.horainicio, formData.horafin, 3)) {
+          if(unidadesValorativas <= unidadesDocente.unidades_valo){
+            const UV = clases.find((clase) => clase.id_clase === selectedClase);
+            if (validarHorasUnidades(formData.horainicio, formData.horafin, 3)) {
+              try {
+                fetch("http://localhost:8081/seccion-insertar", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(formData),
+                })
+                  .then((response) => response.json())
+                  .then((data) => {
+                    alert("Sección creada con éxito");
+                    navigate('/docente/home');
+                    setHoraInicial("00");
+                    setMinutosInicial("00");
+                    setHoraFinal("00");
+                    setMinutosFinal("00");
+                    setSelectedClase("");
+                    setselectedEdificio("");
+                    setSelectedAula("");
+                    setCuposDisponibles("");
+                    setSelectedDocente("");
+                    setCheckboxValues([]);
+
+      
+                  })
+                  .catch((error) => {
+                    console.error("Error al crear la sección:", error);
+                  });
+              } catch (e) {
+                console.log(e);
+              }
+            } else {
+              alert(
+                "La unidades valorativas deben coincidir con las horas de la clase"
+              );
+            }
+          }else{
+            alert('El docente no tiene unidades valorativas disponibles')
+          }
+        } else {
+          alert("El docente tiene una sección a esta hora");
+        }
+      }
+
+      if (checkboxValues.length > 1) {
+        if (!docenteLibre.hasData) {
+          if(unidadesValorativas <= unidadesDocente.unidades_valo){
             try {
               fetch("http://localhost:8081/seccion-insertar", {
                 method: "POST",
@@ -261,7 +322,7 @@ const FormularioCrearClases = () => {
                 .then((response) => response.json())
                 .then((data) => {
                   alert("Sección creada con éxito");
-                  // navigate('/docente/home');
+                  navigate('/docente/home');
                   setHoraInicial("00");
                   setMinutosInicial("00");
                   setHoraFinal("00");
@@ -279,46 +340,8 @@ const FormularioCrearClases = () => {
             } catch (e) {
               console.log(e);
             }
-          } else {
-            alert(
-              "La unidades valorativas deben coincidir con las horas de la clase"
-            );
-          }
-        } else {
-          alert("El docente tiene una sección a esta hora");
-        }
-      }
-
-      if (checkboxValues.length > 1) {
-        if (!docenteLibre.hasData) {
-          try {
-            fetch("http://localhost:8081/seccion-insertar", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(formData),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                alert("Sección creada con éxito");
-                // navigate('/docente/home');
-                setHoraInicial("00");
-                setMinutosInicial("00");
-                setHoraFinal("00");
-                setMinutosFinal("00");
-                setSelectedClase("");
-                setselectedEdificio("");
-                setSelectedAula("");
-                setCuposDisponibles("");
-                setSelectedDocente("");
-                setCheckboxValues([]);
-              })
-              .catch((error) => {
-                console.error("Error al crear la sección:", error);
-              });
-          } catch (e) {
-            console.log(e);
+          }else{
+            alert('El docente no tiene unidades valorativas disponibles')
           }
         } else {
           alert("El docente tiene una sección a esta hora");
@@ -466,7 +489,9 @@ const FormularioCrearClases = () => {
                                   " - " +
                                   data.nombres +
                                   " " +
-                                  data.apellidos}
+                                  data.apellidos +
+                                  " - UV= " +
+                                  data.unidades_valo}
                               </option>
                             ))}
                           </select>
