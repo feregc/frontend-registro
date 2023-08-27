@@ -9,21 +9,54 @@ export const MatriculaClases = () => {
   const [secciones, setSecciones] = useState([]);
   const num_cuenta = localStorage.getItem("id"); // Obtener el valor de num_cuenta desde localStorage
   const [selectedSeccion, setSelectedSeccion] = useState(null);
-  // const [fecha, setFecha] = useState('');
+  const [carreraDeEstudiante, setcarreraDeEstudiante] = useState('')
 
   const navigate = useNavigate();
+
+  const id = localStorage.getItem('id');
+
   useEffect(() => {
+
     // Obtener departamentos cuando el componente se monta
-    fetch("http://localhost:8081/obtenerDeptos")
+    fetch(`http://localhost:8081/carreraDeEstudiante?num_cuenta=${id}`)
       .then((response) => response.json())
       .then((data) => {
-        setDepartamentos(data);
+        setcarreraDeEstudiante(data);
 
       })
       .catch((error) => {
-        console.error("Error al obtener los departamentos:", error);
+        console.error("Error al obtener la carrera:", error);
       });
   }, []);
+
+  console.log(carreraDeEstudiante?.carrera_id);
+
+  useEffect(() => {
+    if (carreraDeEstudiante?.carrera_id) { // Verificar si carreraDeEstudiante tiene un valor
+      fetch(`http://localhost:8081/obtenerDeptos?id_carrera=${carreraDeEstudiante.carrera_id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setDepartamentos(data);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los departamentos:", error);
+        });
+    }
+  }, [carreraDeEstudiante]); // Agregar carreraDeEstudiante como dependencia
+
+
+  // useEffect(() => {
+  //   // Obtener departamentos cuando el componente se monta
+  //   fetch(`http://localhost:8081/obtenerDeptos?id_carrera=${carreraDeEstudiante?.carrera_id}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setDepartamentos(data);
+
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error al obtener los departamentos:", error);
+  //     });
+  // }, []);
 
   const [anioPeriodo, setAnioPeriodo] = useState([]);
 
@@ -52,7 +85,7 @@ export const MatriculaClases = () => {
   //     const f = await convertirFecha(anioPeriodo[0]?.anio)
   //     setFecha(f)
   //   }
-    
+
   // },[])
   const fecha = convertirFecha(anioPeriodo[0]?.anio);
   // console.log(fecha)
@@ -72,7 +105,7 @@ export const MatriculaClases = () => {
   };
 
   const handleClaseClick = async (claseId) => {
-   
+
     try {
       const response = await fetch(
         `http://localhost:8081/verificar-requisitos?id_clase=${claseId}&num_cuenta=${num_cuenta}`
@@ -83,13 +116,13 @@ export const MatriculaClases = () => {
         requisitosResponse.resultado ===
         "El estudiante cumple con los requisitos para la clase solicitada"
       ) {
-        console.log(claseId,'--',fecha,'--',anioPeriodo[0]?.periodo)
+        console.log(claseId, '--', fecha, '--', anioPeriodo[0]?.periodo)
         const responseSecciones = await fetch(
           `http://localhost:8081/secciones-por-clase?id_clase=${claseId}&anio=${fecha}&periodo=${anioPeriodo[0]?.periodo}`
           // `http://localhost:8081/secciones-por-clase?id_clase=${claseId}&anio=${fecha}&periodo${anioPeriodo[0]?.periodo}`
           // Aquí puedes agregar la lógica para obtener el año, período y proceso de matrícula activo
         );
-        
+
 
         const seccionesData = await responseSecciones.json();
         setSecciones(seccionesData);
@@ -231,7 +264,7 @@ export const MatriculaClases = () => {
               <tr>
                 <td className="w">
                   <div className="overflow-y-scroll h">
-                    {departamentos.map((depto,index) => (
+                    {departamentos.map((depto, index) => (
                       <div className="row" key={index}>
                         <button
                           onClick={() =>
@@ -247,7 +280,7 @@ export const MatriculaClases = () => {
                 </td>
                 <td className="w">
                   <div className="overflow-y-scroll h">
-                    {clases.map((clase,index) => (
+                    {clases.map((clase, index) => (
                       <div className="row " key={index}>
                         <button
                           onClick={() => handleClaseClick(clase.id_clase)}
@@ -262,21 +295,21 @@ export const MatriculaClases = () => {
                 <td className="w">
                   <div className="overflow-y-scroll h">
                     {secciones.map((seccion, index) => (
-                      
-                        <div className="row" key={index}>
-                          <button
-                            className="btn btn-r text-start"
-                            onClick={() => handleSeccionClick(seccion)}
-                          >
-                            ID de Sección: {seccion.id_seccion}{" "}
-                            Nombre de Empleado: {seccion.nombres_docente}{" "}
-                            {seccion.apellidos_docente}{" "}
-                            Hora de Inicio: {seccion.horainicio}{" "}
-                            Hora Final: {seccion.horafin}{" "}
-                            Días: {seccion.dias}{" "}
-                            Cupos Disponibles:{seccion.cupos}
-                          </button>
-                        </div>
+
+                      <div className="row" key={index}>
+                        <button
+                          className="btn btn-r text-start"
+                          onClick={() => handleSeccionClick(seccion)}
+                        >
+                          ID de Sección: {seccion.id_seccion}{" "}
+                          Nombre de Empleado: {seccion.nombres_docente}{" "}
+                          {seccion.apellidos_docente}{" "}
+                          Hora de Inicio: {seccion.horainicio}{" "}
+                          Hora Final: {seccion.horafin}{" "}
+                          Días: {seccion.dias}{" "}
+                          Cupos Disponibles:{seccion.cupos}
+                        </button>
+                      </div>
                     ))}
                   </div>
                 </td>
