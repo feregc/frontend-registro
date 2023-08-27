@@ -60,8 +60,6 @@ export const LandingAdministradorPage = () => {
               </button>
             </div>
           </div>
-        </div>
-        <div className="row my-4">
           <div className="col d-flex justify-content-center">
             <div>
               <button
