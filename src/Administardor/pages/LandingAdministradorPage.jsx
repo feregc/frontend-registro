@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../../Assets/styles/styles-admin/Admin-home.css";
+import { useEffect, useState } from "react";
+import { convertirSoloAFecha } from "../../Estudiantes/helpers/convertirFecha";
 
 export const LandingAdministradorPage = () => {
   const navigate = useNavigate();
@@ -19,6 +21,10 @@ export const LandingAdministradorPage = () => {
   };
   const onNavProcesoSubidaNotas = () => {
     navigate("/administrador/procesoSubidaNotas");
+  };
+
+  const onNavProcesoCarga = () => {
+    navigate("/administrador/procesoCarga");
   };
 
   return (
@@ -85,6 +91,16 @@ export const LandingAdministradorPage = () => {
                 onClick={onNavProcesoMatricula}
               >
                 Crea Proceso de Matrícula
+              </button>
+            </div>
+          </div>
+          <div className="col d-flex justify-content-center">
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m-1"
+                onClick={onNavProcesoCarga}
+              >
+                Crear proceso carga academica
               </button>
             </div>
           </div>

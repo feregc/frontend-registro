@@ -67,33 +67,40 @@ export const LandingMatricula = () => {
     indiceIIIII,
     fechainicioIIIII,
   } = procesosDisponibles.length > 0 ? procesosDisponibles[0] : {};
-console.log(indiceI);
+
   const verificarMatricula = (global, fechaActual) => {
     if (global >= indiceIIIII && fechaActual === convertirSoloAFecha(fechainicioIIIII)) {
       return true;
     }
-  
+
     if (global >= indiceIIII && global <= indiceIIIII && fechaActual === convertirSoloAFecha(fechainicioIIII)) {
       return true;
     }
-  
+
     if (global >= indiceIII && global <= indiceIIII && fechaActual === convertirSoloAFecha(fechainicioIII)) {
       return true;
     }
-  
+
     if (global >= indiceII && global <= indiceIII && fechaActual === convertirSoloAFecha(fechainicioII)) {
       return true;
     }
-  
+
     if (global >= indiceI && fechaActual === convertirSoloAFecha(fechainicioI)) {
       return true;
     }
     return false;
   };
 
-  const fechaActual = new Date().toISOString().slice(0, 10);
-  const esDiaDeMatricula = verificarMatricula(estudiante?.indice, fechaActual);
-console.log(estudiante?.indice,fechaActual)
+  const fechaActuall = new Date();
+  const anio = fechaActuall.getFullYear();
+  const mes = String(fechaActuall.getMonth() + 1).padStart(2, '0');
+  const dia = String(fechaActuall.getDate()).padStart(2, '0');
+  const fechaEnFormato = `${anio}-${mes}-${dia}`;
+  
+
+
+  // const fechaActual = new Date().toISOString().slice(0, 10);
+  const esDiaDeMatricula = verificarMatricula(estudiante?.indice, fechaEnFormato);
   const regresar = () => {
     history.back();
   };
