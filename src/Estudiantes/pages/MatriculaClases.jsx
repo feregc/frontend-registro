@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../Assets/styles/styles.css";
+import { convertirFecha } from "../helpers/convertirFecha";
 
 export const MatriculaClases = () => {
   const [departamentos, setDepartamentos] = useState([]);
@@ -8,6 +9,8 @@ export const MatriculaClases = () => {
   const [secciones, setSecciones] = useState([]);
   const num_cuenta = localStorage.getItem("id"); // Obtener el valor de num_cuenta desde localStorage
   const [selectedSeccion, setSelectedSeccion] = useState(null);
+  // const [fecha, setFecha] = useState('');
+
   const navigate = useNavigate();
   useEffect(() => {
     // Obtener departamentos cuando el componente se monta
@@ -15,12 +18,44 @@ export const MatriculaClases = () => {
       .then((response) => response.json())
       .then((data) => {
         setDepartamentos(data);
-        
+
       })
       .catch((error) => {
         console.error("Error al obtener los departamentos:", error);
       });
   }, []);
+
+  const [anioPeriodo, setAnioPeriodo] = useState([]);
+
+  useEffect(() => {
+    // Función para obtener los datos del endpoint
+    const fetchAnioPeriodo = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8081/proceso-anio-periodo"
+        );
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos");
+        }
+        const jsonData = await response.json();
+        // console.log(jsonData);
+        setAnioPeriodo(jsonData);
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+    fetchAnioPeriodo();
+  }, []);
+
+  // useEffect(()=>{
+  //   const temp = async ()=>{
+  //     const f = await convertirFecha(anioPeriodo[0]?.anio)
+  //     setFecha(f)
+  //   }
+    
+  // },[])
+  const fecha = convertirFecha(anioPeriodo[0]?.anio);
+  // console.log(fecha)
 
   const handleDepartamentoClick = (id_carrera) => {
     fetch(
@@ -37,22 +72,28 @@ export const MatriculaClases = () => {
   };
 
   const handleClaseClick = async (claseId) => {
+   
     try {
       const response = await fetch(
         `http://localhost:8081/verificar-requisitos?id_clase=${claseId}&num_cuenta=${num_cuenta}`
       );
       const requisitosResponse = await response.json();
-  
+
       if (
         requisitosResponse.resultado ===
         "El estudiante cumple con los requisitos para la clase solicitada"
       ) {
+        console.log(claseId,'--',fecha,'--',anioPeriodo[0]?.periodo)
         const responseSecciones = await fetch(
-          `http://localhost:8081/secciones-por-clase?id_clase=${claseId}`
+          `http://localhost:8081/secciones-por-clase?id_clase=${claseId}&anio=${fecha}&periodo=${anioPeriodo[0]?.periodo}`
+          // `http://localhost:8081/secciones-por-clase?id_clase=${claseId}&anio=${fecha}&periodo${anioPeriodo[0]?.periodo}`
           // Aquí puedes agregar la lógica para obtener el año, período y proceso de matrícula activo
         );
+        
+
         const seccionesData = await responseSecciones.json();
         setSecciones(seccionesData);
+        console.log(seccionesData)
       } else {
         alert("No cumples con los requisitos para esta clase.");
       }
@@ -63,16 +104,16 @@ export const MatriculaClases = () => {
       );
     }
   };
-  
+
 
   const handleSeccionClick = async (seccionId) => {
-    setSelectedSeccion(seccionId); 
+    setSelectedSeccion(seccionId);
   };
 
 
 
   const handleMatriculaClick = async (seccion) => {
-    
+
     const claseEnMatricula = await verificarClaseEnMatricula(seccion.id_clase);
 
     if (claseEnMatricula) {
@@ -96,14 +137,14 @@ export const MatriculaClases = () => {
         } else {
           alert("Matrícula exitosa en la sección " + seccion.id_seccion);
           navigate("../cancelarClase");
-          
+
         }
       }
     }
   };
 
 
-  
+
 
   const verificarClaseEnMatricula = async (idClase) => {
     try {
@@ -190,8 +231,8 @@ export const MatriculaClases = () => {
               <tr>
                 <td className="w">
                   <div className="overflow-y-scroll h">
-                    {departamentos.map((depto) => (
-                      <div className="row" key={depto.id_carrera}>
+                    {departamentos.map((depto,index) => (
+                      <div className="row" key={index}>
                         <button
                           onClick={() =>
                             handleDepartamentoClick(depto.id_carrera)
@@ -206,8 +247,8 @@ export const MatriculaClases = () => {
                 </td>
                 <td className="w">
                   <div className="overflow-y-scroll h">
-                    {clases.map((clase) => (
-                      <div className="row " key={clase.id_clase}>
+                    {clases.map((clase,index) => (
+                      <div className="row " key={index}>
                         <button
                           onClick={() => handleClaseClick(clase.id_clase)}
                           className="btn btn-r text-start"
@@ -220,9 +261,9 @@ export const MatriculaClases = () => {
                 </td>
                 <td className="w">
                   <div className="overflow-y-scroll h">
-                    {secciones.map((seccion) => (
-                      <>
-                        <div className="row" key={seccion.id_seccion}>
+                    {secciones.map((seccion, index) => (
+                      
+                        <div className="row" key={index}>
                           <button
                             className="btn btn-r text-start"
                             onClick={() => handleSeccionClick(seccion)}
@@ -232,11 +273,10 @@ export const MatriculaClases = () => {
                             {seccion.apellidos_docente}{" "}
                             Hora de Inicio: {seccion.horainicio}{" "}
                             Hora Final: {seccion.horafin}{" "}
-                            Días: {seccion.dias}{" "} 
+                            Días: {seccion.dias}{" "}
                             Cupos Disponibles:{seccion.cupos}
                           </button>
                         </div>
-                      </>
                     ))}
                   </div>
                 </td>
@@ -245,12 +285,12 @@ export const MatriculaClases = () => {
           </table>
         </div>
         <div className="row justify-content-end my-3">
-        <button
-  className="btn btn-w btn-primary mx-7"
-  onClick={() => handleMatriculaClick(selectedSeccion)}
->
-  Matricular
-</button>
+          <button
+            className="btn btn-w btn-primary mx-7"
+            onClick={() => handleMatriculaClick(selectedSeccion)}
+          >
+            Matricular
+          </button>
         </div>
       </div>
     </>
