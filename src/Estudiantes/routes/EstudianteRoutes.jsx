@@ -49,7 +49,7 @@ export const EstudianteRoutes = () => {
         <Route path="/clases-matriculadas" element={<ClasesMatriculada />} />
         <Route path="/perfil-docente" element={<VerPerfilDeDocente />} />
         <Route path="/matricular" element={<LandingMatricula />} />
-        <Route path="/matriculaClase" element={<MatriculaPage />} />
+        <Route path="/matriculaClase" element={<MatriculaClases />} />
         <Route path="/cancelarClase" element={<CancelarPage />} />
         <Route path="/HistorialAcademico" element={<HistorialAcademico />} />
         <Route path="/Prueba" element={<MatriculaClases/>} />
