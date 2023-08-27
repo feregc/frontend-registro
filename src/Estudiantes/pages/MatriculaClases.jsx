@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "../../Assets/styles/styles.css";
 
 export const MatriculaClases = () => {
@@ -8,7 +7,8 @@ export const MatriculaClases = () => {
   const [clases, setClases] = useState([]);
   const [secciones, setSecciones] = useState([]);
   const num_cuenta = localStorage.getItem("id"); // Obtener el valor de num_cuenta desde localStorage
-
+  const [selectedSeccion, setSelectedSeccion] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     // Obtener departamentos cuando el componente se monta
     fetch("http://localhost:8081/obtenerDeptos")
@@ -72,8 +72,14 @@ export const MatriculaClases = () => {
     }
   };
 
-  const handleSeccionClick = async (seccion) => {
-    // Verificar si la clase ya está en la matrícula
+  const handleSeccionClick = async (seccionId) => {
+    setSelectedSeccion(seccionId); 
+  };
+
+
+
+  const handleMatriculaClick = async (seccion) => {
+    
     const claseEnMatricula = await verificarClaseEnMatricula(seccion.id_clase);
 
     if (claseEnMatricula) {
@@ -96,10 +102,15 @@ export const MatriculaClases = () => {
           );
         } else {
           alert("Matrícula exitosa en la sección " + seccion.id_seccion);
+          navigate("../cancelarClase");
+          
         }
       }
     }
   };
+
+
+  
 
   const verificarClaseEnMatricula = async (idClase) => {
     try {
@@ -241,7 +252,12 @@ export const MatriculaClases = () => {
           </table>
         </div>
         <div className="row justify-content-end my-3">
-          <button className="btn btn-w btn-primary mx-7">Matricular</button>
+        <button
+  className="btn btn-w btn-primary mx-7"
+  onClick={() => handleMatriculaClick(selectedSeccion)}
+>
+  Matricular
+</button>
         </div>
       </div>
     </>
