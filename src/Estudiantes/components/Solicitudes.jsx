@@ -413,7 +413,7 @@ useEffect(()=>{
                         onChange={handleOpcion3Change}
                       >
                         <option value="">-- clases --</option>
-                        {clases.map((clases) => (
+                        {clases?.map((clases) => (
                           <option key={clases.id} value={clases.id_clase}>
                             {clases.nombre}
                           </option>

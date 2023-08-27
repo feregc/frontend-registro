@@ -90,14 +90,7 @@ export const LandingEstudiantePage = () => {
                 Ver Clases Matriculadas
               </button>
             </div>
-            <div className="row-3 mx-2">
-              <button
-                className="btn btn-w btn-h btn-primary"
-                onClick={onNavPrueva}
-              >
-                prueba matricula
-              </button>
-            </div>
+            
             <div className="row-3 mx-2">
               <button
                 className="btn btn-w btn-h btn-primary"
