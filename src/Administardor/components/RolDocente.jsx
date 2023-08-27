@@ -365,7 +365,7 @@ const ListaDocentes = ({ carrera, centro }) => {
                         <tfoot>
                           <tr>
                             <td colSpan="2">
-                              <div className="d-flex justify-content-between">
+                              <div className="d-flex justify-content-center">
                                 <div>
                                   <nav>
                                     <ul className="pagination">
