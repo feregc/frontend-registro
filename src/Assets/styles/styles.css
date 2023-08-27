@@ -35,3 +35,31 @@ h1,h2,h3,h4,h5,h6,label, li,ul{
   height: 3.125rem;
 }
 
+.h{
+  max-height: 30rem !important;
+  height: 30rem !important;
+  min-height: 30rem !important;
+}
+
+.w{
+  width: 23.75rem !important;
+  min-width: 23.75rem !important;
+  max-width: 23.75rem !important;
+}
+
+
+.btn-r:hover{
+  background-color: rgb(216, 210, 210);
+}
+.btn-r:focus{
+  background-color: rgb(216, 210, 210);
+}
+
+.btn{
+  cursor: pointer !important;
+}
+
+.mx-7{
+  margin-left: 7rem !important;
+  margin-right: 7rem !important;
+}
