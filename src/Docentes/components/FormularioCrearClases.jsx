@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useFetchs } from "../Helpers/useFetchs";
 import "../../Assets/styles/styles-docentes/Docente-home.css";
-import { json, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { HorasInicioFin } from '../Helpers/convertirFecha'
 
 const FormularioCrearClases = () => {
@@ -24,11 +24,29 @@ const FormularioCrearClases = () => {
   const [selectedDocente, setSelectedDocente] = useState("");
   const [aulas, setAulas] = useState([])
   const [docenteLibre, setDocenteLibre] = useState(false);
+  const [anioPeriodo,setAnioPeriodo] = useState([])
 
   const { edificios, clases, docentes } = useFetchs(
     docente[0]?.carrera,
     centro[0]?.nombre_centro
   );
+
+  useEffect(() => {
+    const fetchProcesoCarga = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/procesoCarga_disponibilidad");
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos");
+        }
+        const jsonData = await response.json();
+       setAnioPeriodo(jsonData);
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+    fetchProcesoCarga();
+  }, []);
+
 
   useEffect(() => {
     const id = localStorage.getItem("id");
@@ -95,11 +113,9 @@ const FormularioCrearClases = () => {
     verificarDocente()
   }, [horaInicial, minutosInicial, horaFinal, minutosFinal, selectedDocente])
 
-
   const buscarClasePorId = (clasesArray, idClase) => {
     return clasesArray.find((clase) => clase.id_clase === parseInt(idClase));
   };
-
   // Valida que las horas coincidan con las UV
   const validarHorario = () => {
     const temp = buscarClasePorId(clases, selectedClase);
@@ -147,6 +163,32 @@ const FormularioCrearClases = () => {
     }
   }
 
+  function validarHorasUnidades(horaInicio, horaFin, unidadesValorativas) {
+    const horaInicioParts = horaInicio.split(":");
+    const horaFinParts = horaFin.split(":");
+    const horaInicioNum = parseInt(horaInicioParts[0]);
+    const minutoInicioNum = parseInt(horaInicioParts[1]);
+    const horaFinNum = parseInt(horaFinParts[0]);
+    const minutoFinNum = parseInt(horaFinParts[1]);
+    const horasDiferencia = horaFinNum - horaInicioNum;
+    const minutosDiferencia = minutoFinNum - minutoInicioNum;
+    const duracionTotal = horasDiferencia + minutosDiferencia / 60;
+    return duracionTotal === unidadesValorativas;
+  }
+  const formatearFecha = (fechaISO) => {
+    const fecha = new Date(fechaISO);
+
+    const anio = fecha.getFullYear();
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+    const dia = String(fecha.getDate()).padStart(2, "0");
+
+    const hora = String(fecha.getHours()).padStart(2, "0");
+    const minutos = String(fecha.getMinutes()).padStart(2, "0");
+    const segundos = String(fecha.getSeconds()).padStart(2, "0");
+
+    return `${anio}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
+  };
+
   // console.log(validarUV())
   const Guardar = () => {
     const horaInicio = parseInt(horaInicial, 10);
@@ -161,6 +203,9 @@ const FormularioCrearClases = () => {
     verificarDocente()
     traerAulas()
 
+    const fechaFormateada = formatearFecha (anioPeriodo[0]?.anio)
+
+
     const diasC = checkboxValues.join('');
     const formData = {
       id_clase: parseInt(selectedClase),
@@ -171,50 +216,89 @@ const FormularioCrearClases = () => {
       id_edificio: parseInt(selectedEdificio),
       horainicio: `${horaInicial}:${minutosInicial}`,
       horafin: `${horaFinal}:${minutosFinal}`,
+      anio: fechaFormateada,
+      periodo: anioPeriodo[0]?.periodo
     };
+    
 
-    // console.log(formData);
+    console.log(formData);
     if (validarDatos(formData)) {
+      if (checkboxValues.length == 1) {
+        if (!docenteLibre.hasData) {
+         const UV = clases.find(clase => clase.id_clase === selectedClase);
+          if (validarHorasUnidades(formData.horainicio, formData.horafin, 3)) {
+            try {
+              fetch("http://localhost:8081/seccion-insertar", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  alert("Sección creada con éxito");
+                  // navigate('/docente/home');
+                  setHoraInicial("00");
+                  setMinutosInicial("00");
+                  setHoraFinal("00");
+                  setMinutosFinal("00");
+                  setSelectedClase("");
+                  setselectedEdificio("");
+                  setSelectedAula("");
+                  setCuposDisponibles("");
+                  setSelectedDocente("");
+                  setCheckboxValues([]);
+                })
+                .catch((error) => {
+                  console.error("Error al crear la sección:", error);
+                });
+            } catch (e) { console.log(e) }
+          } else {
+            alert('La unidades valorativas deben coincidir con las horas de la clase')
+          }
+        } else {
+          alert('El docente tiene una sección a esta hora')
+        }
+      }
 
-      if (!docenteLibre.hasData) {
-        console.log('Enviar')
-        try {
-          fetch("http://localhost:8081/seccion-insertar", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              alert("Sección creada con éxito");
-              // navigate('/docente/home');
-              setHoraInicial("00");
-              setMinutosInicial("00");
-              setHoraFinal("00");
-              setMinutosFinal("00");
-              setSelectedClase("");
-              setselectedEdificio("");
-              setSelectedAula("");
-              setCuposDisponibles("");
-              setSelectedDocente("");
-              setCheckboxValues([]);
+      if (checkboxValues.length > 1) {
+        if (!docenteLibre.hasData) {
+          try {
+            fetch("http://localhost:8081/seccion-insertar", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(formData),
             })
-            .catch((error) => {
-              console.error("Error al crear la sección:", error);
-            });
-        } catch (e) { console.log(e) }
-      } else {
-        alert('El docente tiene una sección a esta hora')
+              .then((response) => response.json())
+              .then((data) => {
+                alert("Sección creada con éxito");
+                // navigate('/docente/home');
+                setHoraInicial("00");
+                setMinutosInicial("00");
+                setHoraFinal("00");
+                setMinutosFinal("00");
+                setSelectedClase("");
+                setselectedEdificio("");
+                setSelectedAula("");
+                setCuposDisponibles("");
+                setSelectedDocente("");
+                setCheckboxValues([]);
+              })
+              .catch((error) => {
+                console.error("Error al crear la sección:", error);
+              });
+          } catch (e) { console.log(e) }
+        } else {
+          alert('El docente tiene una sección a esta hora')
+        }
       }
     } else {
       console.log('No enviar')
     }
   };
-
-
-
   const regresar = () => {
     window.history.back();
   };
@@ -227,7 +311,10 @@ const FormularioCrearClases = () => {
       isNaN(formData.cupos) ||
       typeof formData.dias !== 'string' ||
       typeof formData.horainicio !== 'string' ||
-      typeof formData.horafin !== 'string') {
+      typeof formData.horafin !== 'string' ||
+      typeof formData.anio !== 'string' ||
+      typeof formData.periodo !== 'string'
+      ) {
       return false;
     } else {
       return true;
@@ -271,6 +358,13 @@ const FormularioCrearClases = () => {
     }
   };
 
+  // const anio = 
+  function obtenerAnioDesdeFecha(fecha) {
+    const fechaObjeto = new Date(fecha);
+    const anio = fechaObjeto.getFullYear();
+    return anio;
+  }
+
   return (
     <>
       <button className="btn btn-success mt-4" onClick={regresar}>
@@ -278,8 +372,8 @@ const FormularioCrearClases = () => {
       </button>
       {/* Asignatura */}
       <div>
-        <h3>Período II</h3>
-        <h3>Año 2023</h3>
+        <h3>Período {anioPeriodo[0]?.periodo}</h3>
+        <h3>Año {obtenerAnioDesdeFecha(anioPeriodo[0]?.anio)}</h3>
       </div>
       <div className="container" style={{ width: '700px', height: '300px', backgroundColor: '#9a8686', margin: '10px' }}>
         <p style={{ backgroundColor: '#006494' }}>Asignatura</p>
