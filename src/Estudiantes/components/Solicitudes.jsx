@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 import { convertirFecha } from "../helpers/convertirFecha";
 import { useEffect } from "react";
 
-const num_cuenta = localStorage.getItem("id");
-const centro_id= localStorage.getItem("centro_id");
+
 
 
 export const Solicitudes = () => {
+ 
   const location = useLocation();
   const { tipoSolicitud } = location.state;
   const [opcionSeleccionada, setOpcionSeleccionada] = useState("");
@@ -21,9 +21,11 @@ export const Solicitudes = () => {
   const [data, setData] = useState([]);
   const [clases, setClases] = useState([]);
   const [documento, setDocumento] = useState(null);
+  const num_cuenta = localStorage.getItem("id");
+  const centro_id= localStorage.getItem("centro_id");
 
   useEffect(() => {
-    // Función para obtener los datos del endpoint
+   
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -49,15 +51,13 @@ export const Solicitudes = () => {
       const obtenerClases = async () => {
         try {
           const response = await fetch(
-            `http://localhost:8081/clases-matriculadas/${num_cuenta}/${fecha}/${data[0]?.periodo}`
-           
+            `http://localhost:8081/clases-matriculadas/${num_cuenta}/${fecha}/${periodo}`
           );
           if (!response.ok) {
             throw new Error("Error al obtener las clases");
           }
           const jsonData = await response.json();
           setClases(jsonData);
-          console.log(jsonData);
         } catch (error) {
           console.log("Error:", error);
         }

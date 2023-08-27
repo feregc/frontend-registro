@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import "../../Assets/styles/styles.css";
 
 export const MatriculaClases = () => {
@@ -8,7 +7,8 @@ export const MatriculaClases = () => {
   const [clases, setClases] = useState([]);
   const [secciones, setSecciones] = useState([]);
   const num_cuenta = localStorage.getItem("id"); // Obtener el valor de num_cuenta desde localStorage
-
+  const [selectedSeccion, setSelectedSeccion] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     // Obtener departamentos cuando el componente se monta
     fetch("http://localhost:8081/obtenerDeptos")
@@ -42,26 +42,17 @@ export const MatriculaClases = () => {
         `http://localhost:8081/verificar-requisitos?id_clase=${claseId}&num_cuenta=${num_cuenta}`
       );
       const requisitosResponse = await response.json();
-
+  
       if (
         requisitosResponse.resultado ===
         "El estudiante cumple con los requisitos para la clase solicitada"
       ) {
-        const responseMatriculada = await fetch(
-          `http://localhost:8081/verifica-clase?id_clase=${claseId}&num_cuenta=${num_cuenta}`
+        const responseSecciones = await fetch(
+          `http://localhost:8081/secciones-por-clase?id_clase=${claseId}`
+          // Aquí puedes agregar la lógica para obtener el año, período y proceso de matrícula activo
         );
-        const matriculaResponse = await responseMatriculada.json();
-
-        if (!matriculaResponse.tiene_matricula) {
-          const responseSecciones = await fetch(
-            `http://localhost:8081/secciones-por-clase?id_clase=${claseId}`//AQUI DEBERIA IR LO DE EL ANIO Y EL PERIODO QUE ES OBTENIDO DE OTRA PETICION
-          //QUE SE HACE PARA TRAER EL PROCESO DE MATRICULA QUE ESTA ACTIVO
-          );
-          const seccionesData = await responseSecciones.json();
-          setSecciones(seccionesData);
-        } else {
-          alert("Esta clase ya está matriculada.");
-        }
+        const seccionesData = await responseSecciones.json();
+        setSecciones(seccionesData);
       } else {
         alert("No cumples con los requisitos para esta clase.");
       }
@@ -72,13 +63,20 @@ export const MatriculaClases = () => {
       );
     }
   };
+  
 
-  const handleSeccionClick = async (seccion) => {
-    // Verificar si la clase ya está en la matrícula
+  const handleSeccionClick = async (seccionId) => {
+    setSelectedSeccion(seccionId); 
+  };
+
+
+
+  const handleMatriculaClick = async (seccion) => {
+    
     const claseEnMatricula = await verificarClaseEnMatricula(seccion.id_clase);
 
     if (claseEnMatricula) {
-      alert("Ya estás matriculado en esta clase.");
+      alert("Ya estás matriculado en esta clase. Debe cancelar la sección matriculada");
     } else {
       // Verificar horario
       const horarioValido = await verificarHorario(seccion.id_seccion);
@@ -97,10 +95,15 @@ export const MatriculaClases = () => {
           );
         } else {
           alert("Matrícula exitosa en la sección " + seccion.id_seccion);
+          navigate("../cancelarClase");
+          
         }
       }
     }
   };
+
+
+  
 
   const verificarClaseEnMatricula = async (idClase) => {
     try {
@@ -242,7 +245,12 @@ export const MatriculaClases = () => {
           </table>
         </div>
         <div className="row justify-content-end my-3">
-          <button className="btn btn-w btn-primary mx-7">Matricular</button>
+        <button
+  className="btn btn-w btn-primary mx-7"
+  onClick={() => handleMatriculaClick(selectedSeccion)}
+>
+  Matricular
+</button>
         </div>
       </div>
     </>

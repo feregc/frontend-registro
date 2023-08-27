@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { convertirFecha } from "../helpers/convertirFecha";
-
+import { useLocation } from "react-router-dom";
 export const CancelarClase = () => {
   const id = localStorage.getItem("id");
 
   const [data, setData] = useState([]);
   const [clases, setClases] = useState([]);
-
+  const location = useLocation();
   useEffect(() => {
     // Función para obtener los datos del endpoint
     const fetchData = async () => {
@@ -83,13 +83,18 @@ export const CancelarClase = () => {
       // El usuario ha cancelado, no hacemos nada
     }
   };
-
+  const regresar = () => {
+    window.history.back();
+  };
   return (
     <div className="container">
+       <button className="btn btn-success mt-4" onClick={regresar}>
+          Atras
+        </button>
       <div className="row my-3">
         <div className="col">
           <div className="d-flex justify-content-center my-3">
-            <h2>Tabla de clases</h2>
+            <h2>Clases matriculadas</h2>
           </div>
           <div className="row">
             <table className="table table-striped table-hover">
