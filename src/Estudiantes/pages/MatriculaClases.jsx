@@ -42,26 +42,17 @@ export const MatriculaClases = () => {
         `http://localhost:8081/verificar-requisitos?id_clase=${claseId}&num_cuenta=${num_cuenta}`
       );
       const requisitosResponse = await response.json();
-
+  
       if (
         requisitosResponse.resultado ===
         "El estudiante cumple con los requisitos para la clase solicitada"
       ) {
-        const responseMatriculada = await fetch(
-          `http://localhost:8081/verifica-clase?id_clase=${claseId}&num_cuenta=${num_cuenta}`
+        const responseSecciones = await fetch(
+          `http://localhost:8081/secciones-por-clase?id_clase=${claseId}`
+          // Aquí puedes agregar la lógica para obtener el año, período y proceso de matrícula activo
         );
-        const matriculaResponse = await responseMatriculada.json();
-
-        if (!matriculaResponse.tiene_matricula) {
-          const responseSecciones = await fetch(
-            `http://localhost:8081/secciones-por-clase?id_clase=${claseId}`//AQUI DEBERIA IR LO DE EL ANIO Y EL PERIODO QUE ES OBTENIDO DE OTRA PETICION
-          //QUE SE HACE PARA TRAER EL PROCESO DE MATRICULA QUE ESTA ACTIVO
-          );
-          const seccionesData = await responseSecciones.json();
-          setSecciones(seccionesData);
-        } else {
-          alert("Esta clase ya está matriculada.");
-        }
+        const seccionesData = await responseSecciones.json();
+        setSecciones(seccionesData);
       } else {
         alert("No cumples con los requisitos para esta clase.");
       }
@@ -72,6 +63,7 @@ export const MatriculaClases = () => {
       );
     }
   };
+  
 
   const handleSeccionClick = async (seccionId) => {
     setSelectedSeccion(seccionId); 
@@ -84,7 +76,7 @@ export const MatriculaClases = () => {
     const claseEnMatricula = await verificarClaseEnMatricula(seccion.id_clase);
 
     if (claseEnMatricula) {
-      alert("Ya estás matriculado en esta clase.");
+      alert("Ya estás matriculado en esta clase. Debe cancelar la sección matriculada");
     } else {
       // Verificar horario
       const horarioValido = await verificarHorario(seccion.id_seccion);

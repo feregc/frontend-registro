@@ -101,17 +101,26 @@ export const LandingMatricula = () => {
 
   // const fechaActual = new Date().toISOString().slice(0, 10);
   const esDiaDeMatricula = verificarMatricula(estudiante?.indice, fechaEnFormato);
+ 
   const regresar = () => {
-    history.back();
+    window.history.back();
   };
-
   return (
     <>
+   
       {esDiaDeMatricula ? (
+        
         <div className="d-flex justify-content-center align-items-center flex-column">
+          
           <br />
           <br />
+          <div className="col-10">
+              <button className="btn btn-primary my-4 mb-5" onClick={regresar}>
+                Atrás
+              </button>
+            </div>
           <br />
+          
           <br />
           <h3>Bienvenido al apartado de matrícula</h3>
           <br />
