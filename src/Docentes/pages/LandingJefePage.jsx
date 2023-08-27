@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { LandingDocente } from "../components/LandingDocente";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { convertirSoloAFecha } from "../../Estudiantes/helpers/convertirFecha";
 
 export const LandingJefePage = () => {
   const navigate = useNavigate();
@@ -26,6 +28,45 @@ export const LandingJefePage = () => {
   const onEstadisticas = () => {
     navigate("/docente/estadisticas");
   };
+
+  const [procesoCarga, setProcesoCarga] = useState([]);
+
+  useEffect(() => {
+    const fetchProcesoCarga = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/procesoCarga_disponibilidad");
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos");
+        }
+        const jsonData = await response.json();
+        setProcesoCarga(jsonData);
+        // console.log(jsonData);
+      } catch (error) {
+        console.error("Error al obtener los datos:", error);
+      }
+    };
+
+    fetchProcesoCarga();
+  }, []);
+
+  const fechaActuall = new Date();
+  const anio = fechaActuall.getFullYear();
+  const mes = String(fechaActuall.getMonth() + 1).padStart(2, '0');
+  const dia = String(fechaActuall.getDate()).padStart(2, '0');
+  const fechaEnFormato = `${anio}-${mes}-${dia}`;
+  // console.log(fechaEnFormato);
+
+
+  function verificarFechaEntreRango(fechaAVerificar, fechaInicial, fechaFinal) {
+    const fechaVerificar = new Date(fechaAVerificar);
+    const fechaInicio = new Date(fechaInicial);
+    const fechaFin = new Date(fechaFinal);
+
+    return fechaVerificar >= fechaInicio && fechaVerificar <= fechaFin;
+  }
+  // console.log(fechaEnFormato, convertirSoloAFecha(procesoCarga[0]?.fechainicioI), convertirSoloAFecha(procesoCarga[0]?.fechainicioII))
+  const estaEnRango = verificarFechaEntreRango(fechaEnFormato, convertirSoloAFecha(procesoCarga[0]?.fechainicioI), convertirSoloAFecha(procesoCarga[0]?.fechainicioII))
+  // console.log(estaEnRango);
 
   return (
     <>
@@ -67,6 +108,7 @@ export const LandingJefePage = () => {
               <button
                 className="btn btn-w btn-h btn-primary mt-3 form-control"
                 onClick={onCrearSeccion}
+                disabled={!estaEnRango} // El botón estará deshabilitado cuando estaHabilitado sea false
               >
                 Registrar Sección
               </button>

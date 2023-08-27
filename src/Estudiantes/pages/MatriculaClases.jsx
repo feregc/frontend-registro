@@ -54,7 +54,8 @@ export const MatriculaClases = () => {
 
         if (!matriculaResponse.tiene_matricula) {
           const responseSecciones = await fetch(
-            `http://localhost:8081/secciones-por-clase?id_clase=${claseId}`
+            `http://localhost:8081/secciones-por-clase?id_clase=${claseId}`//AQUI DEBERIA IR LO DE EL ANIO Y EL PERIODO QUE ES OBTENIDO DE OTRA PETICION
+          //QUE SE HACE PARA TRAER EL PROCESO DE MATRICULA QUE ESTA ACTIVO
           );
           const seccionesData = await responseSecciones.json();
           setSecciones(seccionesData);
