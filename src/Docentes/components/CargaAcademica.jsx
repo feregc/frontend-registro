@@ -77,7 +77,7 @@ export const CargaAcademica = () => {
     console.log(carreraId, centroId, opcionActual, opcionSeleccionada);
     try {
       const response = await fetch(
-        `http://localhost:8081/consulta-secciones/${carreraId}/${centroId}/${opcionActual}/${opcionSeleccionada}`
+        `http://localhost:8081/consulta-secciones/${carreraId}/${opcionActual}/${opcionSeleccionada}`
       );
       const jsonData = await response.json();
       setVerCarga(jsonData);
@@ -94,7 +94,7 @@ export const CargaAcademica = () => {
     // Configurar la tabla con los datos
     const tableData = verCarga.map((carga) => [
       carga.id_seccion,
-      carga.codigo_clase,
+      carga.codigo_asignatura,
       carga.nombre_clase,
       carga.num_empleado,
       carga.nombre_empleado,
@@ -149,7 +149,7 @@ export const CargaAcademica = () => {
   const generarExcel = () => {
     const rows = verCarga.map((carga) => ({
       seccion: carga.id_seccion,
-      codigoClase: carga.codigo_clase,
+      codigoClase: carga.codigo_asignatura,
       nombreClase: carga.nombre_clase,
       numEmpleado: carga.num_empleado,
       empleado: carga.nombre_empleado,
@@ -259,7 +259,7 @@ export const CargaAcademica = () => {
                   {verCarga.map((seccion) => (
                     <tr key={seccion.id_seccion}>
                       <td>{seccion.id_seccion} </td>
-                      <td>{seccion.codigo_clase} </td>
+                      <td>{seccion.codigo_asignatura} </td>
                       <td>{seccion.nombre_clase} </td>
                       <td>{seccion.num_empleado} </td>
                       <td>{seccion.nombre_empleado} </td>
