@@ -14,6 +14,7 @@ export const LandingDocente = () => {
         );
         const jsonData = await response.json();
         setClases(jsonData);
+        console.log(jsonData)
       } catch (error) {
         console.log("Error:", error);
       }
@@ -34,7 +35,7 @@ export const LandingDocente = () => {
             {clases &&
               clases.length > 0 &&
               clases.map((dato, index) => (
-                <Link to={`../detalle-de-clase/${dato.id_clase}`} key={index}>
+                <Link to={`../detalle-de-clase/${dato.id_seccion}`} key={index}>
                   <div className="row">
                     <div className="col-6">
                       <button className="btn btn-w btn-h mx-2 btn-success">
