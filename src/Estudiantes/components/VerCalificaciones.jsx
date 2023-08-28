@@ -12,7 +12,7 @@ export const VerCalificaciones = () => {
     const obtenerDatosPreliminares = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8081/proceso-anio-periodo`
+          `http://localhost:8081/proceso-anio-periodo-come`
         );
         const jsonData = await response.json();
         setDatosPreliminares(jsonData);
@@ -32,7 +32,8 @@ export const VerCalificaciones = () => {
             `http://localhost:8081/consulta-clases/${num_cuenta}/${fechaFormateada}/${datosPreliminares[0].periodo}`
           );
           const jsonData = await response.json();
-
+console.log(datosPreliminares[0].periodo)
+console.log(fechaFormateada)
           setClases(jsonData);
         } catch (error) {
           console.log("Error:", error);
@@ -84,6 +85,8 @@ export const VerCalificaciones = () => {
                 <tr>
                   <th scope="col">Asignatura</th>
                   <th scope="col">Sección</th>
+                  <th scope="col">Aula</th>
+                  <th scope="col">Horario</th>
                   <th scope="col">Nota</th>
                   <th scope="col">Evaluar Docente</th>
                 </tr>
@@ -95,6 +98,8 @@ export const VerCalificaciones = () => {
                     <tr key={index}>
                       <th scope="row">{dato.nombre_clase}</th>
                       <th scope="row">{dato.id_seccion}</th>
+                      <th scope="row">{dato.nombre_edificio}-{dato.num_aula}</th>
+                      <th scope="row">{dato.horainicio}-{dato.horafin}</th>
                       {dato.evaluado === 1 ? (
                         <th scope="row">{dato.nota}</th>
                       ) : (

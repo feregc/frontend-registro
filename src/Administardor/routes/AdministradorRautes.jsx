@@ -8,6 +8,8 @@ import {RolDocentePage} from '../pages/RolDocentePage'
 import { ProcesoMatriclaPage } from '../pages/ProcesoMatriclaPage'
 import { ProcesoSubidaNotasPage } from '../pages/ProcesoSubidaNotasPage'
 import { ProcesoCargaAcademicaPage } from '../pages/ProcesoCargaAcademicaPage'
+import { EstudiantesComponentMatriculados } from '../pages/listaEstudiantes'
+import { EstudiantesComponent } from '../pages/lidtsE'
 
 export const AdministradorRautes = () => {
   return (
@@ -22,6 +24,8 @@ export const AdministradorRautes = () => {
         <Route path='/procesoMatricula' element={<ProcesoMatriclaPage />} />
         <Route path='/procesoSubidaNotas' element={<ProcesoSubidaNotasPage />} />
         <Route path='/procesoCarga' element={<ProcesoCargaAcademicaPage />} />
+        <Route path='/EstudiantesComponentMatriculados' element={<EstudiantesComponentMatriculados />} />
+        <Route path='/Estudiantes' element={<EstudiantesComponent />} />
       </Routes>
     </>
   )
