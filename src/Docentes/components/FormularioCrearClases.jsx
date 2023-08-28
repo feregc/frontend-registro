@@ -24,6 +24,7 @@ const FormularioCrearClases = () => {
   const [aulas, setAulas] = useState([]);
   const [docenteLibre, setDocenteLibre] = useState(false);
   const [anioPeriodo, setAnioPeriodo] = useState([]);
+  const [error,setError] = useState(false);
 
   const { edificios, clases, docentes } = useFetchs(
     docente[0]?.carrera,
@@ -169,9 +170,9 @@ const FormularioCrearClases = () => {
   const validarDiasUV = () => {
     const diasSeleccionados = checkboxValues.length;
     const temp = buscarClasePorId(clases, selectedClase);
-    const unidadesValorativas = temp?.unidades_valo;
     if (diasSeleccionados === 1) {
       if (!validarHorario()) {
+        setError(true)
         alert(
           `La clase seleccionada debe ser impartida ${temp?.unidades_valo} horas a la semana `
         );
@@ -179,6 +180,7 @@ const FormularioCrearClases = () => {
     } else {
       if (diasSeleccionados > 1) {
         if (!validarUV()) {
+          setError(true)
           alert(
             `La clase seleccionada debe ser impartida ${temp?.unidades_valo} horas a la semana`
           );
@@ -256,7 +258,7 @@ const FormularioCrearClases = () => {
       unidades_valo: unidadesValorativas,
     };
 
-    console.log(formData);
+    // console.log(formData);
 
     if (validarDatos(formData)) {
       if (checkboxValues.length == 1) {
@@ -264,36 +266,37 @@ const FormularioCrearClases = () => {
           if(unidadesValorativas <= unidadesDocente.unidades_valo){
             const UV = clases.find((clase) => clase.id_clase === selectedClase);
             if (validarHorasUnidades(formData.horainicio, formData.horafin, 3)) {
-              try {
-                fetch("http://localhost:8081/seccion-insertar", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify(formData),
-                })
-                  .then((response) => response.json())
-                  .then((data) => {
-                    alert("Sección creada con éxito");
-                    navigate('/docente/home');
-                    setHoraInicial("00");
-                    setMinutosInicial("00");
-                    setHoraFinal("00");
-                    setMinutosFinal("00");
-                    setSelectedClase("");
-                    setselectedEdificio("");
-                    setSelectedAula("");
-                    setCuposDisponibles("");
-                    setSelectedDocente("");
-                    setCheckboxValues([]);
-
-      
+              if(error){
+                try {
+                  fetch("http://localhost:8081/seccion-insertar", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(formData),
                   })
-                  .catch((error) => {
-                    console.error("Error al crear la sección:", error);
-                  });
-              } catch (e) {
-                console.log(e);
+                    .then((response) => response.json())
+                    .then((data) => {
+                      alert("Sección creada con éxito");
+                      navigate('/docente/home');
+                      setHoraInicial("00");
+                      setMinutosInicial("00");
+                      setHoraFinal("00");
+                      setMinutosFinal("00");
+                      setSelectedClase("");
+                      setselectedEdificio("");
+                      setSelectedAula("");
+                      setCuposDisponibles("");
+                      setSelectedDocente("");
+                      setCheckboxValues([]);
+                      setError(false)
+                    })
+                    .catch((error) => {
+                      console.error("Error al crear la sección:", error);
+                    });
+                } catch (e) {
+                  console.log(e);
+                }
               }
             } else {
               alert(
@@ -311,6 +314,7 @@ const FormularioCrearClases = () => {
       if (checkboxValues.length > 1) {
         if (!docenteLibre.hasData) {
           if(unidadesValorativas <= unidadesDocente.unidades_valo){
+           if(error){
             try {
               fetch("http://localhost:8081/seccion-insertar", {
                 method: "POST",
@@ -340,6 +344,7 @@ const FormularioCrearClases = () => {
             } catch (e) {
               console.log(e);
             }
+           }
           }else{
             alert('El docente no tiene unidades valorativas disponibles')
           }
