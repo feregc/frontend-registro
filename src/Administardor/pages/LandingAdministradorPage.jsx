@@ -104,17 +104,17 @@ export const LandingAdministradorPage = () => {
                 className="btn btn-w btn-h btn-primary m-1"
                 onClick={onNavProcesoCarga}
               >
-                Crear proceso carga academica
+                Crear Proceso Carga Académica
               </button>
             </div>
           </div>
         </div>
         <div className="row my-4">
           <div className="col d-flex justify-content-center">
-            <div><button className="btn btn-w btn-h btn-primary m 1"onClick={onNavEstudiantes}>Listado de estudiantes</button></div>
+            <div><button className="btn btn-w btn-h btn-primary m 1"onClick={onNavEstudiantes}>Listado de Estudiantes</button></div>
           </div>
           <div className="col d-flex justify-content-center">
-            <div><button className="btn btn-w btn-h btn-primary m 1" onClick={onNavMatriculados}>Listado de estudiantes matriculados</button></div>
+            <div><button className="btn btn-w btn-h btn-primary m 1" onClick={onNavMatriculados}>Listado de Estudiantes Matriculados</button></div>
           </div>
         </div>
       </div>

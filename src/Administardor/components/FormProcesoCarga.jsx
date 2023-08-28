@@ -112,7 +112,7 @@ export const FormProcesoCarga = ({ onCrear }) => {
           <div className="row my-2">
             <div className="col">
               
-              <h3 className="my-2">Formulario para proceso de carga academica</h3>
+              <h3 className="my-2">Formulario para Proceso de Carga Académica</h3>
             </div>
             {/* fila1 */}
             <div className="row my-2">
@@ -141,7 +141,7 @@ export const FormProcesoCarga = ({ onCrear }) => {
             {/* fila2 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="periodo">Seleccione el periodo:</label>
+                <label htmlFor="periodo">Seleccione el Período:</label>
               </div>
               <div className="col-9">
                 <select
@@ -167,7 +167,7 @@ export const FormProcesoCarga = ({ onCrear }) => {
             
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de inicio:</label>
+                <label htmlFor="fecha1">Fecha de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -191,7 +191,7 @@ export const FormProcesoCarga = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de fin:</label>
+                <label htmlFor="fecha1">Fecha de Fin:</label>
               </div>
               <div className="col-9">
                 <DatePicker
