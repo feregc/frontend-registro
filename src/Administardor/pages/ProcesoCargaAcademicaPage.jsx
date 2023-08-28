@@ -7,7 +7,6 @@ export const ProcesoCargaAcademicaPage = () => {
   const [data, setData] = useState([]);
   const [validador, setValidador] = useState("");
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -25,26 +24,28 @@ export const ProcesoCargaAcademicaPage = () => {
     setValidador(msg);
   };
 
-
   return (
     <>
       <div className="container">
         <div className="row">
           <div className="col-8">
             <FormProcesoCarga onCrear={handleCrearProceso} />
-            
           </div>
-          <div className="col-4 my-3">
+          <div className="col-4 my-2">
             <br />
-            <br /><h3 >Cargas Anteriores</h3>
-  
-            {data.slice(-5).reverse().map((dat) => (
-              <CardProcesoCarga
-                key={dat.id}
-                procesos={dat}
-              // onBorrar={handleBorrarProceso}
-              />
-            ))}
+            <br /> <br />
+            <br />
+            <h3>Procesos Anteriores</h3>
+            {data
+              .slice(-5)
+              .reverse()
+              .map((dat) => (
+                <CardProcesoCarga
+                  key={dat.id}
+                  procesos={dat}
+                  // onBorrar={handleBorrarProceso}
+                />
+              ))}
           </div>
         </div>
       </div>

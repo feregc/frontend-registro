@@ -57,8 +57,8 @@ export const ProcesoSubidaNotasPage = () => {
             <br />
             <br />
             <br />
-            <h3 className="mt-5">Subida de notas anteriores</h3>
-            <div className="row mt-5 ">
+            <h3 className="mt-5">Procesos Anteriores</h3>
+            <div className="row my-5 ">
               {data
                 .slice(-3)
                 .reverse()

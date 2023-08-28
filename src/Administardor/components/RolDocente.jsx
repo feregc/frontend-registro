@@ -304,7 +304,7 @@ const ListaDocentes = ({ carrera, centro }) => {
                       <h3 className="d-flex justify-content-center my-3">
                         Seleccione un rol para un docente
                       </h3>
-                      <table className="table table-striped table-hover">
+                      <table className="table table-striped table-bordered">
                         <thead>
                           <tr>
                             <th scope="col" className="">

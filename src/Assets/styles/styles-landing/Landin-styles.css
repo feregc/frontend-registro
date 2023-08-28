@@ -51,3 +51,8 @@
   height: 20px;
   animation: loading 1s infinite linear;
 }
+
+.img-sized{
+  width: 10rem;
+  height: 10rem;
+}

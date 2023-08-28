@@ -118,7 +118,7 @@ const currentAlumno = alumno.slice(indexOfFirstItem, indexOfLastItem);
             <div className="d-flex my-3 justify-content-center">
               <table
                 id="cargaAcademicaId"
-                className="table table-striped table-hover table-bordered"
+                className="table table-striped table-bordered table-bordered"
               >
                 <thead>
                 <tr>

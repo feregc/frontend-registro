@@ -38,7 +38,7 @@ export const SolicitudEstudiantePage = () => {
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row ">
           <div className="d-flex justify-content-center align-items-center">
@@ -48,42 +48,44 @@ export const SolicitudEstudiantePage = () => {
 
           <div className="col my-4">
             <button
-              className="btn btn-primary btn-w"
+              className="btn btn-primary btn-w btn-h"
               onClick={SolicitudCarmbioCarrera}
             >
               Solicitar Cambio de carrera
             </button>
           </div>
 
-         <div className="col my-4">
-              <button
-                className="btn btn-primary btn-w"
-                onClick={SolicitudCancelacionExcepcional}
-              >
-                Solicitar cancelación excepcional
-              </button>
-            </div> 
+          <div className="col my-4">
+            <button
+              className="btn btn-primary btn-w btn-h"
+              onClick={SolicitudCancelacionExcepcional}
+            >
+              Solicitar Cancelación Excepcional
+            </button>
+          </div>
 
           <div className="col my-4">
             <button
-              className="btn btn-primary btn-w"
+              className="btn btn-primary btn-w btn-h"
               onClick={SolicitudCambioCentro}
             >
-              Solicitar cambio de centro
+              Solicitar Cambio de Centro
             </button>
           </div>
           <div className="col my-4">
             <button
-              className="btn btn-primary btn-w"
+              className="btn btn-primary btn-w btn-h"
               onClick={SolicitudPagoReposicion}
             >
-              Solicitar pago de reposición
+              Solicitar Pago de Reposición
             </button>
           </div>
           <div className="col my-4">
-            <button className="btn btn-primary btn-w" onClick={VerSolicitudes}>
-              Ver <br />
-              solicitudes
+            <button
+              className="btn btn-primary btn-w btn-h"
+              onClick={VerSolicitudes}
+            >
+              Ver solicitudes
             </button>
           </div>
         </div>

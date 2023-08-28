@@ -28,8 +28,9 @@ export const ProcesoMatriclaPage = () => {
             <FormProcesoMatricula onCrear={handleCrearProceso} />
           </div>
           <div className="col-4 my-3">
+            <br /><br />
             <br />
-            <br /><h3 >Matrículas Anteriores</h3>
+            <h3 className="mt-3">Procesos Anteriores</h3>
   
             {data.slice(-5).reverse().map((dat) => (
               <CardProcMatricula

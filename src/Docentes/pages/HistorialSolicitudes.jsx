@@ -80,7 +80,7 @@ export const HistorialSolicitudes = ({ numEmpleado }) => {
             <div className="d-flex justify-content-center my-3">
               <h3>Historial de Solicitudes</h3>
             </div>
-            <table className="table table-striped table-hover">
+            <table className="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th scope="col">Tipo de solicitud</th>

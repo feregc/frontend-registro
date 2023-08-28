@@ -3,12 +3,12 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, differenceInSeconds } from "date-fns";
 import "../../Assets/styles/styles-admin/Admin-aux.css";
-import es from 'date-fns/locale/es'
+import es from "date-fns/locale/es";
 import { validacionProce } from "../helpers/validacionProce";
 import { useNavigate } from "react-router-dom";
 import { validacionProceCarga } from "../helpers/validacionProcesoCarga";
 
-registerLocale('es', es)
+registerLocale("es", es);
 
 export const FormProcesoCarga = ({ onCrear }) => {
   const [selectedYear, setSelectedYear] = useState(null);
@@ -38,7 +38,7 @@ export const FormProcesoCarga = ({ onCrear }) => {
   const handlePeriodoChange = (e) => {
     setSelectedPeriodo(e.target.value);
   };
-  
+
   const handleFechaInicio1Change = (date) => {
     const currentDate = new Date();
     if (date >= currentDate) {
@@ -52,8 +52,6 @@ export const FormProcesoCarga = ({ onCrear }) => {
     }
   };
 
-  
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -65,7 +63,10 @@ export const FormProcesoCarga = ({ onCrear }) => {
         anio: selectedYear.toISOString().slice(0, 19).replace("T", " "),
         periodo: selectedPeriodo,
         fechainicioI: fechaInicio1.toISOString().slice(0, 19).replace("T", " "),
-        fechainicioII: fechaInicio2.toISOString().slice(0, 19).replace("T", " "),
+        fechainicioII: fechaInicio2
+          .toISOString()
+          .slice(0, 19)
+          .replace("T", " "),
       };
       console.log(formData);
       // Realizar la solicitud HTTP para enviar los datos al endpoint
@@ -89,10 +90,8 @@ export const FormProcesoCarga = ({ onCrear }) => {
           onCrear("Error al crear");
         });
     } else {
-      setErrors(err)
+      setErrors(err);
     }
-
-
   };
 
   const regresar = () => {
@@ -106,13 +105,12 @@ export const FormProcesoCarga = ({ onCrear }) => {
           <div className="col"> */}
       <form onSubmit={handleSubmit}>
         <div className="container">
-        <button className="btn btn-success my-4" onClick={regresar}>
-          Atrás
-        </button>
+          <button className="btn btn-success my-4" onClick={regresar}>
+            Atrás
+          </button>
           <div className="row my-2">
             <div className="col">
-              
-              <h3 className="my-2">Formulario para Proceso de Carga Académica</h3>
+              <h3 className="my-2">Proceso de Carga Académica</h3>
             </div>
             {/* fila1 */}
             <div className="row my-2">
@@ -131,12 +129,14 @@ export const FormProcesoCarga = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.anio && (
-                <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
-                  {errors.anio}
-                </div>
-              )}
+                  <div
+                    className="alert col-6 alert-danger py-1 my-2 px-5"
+                    role="alert"
+                  >
+                    {errors.anio}
+                  </div>
+                )}
               </div>
-              
             </div>
             {/* fila2 */}
             <div className="row my-2">
@@ -158,13 +158,16 @@ export const FormProcesoCarga = ({ onCrear }) => {
                   <option value=" II-SEMESTRE">II-SEMESTRE</option>
                 </select>
                 {errors.periodo && (
-                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
+                  <div
+                    className="alert col-6 alert-danger py-1 my-2 px-5"
+                    role="alert"
+                  >
                     {errors.periodo}
                   </div>
                 )}
               </div>
             </div>
-            
+
             <div className="row my-2">
               <div className="col-3">
                 <label htmlFor="fecha1">Fecha de Inicio:</label>
@@ -181,17 +184,20 @@ export const FormProcesoCarga = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioI && (
-                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
+                  <div
+                    className="alert col-6 alert-danger py-1 my-2 px-5"
+                    role="alert"
+                  >
                     {errors.fechainicioI}
                   </div>
                 )}
               </div>
             </div>
-            
+
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de Fin:</label>
+                <label htmlFor="fecha1">Fecha de Finalización:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -205,17 +211,23 @@ export const FormProcesoCarga = ({ onCrear }) => {
                   locale="es"
                 />
                 {errors.fechainicioII && (
-                  <div className="alert col-6 alert-danger py-1 my-2 px-5" role="alert">
+                  <div
+                    className="alert col-6 alert-danger py-1 my-2 px-5"
+                    role="alert"
+                  >
                     {errors.fechainicioII}
                   </div>
                 )}
               </div>
             </div>
-            
-            <div className="row d-flex justify-content-center my-2">
+
+            <div className="row d-flex justify-content-center my-5">
               <div className="col">
-                <button className="btn btn-w btn-success form-control" type="submit">
-                  Crear
+                <button
+                  className="btn btn-w btn-success form-control"
+                  type="submit"
+                >
+                  Crear Proceso
                 </button>
               </div>
             </div>

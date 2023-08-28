@@ -75,19 +75,19 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
       })
         .then((response) => {
           console.log("Creado con exito");
-          alert("Registrado con exito");
+          alert("Proceso creado con éxito.");
           //   navigate("/administrador/home");
           setSelectedYear("");
           setSelectedPeriodo("");
           setFechaInicio1("");
           setFechaInicio2("");
           console.log(response);
-          onCrear("Creado con exito");
+          onCrear("Proceso creado con éxito.");
         })
         .catch((error) => {
           console.log(error);
           console.log("Error al crear");
-          onCrear("Error al crear");
+          onCrear("Error al crear el proceso, intente nuevamente.");
         });
     } else {
       setErrors(err);
@@ -99,7 +99,6 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
 
   return (
     <>
-      <br />
       <button className="btn btn-success my-4" onClick={regresar}>
         Atrás
       </button>
@@ -109,7 +108,7 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
           <div className="row my-2">
             <div className="col">
               <br />
-              <h3>Formulario para Proceso de Ingreso de Notas</h3>
+              <h3>Proceso de Ingreso de Notas</h3>
               <br />
             </div>
             <div className="row my-2">
@@ -130,7 +129,7 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
             </div>
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="periodo">Seleccione el periodo:</label>
+                <label htmlFor="periodo">Seleccione el Período:</label>
               </div>
               <div className="col-9">
                 <select
@@ -150,7 +149,7 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
             </div>
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de inicio:</label>
+                <label htmlFor="fecha1">Fecha de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -166,7 +165,7 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
             </div>
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha2">Fecha de finalización:</label>
+                <label htmlFor="fecha2">Fecha de Finalización:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -188,7 +187,7 @@ export const ProcesoSubidaNotas = ({ onCrear }) => {
                     className="btn btn-w btn-success form-control"
                     type="submit"
                   >
-                    Crear
+                    Crear Proceso
                   </button>
                 </div>
               </div>

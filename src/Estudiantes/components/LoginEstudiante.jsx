@@ -50,7 +50,7 @@ export const LoginEstudiante = () => {
         localStorage.setItem("login", login);
         localStorage.setItem("id", usuario[0].num_cuenta);
         console.log({ login, usuario, token });
-        alert("Inicio sesión exitoso");
+        alert("Inicio de Sesión Exitoso");
 
         // Aquí se asume que `login` es una función asincrónica del otro componente
         await loginToSocketBackend(email, password); // Esperar a la función login
@@ -58,10 +58,10 @@ export const LoginEstudiante = () => {
         navigate("/estudiante/home");
       } else {
         console.log({ login, usuario });
-        alert("El usuario no existe");
+        alert("Correo o Contraseña no válido, por favor verifique los datos.");
       }
     } catch (err) {
-      console.log(err);
+      alert("Correo o Contraseña no válido, por favor verifique los datos.");
     }
   };
 
@@ -77,7 +77,7 @@ export const LoginEstudiante = () => {
           <br />
           <br />
           <br />
-          <h2>Inicio Sesión de Estudiante</h2>
+          <h2>Inicio Sesión como Estudiante</h2>
           <br />
           <form onSubmit={handleSubmit}>
             <div className="mb-3">

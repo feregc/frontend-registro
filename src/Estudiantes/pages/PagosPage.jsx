@@ -54,7 +54,7 @@ export const PagosPage = () => {
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="d-flex flex-column align-items-center justify-content-center">

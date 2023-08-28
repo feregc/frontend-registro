@@ -10,8 +10,8 @@ body {
   background-color: transparent !important;
 }
 
-h1,h2,h3,h4,h5,h6,label, li,ul{
-  color: #006494;
+h1,h2,h3,h4,h5,h6,label, li,ul,a{
+  color: #006494 !important;
 }
 
 .nav-link{
@@ -62,4 +62,11 @@ h1,h2,h3,h4,h5,h6,label, li,ul{
 .mx-7{
   margin-left: 7rem !important;
   margin-right: 7rem !important;
+}
+
+input::placeholder{
+  color: #006494 !important;
+}
+select::placeholder{
+  color: #006494 !important;
 }

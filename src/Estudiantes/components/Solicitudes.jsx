@@ -205,7 +205,7 @@ useEffect(()=>{
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="col px-5">
@@ -259,7 +259,7 @@ useEffect(()=>{
                           onChange={handleDocumentoChange}
                         />
                       </div>
-                      <div className="col-6 d-flex justify-content-center my-3">
+                      <div className="col d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
                           onClick={handleCrearSolicitud}
@@ -267,14 +267,14 @@ useEffect(()=>{
                           Crear Solicitud
                         </button>
                       </div>
-                      <div className="col-6 d-flex justify-content-center my-3">
+                      {/* <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
                           onClick={handleCancelar}
                         >
                           Cancelar
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </>
@@ -327,7 +327,7 @@ useEffect(()=>{
                           onChange={handleDocumentoChange}
                         />
                       </div>
-                      <div className="col-6 d-flex justify-content-center my-3">
+                      <div className="col d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
                           onClick={handleCrearSolicitud}
@@ -335,14 +335,14 @@ useEffect(()=>{
                           Crear Solicitud
                         </button>
                       </div>
-                      <div className="col-6 d-flex justify-content-center my-3">
+                      {/* <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
                           onClick={handleCancelar}
                         >
                           Cancelar
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </>
@@ -363,7 +363,7 @@ useEffect(()=>{
                           onChange={handleDescripcionChange}
                         />
                       </div>
-                      <div className="col-6 my-3">
+                      {/* <div className="col-6 my-3">
                         <label htmlFor="descripcion">PDF Respaldo</label>
                       </div>
                       <div className="col-6 my-3">
@@ -374,9 +374,9 @@ useEffect(()=>{
                           accept="application/pdf"
                           onChange={handleDocumentoChange}
                         />
-                      </div>
+                      </div> */}
 
-                      <div className="col-6 d-flex justify-content-center my-3">
+                      <div className="col d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
                           onClick={handleCrearSolicitud}
@@ -384,14 +384,14 @@ useEffect(()=>{
                           Crear Solicitud
                         </button>
                       </div>
-                      <div className="col-6 d-flex justify-content-center my-3">
+                      {/* <div className="col-6 d-flex justify-content-center my-3">
                         <button
                           className="btn btn-success btn-w"
                           onClick={handleCancelar}
                         >
                           Cancelar
                         </button>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </>
@@ -444,7 +444,7 @@ useEffect(()=>{
                       />
                     </div>
 
-                    <div className="col-6 d-flex justify-content-center my-3">
+                    <div className="col d-flex justify-content-center my-3">
                       <button
                         className="btn btn-success btn-w"
                         onClick={handleCrearSolicitud}
@@ -452,14 +452,14 @@ useEffect(()=>{
                         Crear Solicitud
                       </button>
                     </div>
-                    <div className="col-6 d-flex justify-content-center my-3">
+                    {/* <div className="col-6 d-flex justify-content-center my-3">
                       <button
                         className="btn btn-success btn-w"
                         onClick={handleCancelar}
                       >
                         Cancelar
                       </button>
-                    </div>
+                    </div> */}
                   </div>
                 </>
               )}

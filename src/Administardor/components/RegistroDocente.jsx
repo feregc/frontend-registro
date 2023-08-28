@@ -25,44 +25,44 @@ export const RegistroDocete = () => {
     const regexIdentidad = /^\d{4}-\d{4}-\d{5}$/;
 
     if (!formState.nombres.trim()) {
-      errors.nombres = 'El campo "Nombres" no debe ser vacío.';
+      errors.nombres = 'El campo "Nombres" no debe estar vacío.';
       isError = true;
     }
 
     if (!formState.apellidos.trim()) {
-      errors.apellidos = 'El campo "Apellidos" no debe ser vacío.';
+      errors.apellidos = 'El campo "Apellidos" no debe estar vacío.';
       isError = true;
     }
 
     if (!formState.identidad.trim()) {
-      errors.identidad = 'El campo "Identidad" no debe ser vacío.';
+      errors.identidad = 'El campo "Identidad" no debe estar vacío.';
       isError = true;
     } else if (!regexIdentidad.test(formState.identidad)) {
-      errors.identidad = "Identidad no cumple el formato";
+      errors.identidad = 'El campo "Identidad" no cumple el formato.';
       isError = true;
     }
 
     if (!formState.email.trim()) {
-      errors.email = 'El campo "Correo Electrónico" no debe ser vacío.';
+      errors.email = 'El campo "Correo Electrónico" no debe estar vacío.';
       isError = true;
     } else if (!regexEmail.test(formState.email)) {
-      errors.email = "Correo no válido";
+      errors.email = "Correo Electrónico no es válido.";
       isError = true;
     }
 
     if (!formState.password.trim()) {
-      errors.password = 'El campo "Contraseña" no debe ser vacío.';
+      errors.password = 'El campo "Contraseña" no debe estar vacío.';
       isError = true;
     }
 
     if (!formState.password2.trim()) {
-      errors.password2 = 'El campo "Contraseña" no debe ser vacío.';
+      errors.password2 = 'El campo "Contraseña" no debe estar vacío.';
       isError = true;
     }
 
     if (formState.password.trim() !== formState.password2.trim()) {
-      errors.password = "Las contraseñas no coindiden";
-      errors.password2 = "Las contraseñas no coindiden";
+      errors.password = "Las contraseñas no coinciden.";
+      errors.password2 = "Las contraseñas no coinciden.";
       isError = true;
     }
 
@@ -113,7 +113,7 @@ export const RegistroDocete = () => {
         <div className="rowd-flex justify-content-center align-items-center">
           <div className="form">
             <br />
-            <h2>Formulario de Registro de Docentes</h2>
+            <h2>Registro de Docentes</h2>
             <br />
             <form onSubmit={handleSubmit}>
               <div className="container">

@@ -25,7 +25,7 @@ export const ClasesMatriculada = () => {
     const anio = fecha.getFullYear();
     const mes = String(fecha.getMonth() + 1).padStart(2, "0");
     const dia = String(fecha.getDate()).padStart(2, "0");
-    const hora = String(fecha.getHours()).padStart(2, "0"); 
+    const hora = String(fecha.getHours()).padStart(2, "0");
     const minutos = String(fecha.getMinutes()).padStart(2, "0");
     const segundos = String(fecha.getSeconds()).padStart(2, "0");
     return `${anio}-${mes}-${dia} ${hora}:${minutos}:${segundos}`;
@@ -55,13 +55,13 @@ export const ClasesMatriculada = () => {
   };
   return (
     <>
-      {/* Boton para regresar atras */}
+      {/* Boton para regresar Atrás */}
       <div className="container">
         <div className="row">
           <div className="col">
             <div className="d-flex justify-content-start my-4">
               <button className="btn btn-success" onClick={regresar}>
-                Atras
+                Atrás
               </button>
             </div>
             <div className="d-flex justify-content-center my-3">
@@ -71,29 +71,29 @@ export const ClasesMatriculada = () => {
         </div>
         <div className="row">
           <div className="col">
-            <table className="table table-striped table-hover">
+            <table className="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">Asignatura</th>
-                  <th scope="col">Sección</th>
-                <th scope="col">Período</th>
-                  <th scope="col">Perfil de docente</th>
+                  <th scope="col" className="text-center">Asignatura</th>
+                  <th scope="col" className="text-center">Sección</th>
+                  <th scope="col" className="text-center">Período</th>
+                  <th scope="col" className="text-center">Perfil de docente</th>
                 </tr>
               </thead>
               <tbody>
                 {clases?.map((dato, index) => (
                   <tr key={index}>
-                    <th scope="row">{dato.nombre}</th>
-                    <th scope="row">{dato.id_seccion}</th>
-                    <th scope="row">{dato.periodo}</th>
-                    <th scope="row">
+                    <th scope="row" className="text-center">{dato.nombre}</th>
+                    <th scope="row" className="text-center">{dato.id_seccion}</th>
+                    <th scope="row" className="text-center">{dato.periodo}</th>
+                    <th scope="row" className="text-center">
                       {/* <div className="d-flex justify-content-center"> */}
-                        <button
-                          className="btn btn-success btn-w"
-                          onClick={() => VerPerfilDeDocente(dato.num_empleado)}
-                        >
-                          Ver perfil del docente
-                        </button>
+                      <button
+                        className="btn btn-success btn-w"
+                        onClick={() => VerPerfilDeDocente(dato.num_empleado)}
+                      >
+                        Ver Perfil del Docente
+                      </button>
                       {/* </div> */}
                     </th>
                   </tr>

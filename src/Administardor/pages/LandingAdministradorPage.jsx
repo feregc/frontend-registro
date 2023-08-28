@@ -29,7 +29,7 @@ export const LandingAdministradorPage = () => {
   const onNavMatriculados = () => {
     navigate("/administrador/EstudiantesComponentMatriculados");
   };
-  const onNavEstudiantes= () => {
+  const onNavEstudiantes = () => {
     navigate("/administrador/Estudiantes");
   };
   return (
@@ -38,8 +38,8 @@ export const LandingAdministradorPage = () => {
         <br />
         <br />
         <br />
-        <br />
-        <div className="row ">
+
+        <div className="row mt-5">
           <div className="col d-flex justify-content-center my-5">
             <h2>Bienvenido Administrador</h2>
           </div>
@@ -51,7 +51,7 @@ export const LandingAdministradorPage = () => {
                 className="btn btn-w btn-h btn-primary m-1"
                 onClick={onNavRegistroDocente}
               >
-                Registra Docentes
+                Registro de Docentes
               </button>
             </div>
           </div>
@@ -111,10 +111,24 @@ export const LandingAdministradorPage = () => {
         </div>
         <div className="row my-4">
           <div className="col d-flex justify-content-center">
-            <div><button className="btn btn-w btn-h btn-primary m 1"onClick={onNavEstudiantes}>Listado de Estudiantes</button></div>
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m 1"
+                onClick={onNavEstudiantes}
+              >
+                Listado de Estudiantes
+              </button>
+            </div>
           </div>
           <div className="col d-flex justify-content-center">
-            <div><button className="btn btn-w btn-h btn-primary m 1" onClick={onNavMatriculados}>Listado de Estudiantes Matriculados</button></div>
+            <div>
+              <button
+                className="btn btn-w btn-h btn-primary m 1"
+                onClick={onNavMatriculados}
+              >
+                Listado de Estudiantes Matriculados
+              </button>
+            </div>
           </div>
         </div>
       </div>

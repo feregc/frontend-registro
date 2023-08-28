@@ -67,7 +67,7 @@ export const EstudiantesComponentMatriculados = () => {
           <div className="col">
             <div className="row my-3">
               <h2 className="text-center">
-                Lista de Estudiantes Matriculados Actualmente
+                Lista de Estudiantes <br /> Matriculados en el Período Actual
               </h2>
             </div>
 
@@ -94,7 +94,7 @@ export const EstudiantesComponentMatriculados = () => {
 
             <div className="row ">
               <div className="col mt-3">
-                <table className="table table-striped">
+                <table className="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th className="text-center" scope="col">
@@ -132,7 +132,52 @@ export const EstudiantesComponentMatriculados = () => {
                     ))}
                   </tbody>
                 </table>
-                <div className="d-flex justify-content-center">
+
+                <nav>
+                  <ul className="pagination justify-content-center">
+                    <li
+                      className={`page-item ${
+                        paginaActual === 1 ? "disabled" : ""
+                      }`}
+                      onClick={() => cambiarPagina(paginaActual - 1)}
+                      disabled={paginaActual === 1}
+                    >
+                      <button className="page-link">Anterior</button>
+                    </li>
+                    {Array.from(
+                      { length: totalPaginas },
+                      (_, index) => index + 1
+                    ).map((pagina) => (
+                      <li
+                        key={pagina}
+                        className={`page-item ${
+                          pagina === paginaActual ? "active" : ""
+                        }`}
+                      >
+                        <button
+                          className="page-link "
+                          onClick={() => cambiarPagina(pagina)}
+                        >
+                          {pagina}
+                        </button>
+                      </li>
+                    ))}
+                    <li
+                      className={`page-item ${
+                        paginaActual ===
+                        Math.ceil(totalPaginas.length / elementosPorPagina)
+                          ? "disabled"
+                          : ""
+                      }`}
+                      onClick={() => cambiarPagina(paginaActual + 1)}
+                      disabled={paginaActual === totalPaginas}
+                    >
+                      <button className="page-link ">Siguiente</button>
+                    </li>
+                  </ul>
+                </nav>
+
+                {/* <div className="d-flex justify-content-center">
                   <div className="btn-group w-25">
                     <button
                       className="btn btn-primary"
@@ -149,7 +194,7 @@ export const EstudiantesComponentMatriculados = () => {
                       Siguiente
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

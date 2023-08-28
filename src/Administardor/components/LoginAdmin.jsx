@@ -26,14 +26,14 @@ export const LoginAdmin = () => {
           localStorage.setItem("token", token);
           localStorage.setItem("login", login);
           console.log({ login, usuario, token });
-          alert("Inicio sesion exitoso");
+          alert("Inicio de Sesión Exitoso");
           navigate("/administrador/home");
         } else {
           console.log({ login, usuario });
-          alert("El usuario no existe");
+          alert("Correo o Contraseña no válido, por favor verifique los datos.");
         }
       })
-      .catch((err) => console.log(err));
+      .catch(() => alert("Correo o Contraseña no válido, por favor verifique los datos."));
   };
 
   const handleInput = (event) => {
@@ -48,7 +48,7 @@ export const LoginAdmin = () => {
           <br />
           <br />
           <br />
-          <h2>Inicio de Sesión de Administrador</h2>
+          <h2>Inicio de Sesión como Administrador</h2>
           <br />
           <form onSubmit={handleSubmit}>
             <div className="mb-3">

@@ -97,7 +97,7 @@ export const EstudiantesComponent = () => {
           </div>
         </div>
         <div className="col">
-          <table className="table table-striped my-3">
+          <table className="table table-striped table-bordered my-3">
             <thead>
               <tr>
                 <th scope="col" className="text-center">
@@ -139,10 +139,50 @@ export const EstudiantesComponent = () => {
               ))}
             </tbody>
           </table>
-          <div className="d-flex justify-content-center">
+          <nav>
+            <ul className="pagination justify-content-center">
+              <li
+                className={`page-item ${paginaActual === 1 ? "disabled" : ""}`}
+                onClick={() => cambiarPagina(paginaActual - 1)}
+                disabled={paginaActual === 1}
+              >
+                <button className="page-link">Anterior</button>
+              </li>
+              {Array.from(
+                { length: totalPaginas },
+                (_, index) => index + 1
+              ).map((pagina) => (
+                <li
+                  key={pagina}
+                  className={`page-item ${
+                    pagina === paginaActual ? "active" : ""
+                  }`}
+                >
+                  <button
+                    className="page-link"
+                    onClick={() => cambiarPagina(pagina)}
+                  >
+                    {pagina}
+                  </button>
+                </li>
+              ))}
+              <li
+                className={`page-item ${
+                  paginaActual === Math.ceil(totalPaginas.length / elementosPorPagina)
+                    ? "disabled"
+                    : ""
+                }`}
+                onClick={() => cambiarPagina(paginaActual + 1)}
+                disabled={paginaActual === totalPaginas}
+              >
+                <button className="page-link">Siguiente</button>
+              </li>
+            </ul>
+          </nav>
+          {/* <div className="d-flex justify-content-center">
             <div className="btn-group w-25 ">
               <button
-                className="btn btn-primary"
+                className={`btn btn-primary ${paginaActual === 1 ? "disabled" : ""}`}
                 onClick={() => cambiarPagina(paginaActual - 1)}
                 disabled={paginaActual === 1}
               >
@@ -156,7 +196,7 @@ export const EstudiantesComponent = () => {
                 Siguiente
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

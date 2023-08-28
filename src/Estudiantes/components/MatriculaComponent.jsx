@@ -193,7 +193,7 @@ const MatriculaComponent = () => {
     <>
       <div className="container">
         <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="col">
@@ -202,7 +202,7 @@ const MatriculaComponent = () => {
             </div>
             <div className="row ">
               <div className="col-4">
-                <table className="table table-hover">
+                <table className="table table-bordered">
                   <thead>
                     <tr>
                       <th scope="col">Departamento</th>
@@ -216,7 +216,7 @@ const MatriculaComponent = () => {
                 </table>
               </div>
               <div className="col-4">
-                <table className="table table-hover">
+                <table className="table table-bordered">
                   <thead>
                     <tr>
                       <th scope="col">Asignatura</th>
@@ -232,7 +232,7 @@ const MatriculaComponent = () => {
                 </table>
               </div>
               <div className="col-4">
-                <table className="table table-hover">
+                <table className="table table-bordered">
                   <thead>
                     <tr>
                       <th scope="col">Sección</th>

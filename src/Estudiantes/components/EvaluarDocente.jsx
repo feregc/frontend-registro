@@ -11,7 +11,6 @@ export const EvaluarDocente = () => {
 
   const { data } = location.state;
 
-
   const handleOpciones = (index, value) => {
     setRespuestas((prevRespuestas) => {
       const updatedRespuestas = [...prevRespuestas];
@@ -71,7 +70,10 @@ export const EvaluarDocente = () => {
         const valor = data[clave];
 
         if (!opcionesValidas.includes(valor)) {
-          console.log(!opcionesValidas.includes(valor), 'Las opciones estan bien')
+          console.log(
+            !opcionesValidas.includes(valor),
+            "Las opciones estan bien"
+          );
           return false;
         }
       }
@@ -79,8 +81,11 @@ export const EvaluarDocente = () => {
 
     const comentarioIIIIII = data["comentarioIIIIII"];
 
-    if (typeof comentarioIIIIII !== "string" || comentarioIIIIII.trim() === "") {
-      console.log('No es un string');
+    if (
+      typeof comentarioIIIIII !== "string" ||
+      comentarioIIIIII.trim() === ""
+    ) {
+      console.log("No es un string");
       return false;
     }
 
@@ -102,7 +107,6 @@ export const EvaluarDocente = () => {
 
     // validarFormulario(respuestaData)
     if (validarFormulario(respuestaData)) {
-
       fetch("http://localhost:8081/comentarios-insertar", {
         method: "POST",
         headers: {
@@ -127,29 +131,34 @@ export const EvaluarDocente = () => {
     }
   };
 
-
   const regresar = () => {
-    navigate("../ver-calificaciones")
-  }
+    navigate("../ver-calificaciones");
+  };
 
   return (
     <>
       <div className="container">
+        <button className="btn btn-success mt-4" onClick={regresar}>
+          Atrás
+        </button>
         <div className="row">
           <div className="col">
             <div className="row my-4">
               <br />
-              <button className="btn btn-success btn-w"
-                onClick={regresar}>Atras</button>
+
               <div className="d-flex justify-content-center">
-                <h3>Calificar Docentes</h3>
+                <h3>Calificar Docente</h3>
               </div>
             </div>
-            <table className="table table-striped table-hover">
+            <table className="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">Preguntas</th>
-                  <th scope="col">Opción</th>
+                  <th scope="col" className="text-center">
+                    Preguntas
+                  </th>
+                  <th scope="col" className="text-center">
+                    Opción
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -182,13 +191,19 @@ export const EvaluarDocente = () => {
                 </p>
               </div>
               <textarea
-                className="w-100"
+                className="w-100 rounded-3 p-3"
+                placeholder="Escribe aquí los que consideras que puede mejorar el docente"
                 onChange={handleTextArea}
               ></textarea>
             </div>
             <div className="row my-2">
               <div className="d-flex justify-content-center">
-                <button className="btn btn-success btn-w form-control" onClick={enviarRespuesta}>Enviar</button>
+                <button
+                  className="btn btn-success btn-w form-control"
+                  onClick={enviarRespuesta}
+                >
+                  Enviar
+                </button>
               </div>
             </div>
           </div>
