@@ -111,7 +111,7 @@ export const HistorialPage = () => {
                     </div>
                   </div>
                   {/* Tabla de historial académico */}
-                  <table className="table table-striped table-hover">
+                  <table className="table table-striped table-bordered">
                     <thead>
                       <tr>
                         <th scope="col">Código</th>

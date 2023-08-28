@@ -66,7 +66,7 @@ export const EditarSeccion = () => {
     <>
       <div className="container">
       <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row my-3">
           <div className="my-3 d-flex justify-content-center">
@@ -74,7 +74,7 @@ export const EditarSeccion = () => {
           </div>
           <div className="col">
             <div className="d-flex justify-content-center">
-              <table className="table table-hover table-stripted">
+              <table className="table table-bordered table-stripted">
                 <thead>
                   <tr>
                     <th scope="col">Sección</th>

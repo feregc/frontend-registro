@@ -52,7 +52,7 @@ export const PerfilEstudiante = () => {
       <div className="container">
         {/* Boton para regresar a la pagina anterior */}
         <button className="btn btn-success my-4"
-          onClick={regresar}>Atras</button>
+          onClick={regresar}>Atrás</button>
         <div className="d-flex justify-content-center my-3">
           <h3>Información General</h3>
         </div>
@@ -136,7 +136,7 @@ export const PerfilEstudiante = () => {
           </div>
           <br />
           <div className="card3 h-75 rounded-3">
-            {imgPerfilEstudiante.descripcion}
+            {imgPerfilEstudiante.descripcion ?? "Aquí va tu descripción."}
           </div>
         </div>
       </div>

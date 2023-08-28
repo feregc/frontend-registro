@@ -31,14 +31,18 @@ export const LoginDocente = () => {
           localStorage.setItem("id", usuario[0].num_empleado);
           // console.log( usuario[0].num_empleado);
           console.log({ login, usuario, token });
-          alert("Inicio sesion exitoso");
+          alert("Inicio de Sesión Exitoso");
           navigate("/docente/home");
         } else {
           console.log({ login, usuario });
-          alert("El usuario no existe");
+          alert(
+            "Correo o Contraseña no válido, por favor verifique los datos."
+          );
         }
       })
-      .catch((err) => console.log(err));
+      .catch(() =>
+        alert("Correo o Contraseña no válido, por favor verifique los datos.")
+      );
   };
 
   const handleInput = (event) => {
@@ -53,7 +57,7 @@ export const LoginDocente = () => {
           <br />
           <br />
           <br />
-          <h2>Inicio Sesión del Docente</h2>
+          <h2>Inicio Sesión como Docente</h2>
           <br />
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -90,7 +94,7 @@ export const LoginDocente = () => {
               Recuerda que si eres docente o administrador <br /> tu correo
               termina en @unah.edu.hn
             </p>
-            <button type="submit" className="btn btn-success form-control">
+            <button type="submit" className="btn btn-success form-control ">
               Iniciar Sesión
             </button>
             <br />

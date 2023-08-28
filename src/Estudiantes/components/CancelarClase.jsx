@@ -75,7 +75,6 @@ export const CancelarClase = () => {
 
         // Mostramos una alerta de éxito
         window.alert("Clase cancelada correctamente.");
-        
       } catch (error) {
         console.log("Error al cancelar la clase:", error);
       }
@@ -88,37 +87,63 @@ export const CancelarClase = () => {
   };
   return (
     <div className="container">
-       <button className="btn btn-success mt-4" onClick={regresar}>
-          Atras
-        </button>
+      <button className="btn btn-success mt-4" onClick={regresar}>
+        Atrás
+      </button>
       <div className="row my-3">
         <div className="col">
           <div className="d-flex justify-content-center my-3">
-            <h2>Clases matriculadas</h2>
+            <h2>Clases Matriculadas</h2>
           </div>
           <div className="row">
-            <table className="table table-striped table-hover">
+            <table className="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">ID Sección</th>
-                  <th scope="col">Código</th>
-                  <th scope="col">Nombre Clase</th>
-                  <th scope="col">Días</th>
-                  <th scope="col">Hi</th>
-                  <th scope="col">Hf</th>
-                  <th scope="col">Acciones</th>
+                  <th scope="col" className="text-center">
+                    Sección
+                  </th>
+                  <th scope="col" className="text-center">
+                    Código
+                  </th>
+                  <th scope="col" className="text-center">
+                    Nombre Clase
+                  </th>
+                  <th scope="col" className="text-center">
+                    Días
+                  </th>
+                  <th scope="col" className="text-center">
+                    Hi
+                  </th>
+                  <th scope="col" className="text-center">
+                    Hf
+                  </th>
+                  <th scope="col" className="text-center">
+                    Acciones
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {clases.map((clase, index) => (
                   <tr key={index}>
-                    <td scope="col">{clase.id_seccion}</td>
-                    <td scope="col">{clase.codigo}</td>
-                    <td scope="col">{clase.nombre}</td>
-                    <td scope="col">{clase.dias}</td>
-                    <td scope="col">{clase.horainicio}</td>
-                    <td scope="col">{clase.horafin}</td>
-                    <td>
+                    <td scope="row" className="text-center">
+                      {clase.id_seccion}
+                    </td>
+                    <td scope="row" className="text-center">
+                      {clase.codigo}
+                    </td>
+                    <td scope="row" className="text-center">
+                      {clase.nombre}
+                    </td>
+                    <td scope="row" className="text-center">
+                      {clase.dias}
+                    </td>
+                    <td scope="row" className="text-center">
+                      {clase.horainicio}
+                    </td>
+                    <td scope="row" className="text-center">
+                      {clase.horafin}
+                    </td>
+                    <td scope="row">
                       <div className="d-flex justify-content-center">
                         <button
                           className="btn btn-success my-2"

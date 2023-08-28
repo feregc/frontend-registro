@@ -141,7 +141,7 @@ export const EditarPerfilEstudiante = () => {
     <>
       <div className="container">
         <button className="btn btn-success my-4" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="row">
           <div className="d-flex justify-content-center my-3">

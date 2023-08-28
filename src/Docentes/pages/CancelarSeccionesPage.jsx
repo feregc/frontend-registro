@@ -101,7 +101,7 @@ export const CancelarSeccionesPage = () => {
         </div>
         <div className="row">
           <div className="col-6">
-            <table className="table table-hover table-stripted">
+            <table className="table table-bordered table-stripted">
               <thead>
                 <tr>
                   <th scope="col" className="text-center">
@@ -180,7 +180,7 @@ export const CancelarSeccionesPage = () => {
           <div className="col-6">
             {showSecciones && (
               <>
-                <table className="table table-hover table-stripted">
+                <table className="table table-bordered table-stripted">
                   <thead>
                     <tr>
                       <th scope="col" className="text-center">

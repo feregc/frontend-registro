@@ -175,7 +175,7 @@ export const EditarPerfil = () => {
                     onClick={() => subirImagen()}
                     disabled={desabilitarBoton}
                   >
-                    Subir imagen
+                    Subir Imagen
                   </button>
                 </div>
               </div>
@@ -200,7 +200,7 @@ export const EditarPerfil = () => {
                   onClick={() => subirVideo()}
                   disabled={desabilitarBotonV}
                 >
-                  Subir video
+                  Subir Vídeo
                 </button>
               </div>
             </div>
@@ -249,47 +249,6 @@ export const EditarPerfil = () => {
                         Borrar
                       </button>
                     )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="my-3 d-flex flex-column justify-content-center align-items-center ">
-        <br />
-        <div className="d-flex flex-column justify-content-center align-items-center">
-          <div className="container">
-            <div className="row">
-              <div className="d-flex flex-row flex-wrap align-items-center align-content-center  ">
-                {/*borar imagenes*/}
-                <div className="d-flex flex-row flex-wrap align-items-center col-4 px-3 justify-content-center">
-                  {/* <div className=" ">
-                    {imgLimit.length > 0 && (
-                      <button
-                        onClick={() => handleEliminarImagen(imgLimit[0].id)}
-                        className=" btn btn-primary rounded-3 mt-3 mb-5"
-                      >
-                        Borrar
-                      </button>
-                    )}
-                  </div> */}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Video */}
-          <div className="container">
-            <div className="row">
-              <div className="d-flex flex-row flex-wrap align-items-center align-content-center  ">
-                <div className="d-flex flex-row flex-wrap align-items-center col-4 px-3 justify-content-center">
-                  <div className="w-100 h-100">
-                    
-                  </div>
-                  <div className=" ">
-                    
-                  </div>
-                </div>
               </div>
             </div>
           </div>

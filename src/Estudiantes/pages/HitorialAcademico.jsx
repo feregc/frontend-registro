@@ -176,10 +176,10 @@ export const HistorialAcademico = () => {
                 .map((clase) => [
                   clase.codigo,
                   clase.nombre,
-                  5,
+                  clase.uv,
                   clase.periodo,
                   clase.nota,
-                  clase.nota > 65 ? "APR" : "RPB",
+                  clase.nota >= 65 ? "APR" : "RPB",
                 ]),
               ],
             },
@@ -197,7 +197,7 @@ export const HistorialAcademico = () => {
             style: "exampleLayout",
           },
           {
-            text: `Total Aprobadas: ${classesByYear[year].filter((clase) => clase.nota > 65).length}`,
+            text: `Total Aprobadas: ${classesByYear[year].filter((clase) => clase.nota >= 65).length}`,
             margin: [5, 10, 5, 0],
             alignment: "left",
           },
@@ -331,7 +331,7 @@ export const HistorialAcademico = () => {
                   </div>
                 </div>
               </div>
-              <table className="table table-striped table-hover">
+              <table className="table table-striped table-bordered">
                 <thead>
                   <tr>
                     <th scope="col" className="text-center">
@@ -370,12 +370,13 @@ export const HistorialAcademico = () => {
                       <tr key={index}>
                         <th scope="row" className="text-center">
                           {clase.codigo}
+                          {console.log(clase)}
                         </th>
                         <th scope="row" className="text-center">
                           {clase.nombre}
                         </th>
                         <th scope="row" className="text-center">
-                          5
+                          {clase.uv}
                         </th>
                         <th scope="row" className="text-center">
                           {clase.periodo}
@@ -386,7 +387,7 @@ export const HistorialAcademico = () => {
                         <th scope="row" className="text-center">
                           {clase.nota}
                         </th>
-                        {clase.nota > 65 ? (
+                        {clase.nota >= 65 ? (
                           <th scope="row" className="text-center">
                             APR
                           </th>

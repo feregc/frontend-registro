@@ -66,7 +66,7 @@ export const VerSecciones = () => {
         <div className="row">
           <div className="row">
             <div className="col">
-              <table className="table table-hover table-stripted">
+              <table className="table table-bordered table-stripted">
                 <thead>
                   <tr>
                     <th scope="col" className="text-center">

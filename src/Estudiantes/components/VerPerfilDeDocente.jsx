@@ -73,7 +73,7 @@ export const VerPerfilDeDocente = () => {
           <div className="col">
             <div className="d-flex justify-content-start my-4">
               <button className="btn btn-success" onClick={regresar}>
-                Atras
+                Atrás
               </button>
             </div>
           </div>
@@ -112,10 +112,10 @@ export const VerPerfilDeDocente = () => {
               {info.length > 0 && (
                 <div className="card1 p-5 col-8 d-flex flex-column align-items-start justify-content-center">
                   <p>Nombre: {info[0].nombres}</p>
-                  <p> Apellido: {info[0].apellidos}</p>
-                  <p>Correo Institucional {info[0].correo}</p>
-                  <p> Cargo: {info[0].cargo}</p>
-                  <p> Carrera: {info[0].carrera}</p>
+                  <p>Apellido: {info[0].apellidos}</p>
+                  <p>Correo Institucional: {info[0].correo}</p>
+                  <p>Cargo: {info[0].cargo}</p>
+                  <p>Carrera: {info[0].carrera}</p>
                 </div>
               )}
             </div>
@@ -125,7 +125,7 @@ export const VerPerfilDeDocente = () => {
           <div className="col">
             <div className="d-flex justify-content-center my-3">
               <div className="card2 border-3">
-                <h3 className="mt-3"> Video de presentación</h3>
+                <h3 className="mt-3"> Video de Presentación</h3>
                 <br />
                 {verVideo.length > 0 ? (
                   <video

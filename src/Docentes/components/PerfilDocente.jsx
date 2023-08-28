@@ -105,7 +105,7 @@ export const PerfilDocente = () => {
               <div className="card1 p-5 col d-flex flex-column align-items-start justify-content-center">
                 <p>Nombre: {info[0].nombres}</p>
                 <p> Apellido: {info[0].apellidos}</p>
-                <p>Correo Institucional {info[0].correo}</p>
+                <p>Correo Institucional: {info[0].correo}</p>
                 <p> Identidad: {info[0].identidad}</p>
                 <p> Cargo: {info[0].cargo}</p>
                 <p> Carrera: {info[0].carrera}</p>

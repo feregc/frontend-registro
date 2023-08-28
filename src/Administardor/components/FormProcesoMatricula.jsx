@@ -190,7 +190,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
           <div className="row my-2">
             <div className="col">
               
-              <h3 className="my-2">Formulario para proceso de Matricula</h3>
+              <h3 className="my-2">Proceso de Matrícula</h3>
             </div>
             {/* fila1 */}
             <div className="row my-2">
@@ -245,7 +245,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label>Hora inicio:</label>
+                <label>Hora de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -269,7 +269,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label className="col-3">Hora fin:</label>
+                <label>Hora de Finalización:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -295,9 +295,9 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             <div className="row">
               <br />
               <br />
-              <h3 className="mt-5">Restricciones de indices</h3>
+              <h3 className="mt-5">Restricciones de Índices</h3>
               <br />
-              <h4 className="my-3">Restricción de inidices #1</h4>
+              <h4 className="my-3">Restricción de Índice #1</h4>
               <div className="col-3">
                 <label htmlFor="restricion1">Restrición 1:</label>
               </div>
@@ -320,7 +320,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de inicio:</label>
+                <label htmlFor="fecha1">Fecha de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -343,7 +343,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <br />
-              <h4 className="my-3">Restricción de inidices #2</h4>
+              <h4 className="my-3">Restricción de Índice #2</h4>
               <div className="col-3">
                 <label htmlFor="restricion1">Restrición 2:</label>
               </div>
@@ -366,7 +366,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de inicio:</label>
+                <label htmlFor="fecha1">Fecha de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -389,7 +389,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <br />
-              <h4 className="my-3">Restricción de inidices #3</h4>
+              <h4 className="my-3">Restricción de Índice #3</h4>
               <div className="col-3">
                 <label htmlFor="restricion1">Restrición 3:</label>
               </div>
@@ -412,7 +412,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de inicio:</label>
+                <label htmlFor="fecha1">Fecha de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -435,7 +435,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <br />
-              <h4 className="my-3">Restricción de inidices #4</h4>
+              <h4 className="my-3">Restricción de Índice #4</h4>
               <div className="col-3">
                 <label htmlFor="restricion1">Restrición 4:</label>
               </div>
@@ -458,7 +458,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de inicio:</label>
+                <label htmlFor="fecha1">Fecha de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -481,7 +481,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <br />
-              <h4 className="my-3">Restricción de inidices #5</h4>
+              <h4 className="my-3">Restricción de Índice #5</h4>
               <div className="col-3">
                 <label htmlFor="restricion1">Restrición 5:</label>
               </div>
@@ -505,7 +505,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             {/* fila3 */}
             <div className="row my-2">
               <div className="col-3">
-                <label htmlFor="fecha1">Fecha de inicio:</label>
+                <label htmlFor="fecha1">Fecha de Inicio:</label>
               </div>
               <div className="col-9">
                 <DatePicker
@@ -528,7 +528,7 @@ export const FormProcesoMatricula = ({ onCrear }) => {
             <div className="row d-flex justify-content-center my-2">
               <div className="col">
                 <button className="btn btn-w btn-success form-control" type="submit">
-                  Crear
+                  Crear Proceso
                 </button>
               </div>
             </div>

@@ -134,7 +134,7 @@ export const ListaSolicitudes = ({ numEmpleado }) => {
             <div className="d-flex justify-content-center mb-3">
               <h3>Solicitudes Pendientes</h3>
             </div>
-            <table className="table table-striped table-hover">
+            <table className="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th scope="col">Tipo de solicitud</th>

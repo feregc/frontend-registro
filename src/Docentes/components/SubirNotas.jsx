@@ -143,7 +143,7 @@ export const SubirNotas = () => {
       <div className="container">
         {/* Boton para regresar a la pagina anterior */}
         <button className="btn btn-success my-3" onClick={regresar}>
-          Atras
+          Atrás
         </button>
         <div className="col">
           <div className="row">
@@ -179,7 +179,7 @@ export const SubirNotas = () => {
                       className="btn btn-w btn-success m-1"
                       onClick={notificarSubidaDeNotas}
                     >
-                      Notificar a estudiantes
+                      Notificar a Estudiantes
                     </button>
                   </div>
                 </>
@@ -205,48 +205,51 @@ export const SubirNotas = () => {
           </div>
 
           <div className="row my-3">
-            <table className="table table-striped table-hover">
+            <table className="table table-striped table-bordered ">
               <thead>
                 <tr>
-                  <th scope="col">Imagen</th>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
-                  <th scope="col">Nota</th>
-                  <th scope="col">Obserbación</th>
+                  <th scope="col" className="text-center">
+                    Nombre
+                  </th>
+                  <th scope="col" className="text-center">
+                    Apellido
+                  </th>
+                  <th scope="col" className="text-center">
+                    Nota
+                  </th>
+                  <th scope="col" className="text-center">
+                    Observación
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {alumno?.map((dato, index) => (
                   <tr key={index}>
-                    <th>
-                      <img
-                        style={{
-                          width: "20px",
-                          height: "20px",
-                          backgroundColor: "red}",
-                        }}
-                        src={dato.nombre_archivo_completo}
-                        alt=""
-                      />
-                    </th>
-                    <th scope="row">{dato.primer_nombre}</th>
-                    <th scope="row">{dato.primer_apellido}</th>
-                    <th>
+                    <td scope="row" className="text-center">
+                      {dato.primer_nombre}
+                    </td>
+                    <td scope="row" className="text-center">
+                      {dato.primer_apellido}
+                    </td>
+                    <td scope="row" className="text-center">
                       {editar ? (
                         <>
-                          <input
-                            className="form-control"
-                            type="text"
-                            value={
-                              notasTemporales.find(
-                                (notaTemporal) =>
-                                  notaTemporal.num_cuenta === dato.num_cuenta
-                              )?.nota || ""
-                            }
-                            onChange={(event) =>
-                              numeroDeEntrada(event, dato.num_cuenta)
-                            }
-                          />
+                          <td scope="row" className="text-center">
+                            <input
+                              className="form-control "
+                              type="text"
+                              value={
+                                notasTemporales.find(
+                                  (notaTemporal) =>
+                                    notaTemporal.num_cuenta === dato.num_cuenta
+                                )?.nota || ""
+                              }
+                              onChange={(event) =>
+                                numeroDeEntrada(event, dato.num_cuenta)
+                              }
+                            />
+                          </td>
+
                           {!validarNota(
                             notasTemporales.find(
                               (notaTemporal) =>
@@ -261,12 +264,22 @@ export const SubirNotas = () => {
                       ) : (
                         <p>{dato.nota ? dato.nota : "--"}</p>
                       )}
-                    </th>
+                    </td>
                     {dato.nota === "" ? (
-                      <th> </th>
+                      <td scope="row" className="text-center">
+                        {" "}
+                      </td>
                     ) : (
                       mostrarObservacion &&
-                      (dato.nota >= 65 ? <th>Aprobó</th> : <th>Reprobó</th>)
+                      (dato.nota >= 65 ? (
+                        <td scope="row" className="text-center">
+                          Aprobó
+                        </td>
+                      ) : (
+                        <td scope="row" className="text-center">
+                          Reprobó
+                        </td>
+                      ))
                     )}
                   </tr>
                 ))}

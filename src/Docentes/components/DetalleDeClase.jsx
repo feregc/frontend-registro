@@ -167,11 +167,11 @@ export const DetalleClase = () => {
                 Ingreso de Notas
               </button>
             </div>
-            <table className="table table-striped table-hover">
+            <table className="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th scope="col" className="text-center">Nombre</th>
-                  <th scope="col" className="text-center">Apellido</th>
+                  <th scope="col" className="text-center">Nombres</th>
+                  <th scope="col" className="text-center">Apellidos</th>
                   <th scope="col" className="text-center">Número de Cuenta</th>
                   <th scope="col" className="text-center">Correo Institucional</th>
                 </tr>

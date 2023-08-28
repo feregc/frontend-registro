@@ -158,7 +158,7 @@ export const EvaluacionPage = () => {
                       <div key={index}>
                         <h5 className="text-center my-3">Evaluación: No. {index + 1}</h5>
                         <h5 className="text-center my-3">Asignatura: {seccion.nombre_clase}</h5>
-                        <table className="table table-striped table-hover table-bordered my-4">
+                        <table className="table table-striped table-bordered table-bordered my-4">
                           <thead>
                             <tr>
                               <th scope="col" className="text-center">
