@@ -9,6 +9,7 @@ export const DetalleClase = () => {
   const [alumno, setAlumno] = useState([]);
   const [clases, setClases] = useState([]);
   const [Clase, setClase] = useState(null);
+  const [ClaseINFO, setClaseINFO] = useState([]);
   const num_empleado = localStorage.getItem("id");
 
   useEffect(() => {
@@ -50,10 +51,11 @@ export const DetalleClase = () => {
   useEffect(() => {
     const obtenerDatos = async () => {
       try {
-        const url = `http://localhost:8081/clasesdocentes/${num_empleado}`;
+        const url = `http://localhost:8081/clasesdocentes/${num_empleado}/${id}`;
         const result = await fetch(url);
         const data = await result.json();
-        setClases(data);
+        setClaseINFO(data);
+       // console.log(data)
       } catch (error) {
         console.log("Error:", error);
       }
@@ -119,7 +121,7 @@ export const DetalleClase = () => {
     habilitarSubidaDeNotas();
   }, [datosDeFecha]);
 
-  console.log(datosDeFecha)
+  //console.log(datosDeFecha)
   const regresar = () => {
     navigate("../home");
   };
@@ -135,18 +137,14 @@ export const DetalleClase = () => {
           <div className="row">
             <div className="d-flex justify-content-center my-1">
               <div>
-                {Clase && (
-                  <>
-                    <div className="col">
+              <div className="col">
                       <div className="d-flex justify-content-center my-3">
-                        <h4>Clase: {Clase.nombre_clase}</h4>
+                        <h4>Clase: {ClaseINFO[0]?.nombre_clase}</h4>
                       </div>
                       <div className="d-flex justify-content-center my-3">
-                        <h5>Sección: {Clase.id_seccion}</h5>
+                        <h5>Sección: {ClaseINFO[0]?.id_seccion}</h5>
                       </div>
                     </div>
-                  </>
-                )}
               </div>
             </div>
           </div>
